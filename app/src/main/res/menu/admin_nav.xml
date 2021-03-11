@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_manage_staff"
+        android:title="manage Staff"
+        android:icon="@drawable/ic_baseline_people_24"/>
+
+    <item
+        android:id="@+id/nav_manage_product"
+        android:title="manage product"
+        android:icon="@drawable/ic_baseline_add_shopping_cart_24"/>
+
+    <item
+        android:id="@+id/nav_manage_stock"
+        android:title="manage Stock"
+        android:icon="@drawable/ic_baseline_equalizer"/>
+
+    <item
+        android:id="@+id/nav_manage_profile"
+        android:title="profile"
+        android:icon="@drawable/ic_baseline_person"/>
+
+    <item
+        android:id="@+id/sign_out"
+        android:title="Sign out"
+        android:icon="@drawable/ic_baseline_exit_to_app"
+        />
+
+
+        />
+</menu>

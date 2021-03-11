@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="30dp"
+    android:padding="5dp"
+    app:cardElevation="10dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginBottom="15dp">
+
+    <RelativeLayout
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop= "10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/rl1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/iv_staff"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_launcher_background"
+                android:layout_alignParentLeft="true"
+                android:scaleType="fitCenter"
+                />
+            <GridLayout
+                android:rowCount="4"
+                android:columnCount="2"
+                android:paddingVertical="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:text="ID"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:id="@+id/label_staffid"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product id"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:id="@+id/tv_staffid"/>
+                <TextView
+                    android:text="Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/black"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:id="@+id/label_staffname"/>
+                <TextView
+                    android:text="Product Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:layout_row="1"
+                    android:layout_column="1"
+                    android:id="@+id/tv_staffname"/>
+
+                <!-- -->
+            </GridLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

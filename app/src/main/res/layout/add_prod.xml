@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_alignParentTop="true"
+            android:text="Add Product"
+            android:textSize="22dp"
+            android:id="@+id/tv_admin_prod_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <!--<com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_mng_prodid"
+        android:layout_width="match_parent"
+        app:boxBackgroundMode="outline"
+        android:layout_below="@+id/tv_admin_prod_title"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_mng_prodid"
+            android:hint="Enter Product id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_mng_prodname"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tv_admin_prod_title"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_mng_prodname"
+            android:hint="Enter Product Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_mng_prodqut"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/til_mng_prodname"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_mng_prodqut"
+            android:hint="Enter Product Quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_mng_prodtype"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/til_mng_prodqut"
+            app:boxBackgroundMode="outline"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_mng_prodtype"
+                android:hint="Enter Product Type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_mng_prodprice"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/til_mng_prodtype"
+            app:boxBackgroundMode="outline"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_mng_prodprice"
+                android:hint="Enter Product Price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_mng_up_prodimg"
+            android:textSize="10dp"
+            android:layout_below="@+id/til_mng_prodprice"
+            android:text="Upload Product Image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_below="@+id/btn_mng_up_prodimg"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:background="@android:color/transparent"
+            android:id="@+id/btn_mng_cancel"
+            android:textColor="@color/black"
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <Button
+            android:background="@android:color/transparent"
+        android:id="@+id/btn_mng_addstaff"
+            android:textColor="@color/black"
+        android:layout_width="wrap_content"
+            android:text="Add"
+        android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

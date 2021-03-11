@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#FEDBD0"
+    android:layout_height="match_parent"
+    tools:context=".customer.Common.Signup">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_signup"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        app:title="Sign Up"
+        android:layout_alignParentTop="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <!--<TextView
+        android:id="@+id/tv_signup"
+        android:text="Sign Up"
+        style="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/design_default_color_primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />-->
+
+
+   <!-- <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">-->
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_below="@+id/tb_signup"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/card_signup"
+        app:cardElevation="15dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        >
+
+
+        <TextView
+            android:id="@+id/tv_signup"
+            android:text="Enter Details"
+            android:layout_marginTop="15dp"
+            android:textSize="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/til_fname"
+        android:layout_below="@+id/tv_signup"
+        app:errorEnabled="true"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/et_fname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"
+            android:inputType="text"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_lname"
+        android:layout_below="@+id/til_fname"
+        app:errorEnabled="true"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/et_lname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
+            android:textColorHint="@color/dark"
+            android:textColor="@color/dark"
+            android:inputType="textPassword"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!--<com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_uname"
+        android:layout_below="@+id/til_lname"
+        app:errorEnabled="true"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/et_uname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:inputType="text"
+            android:textColorHint="@color/dark"
+            android:textColor="@color/dark"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_cnum"
+        android:layout_below="@+id/til_lname"
+        app:errorEnabled="true"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/et_cnum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mobile Number"
+            android:inputType="phone"
+            android:textColorHint="@color/dark"
+            android:textColor="@color/dark"
+            android:drawableRight="@drawable/ic_baseline_phone" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_email"
+        android:layout_below="@+id/til_cnum"
+        app:errorEnabled="true"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/et_email"
+            android:drawableRight="@drawable/ic_baseline_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="text"
+            android:textColorHint="@color/dark"
+            android:textColor="@color/dark"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_pass"
+        app:errorEnabled="true"
+        android:layout_below="@+id/til_email"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        app:endIconMode="password_toggle"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/et_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Create Password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/dark"
+            android:textColor="@color/dark"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_confirmpass"
+        android:layout_below="@+id/til_pass"
+        app:errorEnabled="true"
+        app:boxBackgroundMode="outline"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        app:endIconMode="password_toggle"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/et_confirmpass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/dark"
+            android:textColor="@color/dark"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_gen"
+        android:orientation="horizontal"
+        android:layout_below="@+id/til_confirmpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/tv_gen"
+            android:text="Gender"
+            android:textColorHint="@color/dark"
+            android:textColor="@color/dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rb_male"
+            android:text="Male"
+            android:textColorHint="@color/dark"
+            android:textColor="@color/dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rb_female"
+            android:text="Female"
+            android:textColorHint="@color/dark"
+            android:textColor="@color/dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RadioGroup>
+
+
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_below="@+id/rg_gen"
+        android:text="Signup"
+        android:textColorHint="@color/dark"
+        android:textColor="@color/dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/tv_loginwith"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="or login with"
+            android:layout_marginTop="10dp"
+            android:textSize="12dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btn_signup"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_loginwith">
+
+
+        <ImageButton
+            android:id="@+id/ib_google"
+            android:scaleType="fitCenter"
+            android:layout_width="50dp"
+            android:background="@color/white"
+            android:layout_height="50dp"
+            android:src="@drawable/google"
+            />
+
+
+            <ImageButton
+                android:id="@+id/ib_fb"
+                android:scaleType="fitCenter"
+                android:layout_width="50dp"
+                android:background="@color/white"
+                android:layout_height="50dp"
+                android:src="@drawable/facebook"
+                />
+
+            <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_google"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/btn_google"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/google"/>-->
+
+
+        </LinearLayout>
+
+       <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_face"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/google" />-->
+
+
+
+    </RelativeLayout>
+
+        </ScrollView>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+       <!-- <LinearLayout
+            android:id="@+id/ll_login"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_acc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account ?"
+                android:layout_alignParentBottom="true"
+                />
+
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:textColor="#0000EE"
+                android:clickable="true"
+                android:text=" Login"
+                android:textStyle="bold"
+                android:layout_alignRight="@id/tv_create"
+                />
+        </LinearLayout>-->
+
+   <!-- </androidx.cardview.widget.CardView>-->
+
+</RelativeLayout>

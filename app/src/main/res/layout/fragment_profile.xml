@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".customer.features.fragments.ProfileFragment">
+
+    <RelativeLayout
+        android:background="@drawable/prime_back"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tb_profile"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:background="@android:color/transparent"
+            android:elevation="4dp"
+            app:title="Profile"
+            app:menu="@menu/profile_toolbar_itm"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+           <!-- <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_launcher_background"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="130dp"
+                android:layout_centerVertical="true"
+                android:layout_height="130dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/ic_launcher_background" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_below="@+id/iv_profile"
+                android:layout_centerHorizontal="true"
+                android:text="XYZ ABC"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="21sp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            app:cardElevation="15dp"
+            app:cardCornerRadius="30dp"
+            android:layout_below="@+id/rl_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                >
+
+                <ImageView
+                    android:src="@drawable/ic_baseline_vpn_key"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+
+                <TextView
+                    android:id="@+id/tv_uid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:paddingLeft="20dp"
+                    android:text="C00001"
+                    android:layout_gravity="center_vertical"
+                    />
+
+
+            </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    >
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_wysiwyg"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_uname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:text="XYZABC001"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
+
+                        android:layout_gravity="center_vertical"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    >
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_person"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_fullname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:text="Xyz Abc"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
+
+                        android:layout_gravity="center_vertical"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    >
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_wc"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
+                        android:text="Male"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    >
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_email"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
+                        android:text="xyzabc123@gmail.com"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    >
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_phone"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_cnum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:text="9999999999"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    >
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_lock"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_pass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:text="**********"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    >
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_business_center"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_role"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:text="Customer"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    >
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_date_range"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_reg_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
+                        android:paddingLeft="20dp"
+                        android:text="1-1-2021"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</FrameLayout>

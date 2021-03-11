@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <!-- <item
+        android:id="@+id/page_1"
+        android:title="Home"
+        android:icon="@drawable/ic_baseline_home"
+        android:enabled="true"/>-->
+
+    <item
+        android:id="@+id/page_2"
+        android:title="Manage Staff"
+        android:icon="@drawable/ic_baseline_group"
+        android:enabled="true"/>
+
+
+    <item
+        android:id="@+id/page_5"
+        android:title="Manage product"
+        android:icon="@drawable/ic_baseline_add_shopping_cart_24"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/page_3"
+        android:title="Manage Stock"
+        android:icon="@drawable/ic_baseline_equalizer"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/page_4"
+        android:title="Profile"
+        android:icon="@drawable/ic_baseline_person"
+        android:enabled="true"/>
+
+
+
+</menu>

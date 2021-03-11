@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/prime_back"
+    tools:context=".customer.features.fragments.ChgPassFragment">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_chgpass"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            app:title="Change Password"
+            app:titleTextColor="@color/white"
+            android:layout_alignParentTop="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_below="@+id/tb_chgpass"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/card_chgpass"
+            app:cardElevation="15dp"
+            app:cardCornerRadius="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                >
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/til_oldpass"
+                    android:layout_alignParentTop="true"
+                    app:errorEnabled="true"
+                    app:boxBackgroundMode="outline"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <EditText
+                        android:id="@+id/et_oldpass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Old Password"
+                        android:inputType="text"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_newpass"
+                    android:layout_below="@+id/til_oldpass"
+                    app:errorEnabled="true"
+                    app:boxBackgroundMode="outline"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <EditText
+                        android:id="@+id/et_newpass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="New Passwod"
+                        android:inputType="text"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_repass"
+                    android:layout_below="@+id/til_newpass"
+                    app:errorEnabled="true"
+                    app:boxBackgroundMode="outline"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <EditText
+                        android:id="@+id/et_repass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Retype Password"
+                        android:inputType="text"
+
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_fgpass"
+                    android:text="Forgot Password"
+                    android:layout_marginLeft="3dp"
+                    android:layout_below="@id/til_repass"
+                    android:textColor="@color/design_default_color_primary"
+                    android:layout_width="wrap_content"
+                    android:clickable="true"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/btn_chgpass1"
+                    android:layout_marginTop="3dp"
+                    android:layout_below="@+id/tv_fgpass"
+                    android:layout_width="match_parent"
+                    android:text="Change Password "
+                    android:layout_height="wrap_content"/>
+
+
+
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</FrameLayout>

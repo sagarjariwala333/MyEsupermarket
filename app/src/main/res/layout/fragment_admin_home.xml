@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/design_default_color_primary"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".customer.admin.fragments.AdminHomeFragment">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/admin_dl"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="end"
+        >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/design_default_color_primary">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_admin_home"
+        android:layout_width="match_parent"
+        app:navigationIcon="@drawable/ic_baseline_dehaze"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        app:popupTheme="@style/Theme.AppCompat.Light"
+        android:elevation="16dp"
+        android:background="@android:color/transparent"
+        app:title="Home"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_below="@+id/tb_admin_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="50dp"
+
+            >
+
+            <!--<androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_staff"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>-->
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:headerLayout="@layout/admin_header"
+            android:id="@+id/admin_nav"
+            app:menu="@menu/admin_nav"
+            android:layout_gravity="start"
+            />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</FrameLayout>

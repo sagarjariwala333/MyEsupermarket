@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_title_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:text="Product Info"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_alert"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop= "10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/tv_title_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:id="@+id/rl1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/iv_prod_alert"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_launcher_background"
+                android:layout_alignParentLeft="true"
+                android:scaleType="fitCenter"
+                />
+
+
+            <GridLayout
+                android:rowCount="4"
+                android:columnCount="2"
+                android:paddingVertical="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:text="ID"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:id="@+id/label_pid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product id"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:id="@+id/tv_pid_alert"/>
+
+                <TextView
+                    android:text="Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/black"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:id="@+id/label_pname"/>
+
+                <TextView
+                    android:text="Product Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:layout_row="1"
+                    android:layout_column="1"
+                    android:id="@+id/tv_pname_alert"/>
+
+                <TextView
+                    android:text="Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:layout_row="2"
+                    android:layout_column="0"
+                    android:id="@+id/label_price"/>
+
+                <TextView
+                    android:text="Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:layout_row="2"
+                    android:layout_column="1"
+                    android:id="@+id/tv_price_alert"/>
+
+                <!--  -->
+
+            </GridLayout>
+
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/ib_add_alert"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="12dp"
+                    android:src="@drawable/ic_baseline_add"
+                    android:layout_width="wrap_content"
+                    android:clickable="true"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/white"
+                    android:layout_height="0dp"
+                    android:onClick="addone"
+                    android:layout_weight="1"
+                    />
+
+                <EditText
+                    android:id="@+id/et_disstock_alert"
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:text="100"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal" />
+
+                <ImageButton
+                    android:id="@+id/ib_minus_alert"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="13dp"
+                    android:src="@drawable/ic_baseline_remove"
+                    android:layout_width="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:background="@android:color/transparent"
+                    android:layout_height="0dp"
+                    android:clickable="true"
+                    android:layout_weight="1"
+                    />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_alert"
+        android:layout_alignParentRight="true"
+        >
+
+        <Button
+            android:id="@+id/btn_cancel_alert"
+            android:text="Cancel"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:textColor="@color/design_default_color_primary"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btn_addtocart_alert"
+            android:text="ADD TO CART"
+            android:background="@android:color/transparent"
+            android:textColor="@color/design_default_color_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
