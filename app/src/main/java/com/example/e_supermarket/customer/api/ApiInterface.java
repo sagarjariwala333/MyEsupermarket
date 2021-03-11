@@ -2,9 +2,9 @@ package com.example.e_supermarket.customer.api;
 
 import com.example.e_supermarket.customer.Common.MobileResponse;
 import com.example.e_supermarket.customer.Common.PasswordResponse;
+import com.example.e_supermarket.customer.Common.RegistrationCustResponse;
 
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -17,11 +17,12 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<MobileResponse> mobile(@Field("mobile_no") String mobile_no);
 
-    @POST("register_cust.php")
-    Call<ResponseBody> reg(@Body RequestBody requestBody);
 
     @POST("password.php")
     Call<PasswordResponse> password(@Body RequestBody passwordBody);
+
+    @POST("registration_cust.php")
+    Call<RegistrationCustResponse> registration_cust(@Body RequestBody registration_custBody);
 
 
 }
