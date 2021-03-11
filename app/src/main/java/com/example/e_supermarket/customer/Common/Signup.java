@@ -9,9 +9,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.features.HomeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class Signup extends AppCompatActivity {
 
@@ -37,5 +42,17 @@ public class Signup extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void signup()
+    {
+        ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
+
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("", "")
+                .addFormDataPart("", "")
+                .addFormDataPart("", "")
+                .build();
     }
 }

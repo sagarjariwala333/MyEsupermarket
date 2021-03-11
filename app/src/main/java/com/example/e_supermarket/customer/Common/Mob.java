@@ -1,5 +1,6 @@
 package com.example.e_supermarket.customer.Common;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,54 +36,64 @@ public class Mob extends AppCompatActivity {
             public void onClick(View v)
             {
                 met_mobile(et_mob.getText().toString());
-               // Intent intent=new Intent(Mob.this,Signup.class);
-                //startActivity(intent);
-                //met_mobile();
             }
         });
-
-
-
     }
 
     public void met_mobile(String mobile_no)
     {
+        Toast.makeText(this, "Called", Toast.LENGTH_SHORT).show();
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
 
-        apiInterface.mobile(mobile_no).enqueue(new Callback<LoginResponse>() {
+
+        apiInterface.mobile(mobile_no).enqueue(new Callback<MobileResponse>()
+        {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response)
+            public void onResponse(Call<MobileResponse> call, Response<MobileResponse> response)
             {
-              //  Toast.makeText(Mob.this, "", Toast.LENGTH_SHORT).show();
                 if (response.isSuccessful() && response.body()!=null)
                 {
-                    LoginResponse loginResponse=response.body();
-                    Toast.makeText(Mob.this, ""+loginResponse.getRole(), Toast.LENGTH_SHORT).show();
-                    if (loginResponse.getSuccess()==0)
+                    //LoginResponse loginResponse=response.body();
+                    MobileResponse mobileResponse=response.body();
+                    //Toast.makeText(Mob.this, ""+mobileResponse.getRole(), Toast.LENGTH_SHORT).show();
+                    if (mobileResponse.getSuccess()==0)
                     {
-
+                        Intent intent=new Intent(Mob.this,Signup.class);
+                        startActivity(intent);
+                        finish();
                     }
-                    else if (loginResponse.getSuccess()==1)
+                    else if (mobileResponse.getSuccess()==1)
                     {
-                        if (loginResponse.getRole().equals("S"))
+                        /*if (mobileResponse.getRole().equals("S"))
                         {
                             //Staff intent
                         }
-                        else if (loginResponse.getRole().equals("A"))
+                        else if (mobileResponse.getRole().equals("A"))
                         {
                             //Admin pass
                         }
-                        else if (loginResponse.getRole().equals("C"))
+                        else if (mobileResponse.getRole().equals("C"))
                         {
                             //Cust intent
-                        }
+                        }*/
+                        Intent intent=new Intent(Mob.this,Login.class)
+                                .putExtra("userid",mobileResponse.getUserId().toString())
+                                .putExtra("role",mobileResponse.getRole().toString());
+
+                        startActivity(intent);
+                        finish();
                     }
 
                 }
+                else
+                {
+                    Toast.makeText(Mob.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<MobileResponse> call, Throwable t) {
 
             }
         });

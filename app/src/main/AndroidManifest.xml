@@ -3,6 +3,7 @@
     package="com.example.e_supermarket">
 
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:usesCleartextTraffic="true"
@@ -17,13 +18,17 @@
         <activity android:name=".customer.admin.activity.AdminMainActivity" />
         <activity android:name=".customer.features.HomeActivity" />
         <activity android:name=".customer.Common.Splash" >
+
+        </activity>
+        <activity android:name=".customer.Common.Mob" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".customer.Common.Mob" />
         <activity android:name=".customer.Common.Signup">
 
         </activity>
