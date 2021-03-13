@@ -19,6 +19,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.e_supermarket.R;
 
+import java.io.File;
+
 public class UpdateProfileFragment extends Fragment {
 
 
@@ -27,6 +29,8 @@ public class UpdateProfileFragment extends Fragment {
     private Button btn_updateprof;
     private ImageView iv_profile;
     int SELECT_IMAGE_CODE=1;
+    File file;
+    private String filename;
 
     public UpdateProfileFragment() {
         // Required empty public constructor
@@ -75,6 +79,8 @@ public class UpdateProfileFragment extends Fragment {
         btn_updateprof.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //met_addstaff();
                 Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
                 FragmentManager manager=getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction=manager.beginTransaction();
@@ -106,7 +112,24 @@ public class UpdateProfileFragment extends Fragment {
         {
             Uri uri=data.getData();
             iv_profile.setImageURI(uri);
-
+            file=new File(data.getData().getPath());
+            filename = file.getName();
         }
     }
+
+   /* private void met_addstaff(Uri fileuri)
+    {
+        ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
+        //RequestBody filepart=RequestBody.create()
+        //   RequestBody requestBody=RequestBody.create(MultipartBody.FORM,et_fname.getText().toString());
+
+        RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        MultipartBody.Part part=MultipartBody.Part.createFormData("id_photo", filename, requestBody);
+
+        apiInterface.
+
+
+
+    }*/
 }
