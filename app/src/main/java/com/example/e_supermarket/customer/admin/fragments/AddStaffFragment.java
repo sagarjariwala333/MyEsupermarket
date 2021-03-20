@@ -15,8 +15,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.ImageResponse;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
 import com.hbisoft.pickit.PickiT;
@@ -58,7 +62,8 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
     Uri uri;
     private String filepath1;
     Uri uri1;
-
+    String image_name = "";
+    private EditText et_mobile;
 
     public AddStaffFragment() {
         // Required empty public constructor
@@ -86,6 +91,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
         et_gen=view.findViewById(R.id.et_gen);
         et_createpass=view.findViewById(R.id.et_createpass);
         et_vrfpass=view.findViewById(R.id.et_vrfpass);
+        et_mobile=view.findViewById(R.id.et_mobile);
         iv_profile=view.findViewById(R.id.iv_profile);
         btn_addstaff=view.findViewById(R.id.btn_addstaff);
 
@@ -118,7 +124,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
             public void onClick(View v) {
                 if (et_createpass.getText().toString().equals(et_vrfpass.getText( ).toString()))
                 {
-                    //met_addstaff(et_fname.getText().toString(),et_lname.getText().toString(),et_email.getText().toString(),et_gen.getText().toString(),et_createpass.getText().toString());
+                    met_staffsignup();
                 }
                 else
                 {
@@ -129,6 +135,45 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
 
         //met_addstaff();
         return view;
+    }
+
+    private void met_staffsignup() {
+        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+
+        RequestBody requestBody=new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("first_name",et_fname.getText().toString().trim())
+                .addFormDataPart("last_name",et_lname.getText().toString().trim())
+                .addFormDataPart("email",et_email.getText().toString().trim())
+                .addFormDataPart("gender",et_gen.getText().toString().trim())
+                .addFormDataPart("mobile_no",et_mobile.getText().toString().trim())
+                .addFormDataPart("password",et_vrfpass.getText().toString().trim())
+                .addFormDataPart("id_photo",image_name)
+                .build();
+        apiInterface.addstaff(requestBody).enqueue(new Callback<AddStaffResponse>() {
+            @Override
+            public void onResponse(Call<AddStaffResponse> call, Response<AddStaffResponse> response) {
+                if (response.isSuccessful()&&response.body()!=null){
+                    AddStaffResponse addStaffResponse=response.body();
+                    if (addStaffResponse.getSuccess()==0){
+                        Toast.makeText(getActivity(), "Something Went Wrong!", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        FragmentManager manager=getActivity().getSupportFragmentManager();
+                        FragmentTransaction transaction=manager.beginTransaction();
+                        transaction.replace(R.id.frame,new fragment_Staff());
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddStaffResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -145,18 +190,22 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
 
     private void met_uploadimg(File file)
     {
+        image_name = file.getName();
         //String imgdata=imgToString(bitmap);
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
         RequestBody requestBody= RequestBody.create(MediaType.parse("multipart/form-data"), file);
         //iv_profile.setImageResource(new File(uri.getPath()));
         MultipartBody.Part imgpart = MultipartBody.Part.createFormData("id_photo",file.getName(), requestBody);
         
-        apiInterface.img(imgpart).enqueue(new Callback<ResponseBody>() {
+        apiInterface.img(imgpart).enqueue(new Callback<ImageResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
                 if (response.isSuccessful() && response.body()!=null)
                 {
-                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                    ImageResponse imageResponse=response.body();
+                    image_name=imageResponse.getImageName();
+
+
                     /*ImgResponse imgResponse=response.body();
                     if (imgResponse.getSuccess()==0)
                     {
@@ -174,7 +223,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<ImageResponse> call, Throwable t) {
                 t.printStackTrace();
             }
         });
@@ -245,6 +294,10 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
 
     @Override
     public void PickiTonCompleteListener(String path, boolean wasDriveFile, boolean wasUnknownProvider, boolean wasSuccessful, String Reason) {
+        Glide
+                .with(getActivity())
+                .load(path)
+                .into(iv_profile);
         Toast.makeText(getActivity(), "" + path, Toast.LENGTH_SHORT).show();
         met_uploadimg(new File(path));
     }

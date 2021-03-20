@@ -3,7 +3,9 @@ package com.example.e_supermarket.customer.api;
 import com.example.e_supermarket.customer.Common.MobileResponse;
 import com.example.e_supermarket.customer.Common.PasswordResponse;
 import com.example.e_supermarket.customer.Common.RegistrationCustResponse;
-import com.example.e_supermarket.customer.temp.TempResponse;
+import com.example.e_supermarket.customer.ImageResponse;
+import com.example.e_supermarket.customer.admin.fragments.AddStaffResponse;
+
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -29,16 +31,11 @@ public interface ApiInterface
 
     @POST("register_cust.php")
     Call<RegistrationCustResponse> registration_cust(@Body RequestBody registration_custBody);
-/*
-    @POST("addstaff.php")
-    @Multipart
-    Call<AddStaffResponse> addstaff(@Part("id_photo") MultipartBody.Part image);*/
 
     @POST("img.php")
     @Multipart
-    Call<ResponseBody> img(@Part MultipartBody.Part img);
+    Call<ImageResponse> img(@Part MultipartBody.Part img);
 
-    @FormUrlEncoded
-    @POST("temp_upimg.php")
-    Call<TempResponse> upimg(@Field("image_name") String title,@Field("image") String image);
+    @POST("addstaff.php")
+    Call<AddStaffResponse> addstaff(@Body RequestBody addstaffBody);
 }
