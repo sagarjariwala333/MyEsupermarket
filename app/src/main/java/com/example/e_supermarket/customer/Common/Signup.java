@@ -2,6 +2,8 @@ package com.example.e_supermarket.customer.Common;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +19,8 @@ import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.regex.Pattern;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -40,6 +44,19 @@ public class Signup extends AppCompatActivity {
     private String gender;
     private ImageButton ib_google;
     public String gen_str;
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile
+                    (
+                            "^"+
+                            "(?=.*[0-9])"+
+                            "(?=.*[a-z])"+
+                            "(?=.*[A-Z])"+
+                            "(?=.*[@#$%^&+=])"+
+                            "(?=\\S+$)"+
+                            ".{6,}"+
+                            "$"
+                    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +118,10 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                int g=rg_gen.getCheckedRadioButtonId();
+
+                validation();
+
+               /* int g=rg_gen.getCheckedRadioButtonId();
                 if (g==2131231144)
                 {
                     gen_str="Male";
@@ -118,8 +138,8 @@ public class Signup extends AppCompatActivity {
                 {
                     gen_str="Error";
                     Toast.makeText(Signup.this, "Error", Toast.LENGTH_SHORT).show();
-                }
-
+                }*/
+/*
                 if (et_confirmpass.getText().toString().equals(et_pass.getText().toString()))
                 {
                     Toast.makeText(Signup.this, "Password Matched", Toast.LENGTH_SHORT).show();
@@ -128,9 +148,118 @@ public class Signup extends AppCompatActivity {
                 else
                 {
                     Toast.makeText(Signup.this, "Password not matched", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
+    }
+
+    private void validation()
+    {
+        Boolean click1=false;
+        Boolean click2=false;
+        Boolean click3=false;
+        Boolean click4=false;
+        Boolean click5=false;
+        Boolean click6=false;
+        Boolean click7=false;
+        if(TextUtils.isEmpty(et_fname.getText().toString()))
+        {
+            et_fname.setError("Enter data");
+        }
+        else
+        {
+            click1=true;
+        }
+
+        if (TextUtils.isEmpty(et_lname.getText().toString()))
+        {
+            et_lname.setError("Enter data");
+        }
+        else
+        {
+            click2=true;
+        }
+
+        if (TextUtils.isEmpty(et_cnum.getText().toString()))
+        {
+            et_cnum.setError("Enter mobile number");
+        }
+        else if (et_cnum.getText().toString().length()>10 || et_cnum.getText().toString().length()<10)
+        {
+            et_cnum.setError("Enter valid mobile number");
+        }
+        else
+        {
+            click3=true;
+        }
+
+        if (TextUtils.isEmpty(et_email.getText().toString()))
+        {
+            et_email.setError("Enter email address");
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(et_email.getText().toString()).matches())
+        {
+            et_email.setError("Enter valid email");
+        }
+        else
+        {
+            click4=true;
+        }
+
+        if (TextUtils.isEmpty(et_pass.getText().toString()))
+        {
+            et_pass.setError("Enter password");
+        }
+        else if (!PASSWORD_PATTERN.matcher(et_pass.getText().toString()).matches())
+        {
+            et_pass.setError("Password too weak");
+        }
+       else
+        {
+            click5=true;
+        }
+
+       if (TextUtils.isEmpty(et_confirmpass.getText().toString()))
+       {
+           et_confirmpass.setError("Enter confirm password");
+       }
+       else if (!et_pass.getText().toString().equals(et_confirmpass.getText().toString()))
+       {
+           et_confirmpass.setError("Password not matched");
+       }
+       else
+       {
+           click6=true;
+       }
+
+        int g=rg_gen.getCheckedRadioButtonId();
+        g=g/1000000000;
+        Toast.makeText(this, ""+g, Toast.LENGTH_SHORT).show();
+        if (g==2131231144)
+        {
+            gen_str="Male";
+            click7=true;
+        }
+        else if (g==2131231143)
+        {
+            gen_str="Female";
+            click7=true;
+        }
+        else
+        {
+            click7=false;
+            Toast.makeText(Signup.this, "Gender not selected", Toast.LENGTH_SHORT).show();
+        }
+
+       if (click1 && click2 && click3 && click4 && click5 && click6 && click7)
+       {
+           met_signup();
+       }
+       else
+       {
+           Toast.makeText(this, "Invalid data", Toast.LENGTH_SHORT).show();
+       }
+
     }
 
     private void met_signup()

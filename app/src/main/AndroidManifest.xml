@@ -4,8 +4,11 @@
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,11 +19,14 @@
 
         <activity android:name=".customer.staff.activity.StaffMainActivity"></activity>
         <activity android:name=".customer.admin.activity.AdminMainActivity" >
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".customer.features.HomeActivity" />
         <activity android:name=".customer.Common.Splash" >
@@ -33,9 +39,20 @@
         </activity>
         <activity android:name=".customer.Common.Signup">
 
+
+
         </activity>
         <activity android:name=".customer.Common.Login" />
         <activity android:name=".customer.Common.MainActivity" />
+        <provider
+            android:name=".customer.GenericFileProvider"
+            android:authorities="com.example.e_supermarket"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>
