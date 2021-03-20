@@ -3,11 +3,11 @@ package com.example.e_supermarket.customer.api;
 import com.example.e_supermarket.customer.Common.MobileResponse;
 import com.example.e_supermarket.customer.Common.PasswordResponse;
 import com.example.e_supermarket.customer.Common.RegistrationCustResponse;
-import com.example.e_supermarket.customer.ImgResponse;
 import com.example.e_supermarket.customer.temp.TempResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -36,7 +36,7 @@ public interface ApiInterface
 
     @POST("img.php")
     @Multipart
-    Call<ImgResponse> img(@Part MultipartBody.Part img);
+    Call<ResponseBody> img(@Part MultipartBody.Part img);
 
     @FormUrlEncoded
     @POST("temp_upimg.php")

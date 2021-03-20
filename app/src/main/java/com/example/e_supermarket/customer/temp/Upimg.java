@@ -110,13 +110,16 @@ public class Upimg extends Fragment {
         return Base64.encodeToString(imgByte, Base64.DEFAULT);
     }
 
-    private void upload() {
+    private void upload()
+    {
         String image = convertToString();
         Toast.makeText(getActivity(), ""+image, Toast.LENGTH_SHORT).show();
         String imageName = "Sagar";
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
-        //ApiInterface apiInterface = ApiCliet.getApiClient().create(ApiInterface.class);
-        //Call<TempResponse> call=apiInterface.upimg(imageName,image);
+
+        //ApiInterface apiInterface = ApiCliet.getApiClient().create(ApiInterface.class);4
+        //<Response> call=apiInterface.upimg(imageName,image);
+
         apiInterface.upimg(imageName,image).enqueue(new Callback<TempResponse>() {
 
             @Override
@@ -136,10 +139,10 @@ public class Upimg extends Fragment {
             }
 
             @Override
-            public void onFailure(retrofit2.Call<TempResponse> call, Throwable t) {
+            public void onFailure(retrofit2.Call<TempResponse> call, Throwable t)
+            {
 
             }
         });
     }
-
 }

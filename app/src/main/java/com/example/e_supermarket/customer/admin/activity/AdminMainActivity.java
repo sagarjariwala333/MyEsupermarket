@@ -10,11 +10,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.admin.fragments.AddStaffFragment;
 import com.example.e_supermarket.customer.admin.fragments.Fragment_stock;
 import com.example.e_supermarket.customer.admin.fragments.fragment_Staff;
 import com.example.e_supermarket.customer.admin.fragments.productfragment;
 import com.example.e_supermarket.customer.admin.fragments.profileFragment;
-import com.example.e_supermarket.customer.temp.Upimg;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 //import com.example.e_supermarket.customer.features.fragments.HomeFragment;
@@ -33,7 +33,7 @@ public class AdminMainActivity extends AppCompatActivity
         //setContentView(R.layout.fragment__admin_staff);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frame,new Upimg());
+        transaction.replace(R.id.frame,new AddStaffFragment());
         transaction.commit();
 
         bt_bottom_nav = findViewById(R.id.bt_bottom_nav);
