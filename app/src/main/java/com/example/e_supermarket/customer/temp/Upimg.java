@@ -83,12 +83,16 @@ public class Upimg extends Fragment {
             {
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),data.getData());
                 BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-                bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), bitmapOptions);
+
+               // bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), bitmapOptions);
+
                 Log.d("meg",bitmap.toString());
+
                 /*if (requestCode==CAMERA_REQUEST && resultCode==RESULT_OK){ // <- this ensures the user didn't cancel the Camera Intent
                     bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath()); // <- this initializes the variable so you can use it later.
                     mImgDocument.setImageBitmap(photo);
                 }*/
+
                 Toast.makeText(getActivity(), ""+bitmap, Toast.LENGTH_SHORT).show();
                 iv.setImageBitmap(bitmap);
             }
