@@ -120,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
-                        android:text="XYZABC001"
+                        android:text="Admin"
                         android:textSize="14dp"
                         android:textColor="@color/black"
                         android:layout_gravity="center_vertical"
@@ -182,6 +182,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"/>
                     <TextView
+                        android:id="@+id/tv_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
@@ -213,74 +214,6 @@
                         android:layout_gravity="center_vertical"
                         />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp"
-                    >
-                    <ImageView
-                        android:src="@drawable/ic_baseline_lock"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"/>
-                    <TextView
-                        android:id="@+id/tv_pass"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="20dp"
-                        android:text="**********"
-                        android:textSize="14dp"
-                        android:textColor="@color/black"
-                        android:layout_gravity="center_vertical"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp"
-                    >
-                    <ImageView
-
-                        android:src="@drawable/ic_baseline_business_center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"/>
-                    <TextView
-                        android:id="@+id/tv_role"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="20dp"
-                        android:text="Customer"
-                        android:textSize="14dp"
-                        android:textColor="@color/black"
-                        android:layout_gravity="center_vertical"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp"
-                    >
-                    <ImageView
-                        android:src="@drawable/ic_baseline_date_range"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"/>
-                    <TextView
-                        android:id="@+id/tv_reg_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:textColor="@color/black"
-                        android:paddingLeft="20dp"
-                        android:text="1-1-2021"
-                        android:layout_gravity="center_vertical"
-                        />
-                </LinearLayout>
-
             </LinearLayout>
         </ScrollView>
         </androidx.cardview.widget.CardView>

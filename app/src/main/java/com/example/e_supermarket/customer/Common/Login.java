@@ -90,19 +90,19 @@ public class Login extends AppCompatActivity
                     {
                         if (role.equals("C"))
                         {
-                            Intent intent=new Intent(Login.this, HomeActivity.class);
+                            Intent intent=new Intent(Login.this, HomeActivity.class).putExtra("user_id",userid).putExtra("role",role);
                             startActivity(intent);
                             finish();
                         }
                         else if (role.equals("S"))
                         {
-                            Intent intent=new Intent(Login.this, StaffMainActivity.class);
+                            Intent intent=new Intent(Login.this, StaffMainActivity.class).putExtra("user_id",userid).putExtra("role",role);;
                             startActivity(intent);
                             finish();
                         }
                         else if (role.equals("A"))
                         {
-                            Intent intent=new Intent(Login.this, AdminMainActivity.class);
+                            Intent intent=new Intent(Login.this, AdminMainActivity.class).putExtra("user_id",userid).putExtra("role",role);;
                             startActivity(intent);
                             finish();
                         }

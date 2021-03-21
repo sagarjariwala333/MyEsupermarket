@@ -4,6 +4,7 @@ import com.example.e_supermarket.customer.Common.MobileResponse;
 import com.example.e_supermarket.customer.Common.PasswordResponse;
 import com.example.e_supermarket.customer.Common.RegistrationCustResponse;
 import com.example.e_supermarket.customer.ImageResponse;
+import com.example.e_supermarket.customer.ProfileResponse;
 import com.example.e_supermarket.customer.admin.fragments.AddStaffResponse;
 
 
@@ -38,4 +39,10 @@ public interface ApiInterface
 
     @POST("addstaff.php")
     Call<AddStaffResponse> addstaff(@Body RequestBody addstaffBody);
+
+    @POST("profile.php")
+    @FormUrlEncoded
+    Call<ProfileResponse> profile(@Field("user_id") String user_id,
+                                  @Field("role") String role);
+
 }

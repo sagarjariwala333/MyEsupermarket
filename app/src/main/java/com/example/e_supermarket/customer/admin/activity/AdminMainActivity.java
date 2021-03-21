@@ -2,6 +2,7 @@ package com.example.e_supermarket.customer.admin.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,8 +29,9 @@ public class AdminMainActivity extends AppCompatActivity
         setContentView(R.layout.activity_admin_main);
 
         BottomNavigationView bt_bottom_nav;
-
-
+        String user_id=getIntent().getStringExtra("user_id");
+        String role=getIntent().getStringExtra("role");
+        Toast.makeText(this, ""+user_id, Toast.LENGTH_SHORT).show();
         //setContentView(R.layout.fragment__admin_staff);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -38,6 +40,12 @@ public class AdminMainActivity extends AppCompatActivity
 
         bt_bottom_nav = findViewById(R.id.bt_bottom_nav);
         bt_bottom_nav.setOnNavigationItemSelectedListener(mLisner);
+
+
+
+
+
+
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mLisner =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,6 +79,10 @@ public class AdminMainActivity extends AppCompatActivity
 
                     FragmentManager manager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                    /*Bundle bundle=new Bundle();
+                    bundle.putString("user_id",user_id);
+                    bundle.putString("role",role);
+                    fragment.setArguments(bundle);*/
                     fragmentTransaction.replace(R.id.frame,fragment);
                     fragmentTransaction.commit();
                     return true;
