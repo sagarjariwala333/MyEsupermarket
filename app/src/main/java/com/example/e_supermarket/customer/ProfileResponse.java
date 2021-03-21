@@ -25,6 +25,9 @@ public class ProfileResponse{
 	@SerializedName("email")
 	private String email;
 
+	@SerializedName("id_photo")
+	private  String id_photo;
+
 	public void setGender(String gender){
 		this.gender = gender;
 	}
@@ -81,6 +84,10 @@ public class ProfileResponse{
 		return email;
 	}
 
+	public void setId_photo(String id_photo) { this.id_photo = id_photo; }
+
+	public String getId_photo() { return  id_photo; }
+
 	@Override
  	public String toString(){
 		return 
@@ -91,7 +98,8 @@ public class ProfileResponse{
 			",last_name = '" + lastName + '\'' + 
 			",message = '" + message + '\'' + 
 			",first_name = '" + firstName + '\'' + 
-			",email = '" + email + '\'' + 
+			",email = '" + email + '\'' +
+			",id_photo = '" + id_photo + '\'' +
 			"}";
 		}
 }

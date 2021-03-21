@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.Common.Login;
 import com.example.e_supermarket.customer.Common.Mob;
@@ -29,7 +31,10 @@ public class profileFragment extends Fragment  {
 
 
     private TextView tv_uid,tv_uname,tv_fullname,tv_gender,tv_email,tv_cnum;
+    
     String user_id,role;
+    private ImageView iv_profile;
+
     //String role=getArguments().getString("role");
     public profileFragment() {
         // Required empty public constructor
@@ -52,6 +57,7 @@ public class profileFragment extends Fragment  {
         tv_gender=view.findViewById(R.id.tv_gender);
         tv_email=view.findViewById(R.id.tv_email);
         tv_cnum=view.findViewById(R.id.tv_cnum);
+        iv_profile=view.findViewById(R.id.iv_profile);
         user_id=getActivity().getIntent().getStringExtra("user_id");
         role=getActivity().getIntent().getStringExtra("role");
         Toast.makeText(getActivity(), ""+user_id, Toast.LENGTH_SHORT).show();
@@ -79,6 +85,10 @@ public class profileFragment extends Fragment  {
                         tv_email.setText(profileResponse.getEmail());
                         tv_fullname.setText(profileResponse.getFirstName()+" "+profileResponse.getLastName());
                         tv_gender.setText(profileResponse.getGender());
+                        Glide
+                                .with(getActivity())
+                                .load("http://192.168.1.187/Admin/Esupermarket/Images/"+profileResponse.getId_photo())
+                                .into(iv_profile);
                     }
                     //Toast.makeText(Mob.this, ""+mobileResponse.getRole(), Toast.LENGTH_SHORT).show();
 

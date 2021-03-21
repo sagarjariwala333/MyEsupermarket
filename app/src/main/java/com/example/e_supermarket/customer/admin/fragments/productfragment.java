@@ -91,7 +91,12 @@ public class productfragment extends Fragment {
                 btn_mng_up_prodimg=dialog.findViewById(R.id.btn_mng_up_prodimg);
                 btn_mng_addstaff = dialog.findViewById(R.id.btn_mng_addstaff);
                 btn_mng_cancel = dialog.findViewById(R.id.btn_mng_cancel);
-
+                btn_mng_up_prodimg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        uploadproimg();
+                    }
+                });
                 btn_mng_addstaff.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -134,6 +139,10 @@ public class productfragment extends Fragment {
 
 
         return view;
+    }
+
+    private void uploadproimg() {
+
     }
 
     private void setadapter() {
