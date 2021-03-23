@@ -269,12 +269,12 @@ public class Signup extends AppCompatActivity {
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("first_name",et_fname.getText().toString())
-                .addFormDataPart("last_name",et_lname.getText().toString())
+                .addFormDataPart("first_name",et_fname.getText().toString().trim())
+                .addFormDataPart("last_name",et_lname.getText().toString().trim())
                 .addFormDataPart("gender",gen_str)
-                .addFormDataPart("email",et_email.getText().toString())
-                .addFormDataPart("mobile_no",et_cnum.getText().toString())
-                .addFormDataPart("password",et_pass.getText().toString())
+                .addFormDataPart("email",et_email.getText().toString().trim())
+                .addFormDataPart("mobile_no",et_cnum.getText().toString().trim())
+                .addFormDataPart("password",et_pass.getText().toString().trim())
                 .build();
 
         //Toast.makeText(this, ""+gender, Toast.LENGTH_SHORT).show();
@@ -282,7 +282,7 @@ public class Signup extends AppCompatActivity {
         apiInterface.registration_cust(requestBody).enqueue(new Callback<RegistrationCustResponse>() {
             @Override
             public void onResponse(Call<RegistrationCustResponse> call, Response<RegistrationCustResponse> response) {
-                Toast.makeText(Signup.this, "Done res", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(Signup.this, "Done res", Toast.LENGTH_SHORT).show();
                 if (response.isSuccessful() && response.body()!=null)
                 {
                     Toast.makeText(Signup.this, "Done 0", Toast.LENGTH_SHORT).show();

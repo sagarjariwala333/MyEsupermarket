@@ -30,7 +30,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import static com.example.e_supermarket.R.id.itm_history;
 //import static com.example.e_supermarket.R.id.tv_pid_alert;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity
+{
 
     private BottomNavigationView btmnav_cust;
     private FloatingActionButton fab_add;
@@ -43,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView iv_prod_alert;
     private Button btn_cancel_alert;
     private Button btn_addtocart_alert;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

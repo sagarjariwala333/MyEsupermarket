@@ -1,14 +1,6 @@
 package com.example.e_supermarket.customer.features.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
@@ -81,7 +80,9 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private void meth_profilecust() {
+    private void meth_profilecust()
+    {
+        Toast.makeText(getActivity(), "Method called", Toast.LENGTH_SHORT).show();
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
 
         apiInterface.profile(user_id,role).enqueue(new Callback<ProfileResponse>() {
@@ -99,7 +100,7 @@ public class ProfileFragment extends Fragment {
                         tv_gender.setText(profileResponse.getGender());
                         Glide
                                 .with(getActivity())
-                                .load("http://192.168.1.17/Admin/Esupermarket/Images/"+profileResponse.getId_photo())
+                                .load(ApiCliet.ASSET_URL+profileResponse.getId_photo())
                                 .into(iv_profile);
                     }
                     //Toast.makeText(Mob.this, ""+mobileResponse.getRole(), Toast.LENGTH_SHORT).show();

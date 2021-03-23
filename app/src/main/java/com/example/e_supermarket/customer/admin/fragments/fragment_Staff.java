@@ -18,13 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.admin.adapters.Staffadapter;
+import com.example.e_supermarket.customer.admin.viewstaff.ViewStaffResponse;
 import com.example.e_supermarket.customer.admin.models.Sportmodel;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.staff.fragments.StaffHomeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+
+//import com.example.e_supermarket.customer.staff.fragments.StaffHomeFragment;
 
 public class fragment_Staff extends Fragment
 {
@@ -92,7 +100,7 @@ public class fragment_Staff extends Fragment
           //      ItemTouchHelper(SimpleCallback);
         //itemTouchHelper.attachToRecyclerView(rv_staff);
         setData();
-        setAdpter();
+        //setAdpter();
 
 
         return view;
@@ -128,30 +136,27 @@ public class fragment_Staff extends Fragment
         }
     };
 
+    private void setData()
+    {
+
+        ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
 
 
+        apiInterface.viewstaff().enqueue(new Callback<ViewStaffResponse>() {
+            @Override
+            public void onResponse(Call<ViewStaffResponse> call, retrofit2.Response<ViewStaffResponse> response) {
 
+                madpter = new Staffadapter(getActivity(),response.body().getSubarray());
+                rv_staff.setAdapter(madpter);
+                rv_staff.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+                rv_staff.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+            }
 
+            @Override
+            public void onFailure(Call<ViewStaffResponse> call, Throwable t) {
 
-    private void setData() {
-        list = new ArrayList<>();
-        Sportmodel model = new Sportmodel();
-        model.setStaff_img(R.drawable.ic_baseline_group);
-        model.setStaff_name("Niharika ");
-        model.setStaff_id("Remove");
-        list.add(model);
+            }
+        });
 
-        Sportmodel model1= new Sportmodel();
-        model1.setStaff_img(R.drawable.ic_baseline_person);
-        model1.setStaff_name("Niharika");
-        model1.setStaff_id("Remove");
-        list.add(model1);
-
-    }
-    private void setAdpter() {
-        madpter = new Staffadapter(fragment_Staff.this,list);
-        rv_staff.setAdapter(madpter);
-        rv_staff.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        rv_staff.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
     }
 }

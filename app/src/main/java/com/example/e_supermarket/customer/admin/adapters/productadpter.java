@@ -4,7 +4,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,18 +13,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.admin.fragments.UpdateProfileFragment;
 import com.example.e_supermarket.customer.admin.fragments.productfragment;
-import com.example.e_supermarket.customer.admin.models.productmodel;
+import com.example.e_supermarket.customer.admin.viewprod.SubarrayItem;
+import com.example.e_supermarket.customer.api.ApiCliet;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class productadpter extends RecyclerView.Adapter<productadpter.MyViewHolder> {
     private final productfragment mActivity;
-    private final ArrayList<productmodel> list;
+    private final List<SubarrayItem> list;
 
-    public productadpter(productfragment productfragment, ArrayList<productmodel> list) {
+    public productadpter(productfragment productfragment, List<SubarrayItem> list) {
         this.mActivity=productfragment;
         this.list=list;
     }
@@ -40,10 +42,14 @@ public class productadpter extends RecyclerView.Adapter<productadpter.MyViewHold
     public void onBindViewHolder(@NonNull productadpter.MyViewHolder holder, int position)
     {
 
-        holder.iv_product.setImageResource(list.get(position).getImage());
-        holder.tv_productid.setText(list.get(position).getId());
-        holder.tv_productname.setText(list.get(position).getName());
-        holder.tv_price.setText(list.get(position).getPrice());
+        SubarrayItem item=list.get(position);
+        holder.tv_price.setText(item.getProductPrice());
+        holder.tv_productid.setText(item.getProductId());
+        holder.tv_productname.setText(item.getProductName());
+        Glide.with(mActivity.getActivity())
+                .load(ApiCliet.ASSET_URL+item.getProductImg())
+                .placeholder(R.drawable.ic_baseline_add)
+                .into(holder.iv_product);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +97,7 @@ public class productadpter extends RecyclerView.Adapter<productadpter.MyViewHold
     {
 
 
-        public ImageButton iv_product;
+        public ImageView iv_product;
         public TextView tv_productid;
         public TextView tv_productname;
         public TextView tv_price;

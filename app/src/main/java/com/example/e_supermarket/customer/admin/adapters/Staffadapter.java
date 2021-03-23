@@ -1,35 +1,39 @@
-package com.example.e_supermarket.customer.admin.adapters;
+ package com.example.e_supermarket.customer.admin.adapters;
 
-import android.content.DialogInterface;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+ import android.content.DialogInterface;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
+ import android.widget.ImageView;
+ import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
+ import androidx.annotation.NonNull;
+ import androidx.appcompat.app.AlertDialog;
+ import androidx.fragment.app.FragmentActivity;
+ import androidx.fragment.app.FragmentManager;
+ import androidx.fragment.app.FragmentTransaction;
+ import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.e_supermarket.R;
-import com.example.e_supermarket.customer.admin.fragments.UpdateProfileFragment;
-import com.example.e_supermarket.customer.admin.fragments.fragment_Staff;
-import com.example.e_supermarket.customer.admin.models.Sportmodel;
+ import com.bumptech.glide.Glide;
+ import com.example.e_supermarket.R;
+ import com.example.e_supermarket.customer.admin.viewstaff.SubarrayItem;
+ import com.example.e_supermarket.customer.admin.fragments.UpdateProfileFragment;
+ import com.example.e_supermarket.customer.api.ApiCliet;
 
-import java.util.ArrayList;
+ import java.util.List;
 
-public class Staffadapter extends RecyclerView.Adapter<Staffadapter.MyViewHolder> {
-    private final fragment_Staff mActivity;
-    private final ArrayList<Sportmodel> list;
+ public class Staffadapter extends RecyclerView.Adapter<Staffadapter.MyViewHolder> {
 
-    public Staffadapter(fragment_Staff fragment_staff, ArrayList<Sportmodel> list) {
-        this.mActivity=fragment_staff;
-        this.list=list;
-    }
 
-    @NonNull
+     private final FragmentActivity mActivity;
+     private final List<SubarrayItem> list;
+
+     public Staffadapter(FragmentActivity activity, List<SubarrayItem> subarray) {
+         this.mActivity=activity;
+         this.list=subarray;
+     }
+
+     @NonNull
     @Override
     public Staffadapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.onecell_admin_staff,parent,false);
@@ -39,11 +43,10 @@ public class Staffadapter extends RecyclerView.Adapter<Staffadapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull Staffadapter.MyViewHolder holder, int position)
     {
-
-
-        holder.iv_staff.setImageResource(list.get(position).getStaff_img());
-        holder.tv_staffid.setText(list.get(position).getStaff_id());
-        holder.tv_staffname.setText(list.get(position).getStaff_name());
+        SubarrayItem subarrayItem=list.get(position);
+        holder.tv_staffid.setText(subarrayItem.getUserId());
+        holder.tv_staffname.setText(subarrayItem.getFirstName());
+        Glide.with(mActivity).load(ApiCliet.ASSET_URL+subarrayItem.getIdPhoto()).placeholder(R.drawable.ic_baseline_add).into(holder.iv_staff);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +54,7 @@ public class Staffadapter extends RecyclerView.Adapter<Staffadapter.MyViewHolder
             public void onClick(View v)
             {
 
-                final AlertDialog.Builder alert=new AlertDialog.Builder(mActivity.getActivity());
+                final AlertDialog.Builder alert=new AlertDialog.Builder(mActivity);
                 alert.setTitle("Staff Id :- ");
                 alert.setMessage("Staff Name :- ");
 
@@ -66,7 +69,7 @@ public class Staffadapter extends RecyclerView.Adapter<Staffadapter.MyViewHolder
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        FragmentManager manager=mActivity.getActivity().getSupportFragmentManager();
+                        FragmentManager manager=mActivity.getSupportFragmentManager();
                         FragmentTransaction transaction=manager.beginTransaction();
                         transaction.replace(R.id.frame,new UpdateProfileFragment());
                         transaction.addToBackStack(null);

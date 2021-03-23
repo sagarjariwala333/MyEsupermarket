@@ -21,9 +21,11 @@
         <activity android:name=".customer.admin.activity.AdminMainActivity" >
 
 
+        </activity>
+        <activity android:name=".customer.features.HomeActivity" >
+
 
         </activity>
-        <activity android:name=".customer.features.HomeActivity" />
         <activity android:name=".customer.Common.Splash" >
 
         </activity>

@@ -9,24 +9,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
-import com.example.e_supermarket.customer.features.models.Cart_model;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.features.cartresponse.SubarrayItem;
 import com.example.e_supermarket.customer.features.fragments.CartFragment;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.MyViewHolder>
 {
 
-    private final CartFragment Cartfragment;
-    private final ArrayList<Cart_model> list;
+    private final CartFragment cartfragment;
+    private final List<SubarrayItem> list;
 
-    public Cart_adapter(CartFragment cartFragment, ArrayList<Cart_model> list)
+    public Cart_adapter(CartFragment cartFragment, List<SubarrayItem> list)
     {
-        Cartfragment=cartFragment;
+        this.cartfragment=cartFragment;
         this.list=list;
     }
 
@@ -40,11 +41,15 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
     {
-        holder.iv_cart.setImageResource(list.get(position).getP_img());
-        holder.tv_pid.setText(list.get(position).getP_id());
-        holder.tv_pname.setText(list.get(position).getP_name());
-        holder.tv_price.setText(list.get(position).getPrice());
-
+        SubarrayItem item=list.get(position);
+        holder.tv_pid.setText(item.getProductId());
+        holder.tv_pname.setText(item.getProductName());
+        holder.tv_price.setText(item.getProductPrice());
+        holder.et_disstock.setText(item.getProductQuantity());
+        Glide.with(cartfragment.getActivity())
+                .load(ApiCliet.ASSET_URL+item.getProductImg())
+                .placeholder(R.drawable.ic_baseline_add)
+                .into(holder.iv_cart);
     }
 
     @Override

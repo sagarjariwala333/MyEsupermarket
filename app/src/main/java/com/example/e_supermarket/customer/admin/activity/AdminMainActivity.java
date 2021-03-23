@@ -23,11 +23,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class AdminMainActivity extends AppCompatActivity
 {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_main);
 
+
+        //String role=getIntent().getStringExtra("role");
         BottomNavigationView bt_bottom_nav;
         String user_id=getIntent().getStringExtra("user_id");
         String role=getIntent().getStringExtra("role");

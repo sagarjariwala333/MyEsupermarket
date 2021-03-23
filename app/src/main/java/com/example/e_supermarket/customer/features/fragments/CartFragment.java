@@ -2,6 +2,12 @@ package com.example.e_supermarket.customer.features.fragments;
 
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,15 +21,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
-
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.features.adapters.Cart_adapter;
+import com.example.e_supermarket.customer.features.cartresponse.CartResponse;
 import com.example.e_supermarket.customer.features.models.Cart_model;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,6 +36,9 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartFragment extends Fragment {
 
@@ -48,6 +53,7 @@ public class CartFragment extends Fragment {
     private FloatingActionButton fab_add;
     private Button place_order;
     private Toolbar tb_cart;
+    String user_id;
 
     public CartFragment()
     {
@@ -71,7 +77,7 @@ public class CartFragment extends Fragment {
         btmapp_cust=getActivity().findViewById(R.id.btmapp_cust);
         fab_add=getActivity().findViewById(R.id.fab_add);
         tb_cart=view.findViewById(R.id.tb_cart);
-
+        user_id=getActivity().getIntent().getStringExtra("user_id");
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(tb_cart);
 
@@ -118,7 +124,7 @@ public class CartFragment extends Fragment {
         fab_add.setVisibility(View.INVISIBLE);
 
         setdata();
-        setadapter();
+
 
         //Clicked on place order button
 
@@ -179,34 +185,30 @@ public class CartFragment extends Fragment {
 
     private void setadapter()
     {
-        mAdapter=new Cart_adapter(CartFragment.this,list);
-        rv_cart.setAdapter(mAdapter);
-        rv_cart.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv_cart.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+
     }
 
     private void setdata()
     {
-        Cart_model model1=new Cart_model();
-        model1.setP_img(R.drawable.hideseek);
-        model1.setP_id("1000001");
-        model1.setP_name("Hide & Seek");
-        model1.setPrice("50");
-        list.add(model1);
+        ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
 
-        Cart_model model2=new Cart_model();
-        model2.setP_img(R.drawable.ic_launcher_background);
-        model2.setP_id("1000002");
-        model2.setP_name("Dark Fantacy");
-        model2.setPrice("50");
-        list.add(model2);
+        apiInterface.getCartProd(user_id).enqueue(new Callback<CartResponse>() {
+            @Override
+            public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
+                if (response.isSuccessful()&&response.body()!=null)
+                {
+                    mAdapter=new Cart_adapter(CartFragment.this,response.body().getSubarray());
+                    rv_cart.setAdapter(mAdapter);
+                    rv_cart.setLayoutManager(new LinearLayoutManager(getContext()));
+                    rv_cart.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+                }
+            }
 
-        Cart_model model3=new Cart_model();
-        model3.setP_img(R.drawable.ic_launcher_background);
-        model3.setP_id("1000003");
-        model3.setP_name("Good day");
-        model3.setPrice("50");
-        list.add(model3);
+            @Override
+            public void onFailure(Call<CartResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

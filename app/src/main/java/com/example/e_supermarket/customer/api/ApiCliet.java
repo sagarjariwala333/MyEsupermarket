@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiCliet
 {
-    public static final String BASE_URL="http://192.168.1.17/Admin/Esupermarket/";
-    public static final String ASSET_URL="http://192.168.1.17/Admin/Esupermarket/";
+    public static final String BASE_URL="http://192.168.1.36/Admin/Esupermarket/";
+    public static final String ASSET_URL="http://192.168.1.36/Admin/Esupermarket/Images/";
     static Retrofit retrofit = null;
     static Gson gson = new GsonBuilder().setLenient().create();
 

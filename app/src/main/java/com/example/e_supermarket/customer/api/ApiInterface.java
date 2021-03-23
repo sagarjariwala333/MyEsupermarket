@@ -5,12 +5,14 @@ import com.example.e_supermarket.customer.Common.PasswordResponse;
 import com.example.e_supermarket.customer.Common.RegistrationCustResponse;
 import com.example.e_supermarket.customer.ImageResponse;
 import com.example.e_supermarket.customer.ProfileResponse;
-import com.example.e_supermarket.customer.admin.fragments.AddStaffResponse;
-
+import com.example.e_supermarket.customer.admin.adminresponses.AddProdResponse;
+import com.example.e_supermarket.customer.admin.adminresponses.AddStaffResponse;
+import com.example.e_supermarket.customer.admin.viewprod.ViewProdResponse;
+import com.example.e_supermarket.customer.admin.viewstaff.ViewStaffResponse;
+import com.example.e_supermarket.customer.features.cartresponse.CartResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -25,7 +27,6 @@ public interface ApiInterface
     @POST("mobile.php")
     @FormUrlEncoded
     Call<MobileResponse> mobile(@Field("mobile_no") String mobile_no);
-
 
     @POST("password.php")
     Call<PasswordResponse> password(@Body RequestBody passwordBody);
@@ -42,7 +43,18 @@ public interface ApiInterface
 
     @POST("profile.php")
     @FormUrlEncoded
-    Call<ProfileResponse> profile(@Field("user_id") String user_id,
-                                  @Field("role") String role);
+    Call<ProfileResponse> profile(@Field("user_id") String user_id, @Field("role") String role);
 
+    @POST("view_staff.php")
+    Call<ViewStaffResponse> viewstaff();
+
+    @POST("view_prod.php")
+    Call<ViewProdResponse> viewprod();
+
+    @POST("view_cart.php")
+    @FormUrlEncoded
+    Call<CartResponse> getCartProd(@Field("user_id") String user_id);
+
+    @POST("addproduct.php")
+    Call<AddProdResponse> addProd(@Body RequestBody addProdBody);
 }

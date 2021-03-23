@@ -77,7 +77,7 @@ public class StaffProfileFragment extends Fragment {
                         tv_gender.setText(profileResponse.getGender());
                         Glide
                                 .with(getActivity())
-                                .load("http://192.168.1.17/Admin/Esupermarket/Images/"+profileResponse.getId_photo())
+                                .load(ApiCliet.ASSET_URL+profileResponse.getId_photo())
                                 .into(iv_profile);
                     }
                     //Toast.makeText(Mob.this, ""+mobileResponse.getRole(), Toast.LENGTH_SHORT).show();

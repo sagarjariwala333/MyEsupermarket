@@ -1,4 +1,4 @@
-package com.example.e_supermarket.customer.admin.fragments;
+package com.example.e_supermarket.customer.admin.adminresponses;
 
 import com.google.gson.annotations.SerializedName;
 

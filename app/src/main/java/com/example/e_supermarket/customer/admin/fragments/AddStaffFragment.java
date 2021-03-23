@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.ImageResponse;
+import com.example.e_supermarket.customer.admin.adminresponses.AddStaffResponse;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
 import com.hbisoft.pickit.PickiT;
@@ -37,7 +38,6 @@ import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -96,6 +96,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
         btn_addstaff=view.findViewById(R.id.btn_addstaff);
 
 
+
         iv_profile.setOnClickListener(v -> Dexter
                 .withContext(getActivity())
                 .withPermissions(Manifest.permission.CAMERA,
@@ -150,6 +151,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
                 .addFormDataPart("password",et_vrfpass.getText().toString().trim())
                 .addFormDataPart("id_photo",image_name)
                 .build();
+
         apiInterface.addstaff(requestBody).enqueue(new Callback<AddStaffResponse>() {
             @Override
             public void onResponse(Call<AddStaffResponse> call, Response<AddStaffResponse> response) {
@@ -158,7 +160,8 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
                     if (addStaffResponse.getSuccess()==0){
                         Toast.makeText(getActivity(), "Something Went Wrong!", Toast.LENGTH_SHORT).show();
                     }
-                    else{
+                    else
+                        {
                         FragmentManager manager=getActivity().getSupportFragmentManager();
                         FragmentTransaction transaction=manager.beginTransaction();
                         transaction.replace(R.id.frame,new fragment_Staff());
@@ -191,10 +194,8 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
     private void met_uploadimg(File file)
     {
         image_name = file.getName();
-        //String imgdata=imgToString(bitmap);
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
         RequestBody requestBody= RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        //iv_profile.setImageResource(new File(uri.getPath()));
         MultipartBody.Part imgpart = MultipartBody.Part.createFormData("id_photo",file.getName(), requestBody);
         
         apiInterface.img(imgpart).enqueue(new Callback<ImageResponse>() {
@@ -204,17 +205,6 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
                 {
                     ImageResponse imageResponse=response.body();
                     image_name=imageResponse.getImageName();
-
-
-                    /*ImgResponse imgResponse=response.body();
-                    if (imgResponse.getSuccess()==0)
-                    {
-                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                    }
-                    else 
-                    {
-                        Toast.makeText(getActivity(), "Image Uploaded successfully", Toast.LENGTH_SHORT).show();
-                    }*/
                 }
                 else 
                 {
@@ -278,7 +268,8 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
     }*/
 
     @Override
-    public void PickiTonUriReturned() {
+    public void PickiTonUriReturned()
+    {
 
     }
 

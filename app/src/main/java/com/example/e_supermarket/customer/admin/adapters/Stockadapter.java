@@ -7,24 +7,26 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.admin.fragments.Fragment_stock;
-import com.example.e_supermarket.customer.admin.models.stockmodel;
+import com.example.e_supermarket.customer.admin.viewprod.SubarrayItem;
+import com.example.e_supermarket.customer.api.ApiCliet;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder> {
     private final Fragment_stock mActivity;
-    private final ArrayList<stockmodel> list;
+    private final List<SubarrayItem> list;
 
-    public Stockadapter(Fragment_stock fragment_stock, ArrayList<stockmodel> list) {
+    public Stockadapter(Fragment_stock fragment_stock, List<SubarrayItem> list) {
         this.mActivity=fragment_stock;
         this.list=list;
     }
@@ -41,12 +43,17 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull Stockadapter.MyViewHolder holder, int position) {
 
+        SubarrayItem item=list.get(position);
 
-        holder.ib_stock.setImageResource(list.get(position).getStock_Image());
-        holder.tv_stockid.setText(list.get(position).getStock_qut());
-        holder.tv_stockname.setText(list.get(position).getStock_Name());
-        holder.tv_stockqut.setText(list.get(position).getStock_qut());
-        // holder.et_disstock.setText(list.get(position).getStock_set());
+        holder.tv_stockid.setText(item.getProductId());
+        holder.tv_stockqut.setText(item.getProductQuantity());
+        holder.tv_stockname.setText(item.getProductName());
+
+        Glide.with(mActivity.getActivity())
+                .load(ApiCliet.ASSET_URL+item.getProductImg())
+                .placeholder(R.drawable.ic_baseline_add)
+                .into(holder.ib_stock);
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             private Button btn_ar_remove;
@@ -105,7 +112,7 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
-        public ImageButton ib_stock;
+        public ImageView ib_stock;
         public TextView tv_stockid;
         public TextView tv_stockname;
         public TextView tv_stockqut;

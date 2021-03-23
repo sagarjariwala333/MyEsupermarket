@@ -15,15 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageButton
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_product"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_launcher_background"
-                android:layout_alignParentLeft="true"
-                android:scaleType="fitCenter"
-                />
+                android:layout_alignParentLeft="true" />
+
             <GridLayout
                 android:rowCount="4"
                 android:columnCount="2"

@@ -19,10 +19,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.admin.adapters.Stockadapter;
 import com.example.e_supermarket.customer.admin.models.stockmodel;
+import com.example.e_supermarket.customer.admin.viewprod.ViewProdResponse;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Fragment_stock extends Fragment
@@ -78,7 +85,6 @@ public class Fragment_stock extends Fragment
 
 
         setData();
-        setAdpter();
         ItemTouchHelper itemTouchHelper=new
                 ItemTouchHelper(SimpleCallback);
         itemTouchHelper.attachToRecyclerView(rv_stock);
@@ -122,27 +128,28 @@ public class Fragment_stock extends Fragment
 
 
     private void setData() {
-        list = new ArrayList<>();
-        stockmodel model = new stockmodel();
-        model.setStock_Image(R.drawable.ic_baseline_group);
-        model.setStock_Name("Niharika ");
-        model.setStock_id("P00001");
-        model.setStock_qut("1000");
-        list.add(model);
+        ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
 
-        stockmodel model1 = new stockmodel();
-        model1.setStock_Image(R.drawable.ic_baseline_person);
-        model1.setStock_Name("Niharika ");
-        model.setStock_id("P00002");
-        model.setStock_qut("10000");
-        list.add(model1);
+        apiInterface.viewprod().enqueue(new Callback<ViewProdResponse>() {
+            @Override
+            public void onResponse(Call<ViewProdResponse> call, Response<ViewProdResponse> response) {
+                if (response.isSuccessful()&&response.body()!=null)
+                {
+
+                    madpter = new Stockadapter(Fragment_stock.this,response.body().getSubarray());
+                    rv_stock.setAdapter(madpter);
+                    rv_stock.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+                    rv_stock.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ViewProdResponse> call, Throwable t) {
+
+            }
+        });
 
     }
 
-    private void setAdpter() {
-        madpter = new Stockadapter(Fragment_stock.this, list);
-        rv_stock.setAdapter(madpter);
-        rv_stock.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        rv_stock.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-    }
 }
