@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.PrefUtil;
 import com.example.e_supermarket.customer.admin.activity.AdminMainActivity;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
@@ -88,6 +89,9 @@ public class Login extends AppCompatActivity
                     }
                     else
                     {
+                        PrefUtil.putbooleanPref(Variables.isLoggedIn, true, Login.this);
+                        PrefUtil.putstringPref(Variables.userId, userid, Login.this);
+                        PrefUtil.putstringPref(Variables.role, role, Login.this);
                         if (role.equals("C"))
                         {
                             Intent intent=new Intent(Login.this, HomeActivity.class)

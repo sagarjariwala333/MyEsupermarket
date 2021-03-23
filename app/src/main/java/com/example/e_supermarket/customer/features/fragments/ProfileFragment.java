@@ -1,4 +1,4 @@
-package com.example.e_supermarket.customer.features.fragments;
+        package com.example.e_supermarket.customer.features.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
