@@ -5,28 +5,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
-import com.example.e_supermarket.customer.features.fragments.CartFragment;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.features.cartresponse.SubarrayItem;
 import com.example.e_supermarket.customer.features.fragments.PlaceOrdFragment;
-import com.example.e_supermarket.customer.features.models.Checkout_model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Checkout_adapter extends RecyclerView.Adapter<Checkout_adapter.MyViewHolder>
 {
 
-    private final PlaceOrdFragment PlaceOrderFragment;
-    private final ArrayList<Checkout_model> list;
 
-    public Checkout_adapter(PlaceOrdFragment placeOrderFragment, ArrayList<Checkout_model> list) {
-        this.PlaceOrderFragment=placeOrderFragment;
-        this.list=list;
+    private final PlaceOrdFragment placeOrdFragment;
+    private List<SubarrayItem> list;
+
+
+    public Checkout_adapter(PlaceOrdFragment placeOrdFragment, List<SubarrayItem> subarray) {
+        this.placeOrdFragment=placeOrdFragment;
+        this.list=subarray;
     }
+
 
     @NonNull
     @Override
@@ -39,11 +42,14 @@ public class Checkout_adapter extends RecyclerView.Adapter<Checkout_adapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
     {
-        holder.iv_chkord.setImageResource(list.get(position).getImg_chkord());
-        holder.tv_chkordid.setText(list.get(position).getChkord_id());
-        holder.tv_chkordname.setText(list.get(position).getChkord_name());
-        holder.tv_chkordprice.setText(list.get(position).getChkord_price());
-        holder.tv_chkqut.setText(list.get(position).getChkord_qut());
+
+        SubarrayItem item = list.get(position);
+        holder.tv_chkordid.setText(item.getProductId());
+        holder.tv_chkordname.setText(item.getProductName());
+        holder.tv_chkordprice.setText(item.getProductPrice());
+        holder.tv_chkqut.setText(item.getProductQuantity());
+        Glide.with(placeOrdFragment.getActivity()).load(ApiCliet.ASSET_URL+item.getProductImg()).placeholder(R.drawable.ic_baseline_add).into(holder.iv_chkord);
+
     }
 
     @Override

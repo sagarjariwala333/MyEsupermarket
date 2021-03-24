@@ -11,18 +11,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.staff.fragments.StaffVcustFragment;
 import com.example.e_supermarket.customer.staff.fragments.StaffVordFragment;
-import com.example.e_supermarket.customer.staff.models.Vcust_model;
+import com.example.e_supermarket.customer.staff.viewcustomerresponce.SubarrayItem;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class StaffVcustAdapter extends RecyclerView.Adapter<StaffVcustAdapter.MyViewHolder> {
     private final StaffVcustFragment vcustFragment;
-    private final ArrayList<Vcust_model> list;
+    private final List<SubarrayItem> list;
 
-    public StaffVcustAdapter(StaffVcustFragment staffVcustFragment, ArrayList<Vcust_model> list) {
+    public StaffVcustAdapter(StaffVcustFragment staffVcustFragment, List<SubarrayItem> list) {
         this.vcustFragment=staffVcustFragment;
         this.list=list;
     }
@@ -39,10 +41,11 @@ public class StaffVcustAdapter extends RecyclerView.Adapter<StaffVcustAdapter.My
     {
 
 
-        holder.iv_vcust.setImageResource(list.get(position).getImg_vcust());
-        holder.tv_vcustid.setText(list.get(position).getId_vcust());
-        holder.tv_vcustname.setText(list.get(position).getName_vcust());
-        holder.tv_vcustnum.setText(list.get(position).getNum_vcust());
+        SubarrayItem item = list.get(position);
+        holder.tv_vcustid.setText(item.getUserId());
+        holder.tv_vcustname.setText(item.getFirstName());
+        holder.tv_vcustnum.setText(item.getMobileNo());
+        Glide.with(vcustFragment.getActivity()).load(ApiCliet.ASSET_URL+item.getIdPhoto()).into(holder.iv_vcust);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

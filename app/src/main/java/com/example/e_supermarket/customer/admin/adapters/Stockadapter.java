@@ -16,11 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.admin.adminresponses.AddStockResponse;
+import com.example.e_supermarket.customer.admin.adminresponses.RemoveStockResponse;
 import com.example.e_supermarket.customer.admin.fragments.Fragment_stock;
 import com.example.e_supermarket.customer.admin.viewprod.SubarrayItem;
 import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder> {
     private final Fragment_stock mActivity;
@@ -85,7 +92,28 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                 btn_ar_remove.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View view)
+                    {
+                        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+                        apiInterface.removestock(holder.tv_stockid.getText().toString(),et_ar_stock.getText().toString())
+                                .enqueue(new Callback<RemoveStockResponse>() {
+                                    @Override
+                                    public void onResponse(Call<RemoveStockResponse> call, Response<RemoveStockResponse> response) {
+                                        if (response.isSuccessful() && response.body()!=null)
+                                        {
+                                            RemoveStockResponse removeStockResponse=response.body();
+                                            if (removeStockResponse.getSuccess()==1)
+                                            {
+                                                Toast.makeText(mActivity.getActivity(), ""+removeStockResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<RemoveStockResponse> call, Throwable t) {
+
+                                    }
+                                });
                         Toast.makeText(mActivity.getActivity(), "Removed", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
@@ -94,7 +122,29 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                 btn_ar_add.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View view)
+                    {
+                        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+                        apiInterface.addstock(holder.tv_stockid.getText().toString(),et_ar_stock.getText().toString())
+                                .enqueue(new Callback<AddStockResponse>() {
+                                    @Override
+                                    public void onResponse(Call<AddStockResponse> call, Response<AddStockResponse> response) {
+                                        if (response.isSuccessful() && response.body()!=null)
+                                        {
+                                            AddStockResponse addStockResponse=response.body();
+                                            if (addStockResponse.getSuccess()==1)
+                                            {
+                                                Toast.makeText(mActivity.getActivity(), ""+addStockResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<AddStockResponse> call, Throwable t) {
+
+                                    }
+                                });
+
                         Toast.makeText(mActivity.getActivity(), "Added", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }

@@ -1,26 +1,33 @@
  package com.example.e_supermarket.customer.admin.adapters;
 
  import android.content.DialogInterface;
- import android.view.LayoutInflater;
- import android.view.View;
- import android.view.ViewGroup;
- import android.widget.ImageView;
- import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+ import android.widget.Toast;
 
  import androidx.annotation.NonNull;
- import androidx.appcompat.app.AlertDialog;
- import androidx.fragment.app.FragmentActivity;
- import androidx.fragment.app.FragmentManager;
- import androidx.fragment.app.FragmentTransaction;
- import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
- import com.bumptech.glide.Glide;
- import com.example.e_supermarket.R;
- import com.example.e_supermarket.customer.admin.viewstaff.SubarrayItem;
- import com.example.e_supermarket.customer.admin.fragments.UpdateProfileFragment;
- import com.example.e_supermarket.customer.api.ApiCliet;
+import com.bumptech.glide.Glide;
+import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.admin.fragments.UpdateProfileFragment;
+import com.example.e_supermarket.customer.admin.viewstaff.SubarrayItem;
+import com.example.e_supermarket.customer.api.ApiCliet;
+ import com.example.e_supermarket.customer.api.ApiInterface;
+ import com.example.e_supermarket.customer.features.customerresponse.RemoveStaffResponse;
 
  import java.util.List;
+
+ import retrofit2.Call;
+ import retrofit2.Callback;
+ import retrofit2.Response;
 
  public class Staffadapter extends RecyclerView.Adapter<Staffadapter.MyViewHolder> {
 
@@ -53,14 +60,39 @@
             @Override
             public void onClick(View v)
             {
-
                 final AlertDialog.Builder alert=new AlertDialog.Builder(mActivity);
-                alert.setTitle("Staff Id :- ");
-                alert.setMessage("Staff Name :- ");
+                alert.setTitle(holder.tv_staffid.getText().toString());
+                alert.setMessage("Staff Name :- "+holder.tv_staffname.getText().toString());
 
                 alert.setNeutralButton("Remove", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+                        apiInterface.removeStaff(holder.tv_staffid.getText().toString()).enqueue(new Callback<RemoveStaffResponse>() {
+                            @Override
+                            public void onResponse(Call<RemoveStaffResponse> call, Response<RemoveStaffResponse> response)
+                            {
+                                if (response.isSuccessful() && response.body()!=null)
+                                {
+                                    RemoveStaffResponse removeStaffResponse=response.body();
+                                    if (removeStaffResponse.getSuccess()==1)
+                                    {
+                                        Toast.makeText(mActivity, ""+removeStaffResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(mActivity, ""+removeStaffResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<RemoveStaffResponse> call, Throwable t) {
+
+                            }
+                        });
 
                     }
                 });
@@ -102,11 +134,10 @@
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
-
             iv_staff=itemView.findViewById(R.id.iv_staff);
             tv_staffid=itemView.findViewById(R.id.tv_staffid);
             tv_staffname=itemView.findViewById(R.id.tv_staffname);
         }
+
     }
 }

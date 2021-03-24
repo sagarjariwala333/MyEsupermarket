@@ -10,10 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.staff.adapters.StaffVcustAdapter;
 import com.example.e_supermarket.customer.staff.models.Vcust_model;
+import com.example.e_supermarket.customer.staff.viewcustomerresponce.VcustResponse;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class StaffVcustFragment extends Fragment {
 
@@ -46,50 +53,28 @@ public class StaffVcustFragment extends Fragment {
 
 
         setdata();
-        setadapter();
 
         return view;
     }
 
-    private void setadapter() {
-
-
-        mAdapter=new StaffVcustAdapter(StaffVcustFragment.this,list);
-        rv_vcust.setAdapter(mAdapter);
-        rv_vcust.setLayoutManager(new LinearLayoutManager(getContext()));
-
-    }
 
     private void setdata()
     {
-        list=new ArrayList<>();
+        ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.vcust().enqueue(new Callback<VcustResponse>() {
+            @Override
+            public void onResponse(Call<VcustResponse> call, Response<VcustResponse> response) {
 
-        Vcust_model model1=new Vcust_model();
-        model1.setImg_vcust(R.drawable.ic_launcher_background);
-        model1.setId_vcust("C00001");
-        model1.setName_vcust("XYZ");
-        model1.setNum_vcust("9999999999");
-        list.add(model1);
+                mAdapter=new StaffVcustAdapter(StaffVcustFragment.this,response.body().getSubarray());
+                rv_vcust.setAdapter(mAdapter);
+                rv_vcust.setLayoutManager(new LinearLayoutManager(getContext()));
+                //  if (response.isSuccessful() && response.body()!=null)
+            }
 
-        Vcust_model model2=new Vcust_model();
-        model2.setImg_vcust(R.drawable.ic_launcher_background);
-        model2.setId_vcust("C00001");
-        model2.setName_vcust("XYZ");
-        model2.setNum_vcust("9999999999");
-        list.add(model2);
+            @Override
+            public void onFailure(Call<VcustResponse> call, Throwable t) {
 
-        Vcust_model model3=new Vcust_model();
-        model3.setImg_vcust(R.drawable.ic_launcher_background);
-        model3.setId_vcust("C00001");
-        model3.setName_vcust("XYZ");
-        model3.setNum_vcust("9999999999");
-        list.add(model3);
-
-        Vcust_model model4=new Vcust_model();
-        model4.setImg_vcust(R.drawable.ic_launcher_background);
-        model4.setId_vcust("C00001");
-        model4.setName_vcust("XYZ");
-        model4.setNum_vcust("9999999999");
-        list.add(model4);
+            }
+        });
     }
 }

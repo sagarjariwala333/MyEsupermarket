@@ -1,5 +1,7 @@
 package com.example.e_supermarket.customer.features.adapters;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,10 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
+import com.example.e_supermarket.customer.features.cartresponse.CartQutChgResponse;
 import com.example.e_supermarket.customer.features.cartresponse.SubarrayItem;
 import com.example.e_supermarket.customer.features.fragments.CartFragment;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.MyViewHolder>
 {
@@ -46,10 +55,78 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.MyViewHolder
         holder.tv_pname.setText(item.getProductName());
         holder.tv_price.setText(item.getProductPrice());
         holder.et_disstock.setText(item.getProductQuantity());
+
         Glide.with(cartfragment.getActivity())
                 .load(ApiCliet.ASSET_URL+item.getProductImg())
                 .placeholder(R.drawable.ic_baseline_add)
                 .into(holder.iv_cart);
+
+        holder.ib_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                int num= Integer.parseInt(holder.et_disstock.getText().toString());
+                num=num+1;
+                String str= String.valueOf(num);
+                holder.et_disstock.setText(str);
+
+            }
+        });
+
+        holder.ib_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                int num= Integer.parseInt(holder.et_disstock.getText().toString());
+                if (num!=0)
+                {
+                    num = num - 1;
+                    String str = String.valueOf(num);
+                    holder.et_disstock.setText(str);
+                }
+
+            }
+        });
+
+        holder.et_disstock.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+                apiInterface.chgqut(cartfragment.getActivity().getIntent().getStringExtra("user_id")
+                        ,holder.tv_pid.getText().toString()
+                        ,holder.et_disstock.getText().toString())
+                        .enqueue(new Callback<CartQutChgResponse>() {
+                            @Override
+                            public void onResponse(Call<CartQutChgResponse> call, Response<CartQutChgResponse> response)
+                            {
+                                CartQutChgResponse cartQutChgResponse=response.body();
+                                if (cartQutChgResponse.getSuccess()==1)
+                                {
+                                    Toast.makeText(cartfragment.getActivity(), ""+cartQutChgResponse.getMsg().toString(), Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<CartQutChgResponse> call, Throwable t) {
+
+                            }
+                        });
+            }
+        });
     }
 
     @Override
@@ -75,31 +152,6 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.MyViewHolder
             ib_add=itemView.findViewById(R.id.ib_add);
             ib_minus=itemView.findViewById(R.id.ib_minus);
             et_disstock=itemView.findViewById(R.id.et_disstock);
-
-            ib_add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v)
-                {
-                    int num= Integer.parseInt(et_disstock.getText().toString());
-                    num=num+1;
-                    String str= String.valueOf(num);
-                    et_disstock.setText(str);
-                }
-            });
-
-            ib_minus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v)
-                {
-                    int num= Integer.parseInt(et_disstock.getText().toString());
-                    if (num!=0)
-                    {
-                        num = num - 1;
-                        String str = String.valueOf(num);
-                        et_disstock.setText(str);
-                    }
-                }
-            });
         }
     }
 }

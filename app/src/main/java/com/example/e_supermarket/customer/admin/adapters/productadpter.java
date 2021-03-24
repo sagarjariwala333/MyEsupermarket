@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -15,12 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.admin.adminresponses.RemoveProdResponse;
 import com.example.e_supermarket.customer.admin.fragments.UpdateProfileFragment;
 import com.example.e_supermarket.customer.admin.fragments.productfragment;
 import com.example.e_supermarket.customer.admin.viewprod.SubarrayItem;
 import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class productadpter extends RecyclerView.Adapter<productadpter.MyViewHolder> {
     private final productfragment mActivity;
@@ -57,22 +64,35 @@ public class productadpter extends RecyclerView.Adapter<productadpter.MyViewHold
                 final AlertDialog.Builder alert=new AlertDialog.Builder(mActivity.getActivity());
                 alert.setTitle("Product Id :- ");
                 alert.setMessage("Product name :- ");
-                alert.setNeutralButton("Remove", new DialogInterface.OnClickListener() {
+                alert.setNeutralButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //alert.setCancelable(true);
-                    }
-                });
-
-                alert.setPositiveButton("Update", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
                         FragmentManager manager=mActivity.getActivity().getSupportFragmentManager();
                         FragmentTransaction transaction=manager.beginTransaction();
                         transaction.replace(R.id.frame,new UpdateProfileFragment());
                         transaction.addToBackStack(null);
                         transaction.commit();
+                    }
+                });
+
+                alert.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+                        apiInterface.removeProd(holder.tv_productid.getText().toString())
+                                .enqueue(new Callback<RemoveProdResponse>() {
+                                    @Override
+                                    public void onResponse(Call<RemoveProdResponse> call, Response<RemoveProdResponse> response) {
+                                        Toast.makeText(mActivity.getActivity(), "Removed", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<RemoveProdResponse> call, Throwable t) {
+                                        Toast.makeText(mActivity.getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
                 });
 

@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +25,7 @@ import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.features.adapters.Cart_adapter;
 import com.example.e_supermarket.customer.features.cartresponse.CartResponse;
+import com.example.e_supermarket.customer.features.cartresponse.RemoveAllResponse;
 import com.example.e_supermarket.customer.features.models.Cart_model;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -54,6 +54,7 @@ public class CartFragment extends Fragment {
     private Button place_order;
     private Toolbar tb_cart;
     String user_id;
+    private Button btn_removeall;
 
     public CartFragment()
     {
@@ -77,11 +78,12 @@ public class CartFragment extends Fragment {
         btmapp_cust=getActivity().findViewById(R.id.btmapp_cust);
         fab_add=getActivity().findViewById(R.id.fab_add);
         tb_cart=view.findViewById(R.id.tb_cart);
+        btn_removeall=view.findViewById(R.id.btn_removeall);
         user_id=getActivity().getIntent().getStringExtra("user_id");
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(tb_cart);
 
-
+        setdata();
         tb_cart.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -95,6 +97,13 @@ public class CartFragment extends Fragment {
             }
         });
 
+
+        btn_removeall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                met_removeall();
+            }
+        });
 
 
         btn_checkout.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +132,6 @@ public class CartFragment extends Fragment {
         btmapp_cust.setVisibility(View.INVISIBLE);
         fab_add.setVisibility(View.INVISIBLE);
 
-        setdata();
 
 
         //Clicked on place order button
@@ -131,6 +139,32 @@ public class CartFragment extends Fragment {
         ItemTouchHelper itemTouchHelper=new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(rv_cart);
         return view;
+    }
+
+    private void met_removeall() {
+        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.removeallcart(getActivity().getIntent().getStringExtra("user_id"))
+                .enqueue(new Callback<RemoveAllResponse>() {
+                    @Override
+                    public void onResponse(Call<RemoveAllResponse> call, Response<RemoveAllResponse> response) {
+                        if (response.isSuccessful() && response.body()!=null)
+                        {
+                            RemoveAllResponse removeAllResponse=response.body();
+                            if (removeAllResponse.getSuccess()==1)
+                            {
+                                FragmentManager manager=getActivity().getSupportFragmentManager();
+                                FragmentTransaction transaction=manager.beginTransaction();
+                                transaction.replace(R.id.fl_cust,new CartFragment());
+                                transaction.commit();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RemoveAllResponse> call, Throwable t) {
+
+                    }
+                });
     }
 
     ItemTouchHelper.SimpleCallback simpleCallback=new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
@@ -152,7 +186,10 @@ public class CartFragment extends Fragment {
 
                     //Removing item
                     list.remove(position);
+
+
                     mAdapter.notifyItemRemoved(position);
+
 
                     Snackbar make=Snackbar.make(rv_cart,removedpname, BaseTransientBottomBar.LENGTH_LONG);
 
@@ -183,25 +220,16 @@ public class CartFragment extends Fragment {
         }
     };
 
-    private void setadapter()
-    {
-
-    }
-
     private void setdata()
     {
-        ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
 
-        apiInterface.getCartProd(user_id).enqueue(new Callback<CartResponse>() {
+        ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.getCart(getActivity().getIntent().getStringExtra("user_id")).enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
-                if (response.isSuccessful()&&response.body()!=null)
-                {
-                    mAdapter=new Cart_adapter(CartFragment.this,response.body().getSubarray());
-                    rv_cart.setAdapter(mAdapter);
-                    rv_cart.setLayoutManager(new LinearLayoutManager(getContext()));
-                    rv_cart.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-                }
+                mAdapter=new Cart_adapter(CartFragment.this,response.body().getSubarray());
+                rv_cart.setAdapter(mAdapter);
+                rv_cart.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override
@@ -209,6 +237,7 @@ public class CartFragment extends Fragment {
 
             }
         });
+
     }
 
     @Override
