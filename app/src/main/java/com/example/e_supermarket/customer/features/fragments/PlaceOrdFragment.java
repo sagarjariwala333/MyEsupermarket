@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
+import com.example.e_supermarket.customer.features.PlaceOrder.PlaceOrderResponse;
 import com.example.e_supermarket.customer.features.adapters.Checkout_adapter;
 import com.example.e_supermarket.customer.features.cartresponse.CartResponse;
 import com.example.e_supermarket.customer.features.models.Checkout_model;
@@ -72,6 +73,7 @@ public class PlaceOrdFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
+
                 final AlertDialog.Builder alert=new AlertDialog.Builder(getActivity());
                 alert.setTitle("Place Order");
                 alert.setMessage("You can`t undo this operation");
@@ -79,6 +81,7 @@ public class PlaceOrdFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
+                        meth_placeorder();
                         ProgressDialog progressDialog=new ProgressDialog(getActivity());
                         progressDialog.setTitle("Please Wait");
                         progressDialog.setMessage("Loading");
@@ -116,6 +119,21 @@ public class PlaceOrdFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void meth_placeorder() {
+        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.placeorder(PlaceOrdFragment.this.getActivity().getIntent().getStringExtra("user_id")).enqueue(new Callback<PlaceOrderResponse>() {
+            @Override
+            public void onResponse(Call<PlaceOrderResponse> call, Response<PlaceOrderResponse> response) {
+                Toast.makeText(getActivity(), "Order Placed Successfully!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<PlaceOrderResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void setdata()

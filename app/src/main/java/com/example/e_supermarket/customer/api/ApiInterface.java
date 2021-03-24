@@ -12,13 +12,16 @@ import com.example.e_supermarket.customer.admin.adminresponses.RemoveProdRespons
 import com.example.e_supermarket.customer.admin.adminresponses.RemoveStockResponse;
 import com.example.e_supermarket.customer.admin.viewprod.ViewProdResponse;
 import com.example.e_supermarket.customer.admin.viewstaff.ViewStaffResponse;
+import com.example.e_supermarket.customer.features.PlaceOrder.PlaceOrderResponse;
 import com.example.e_supermarket.customer.features.cartresponse.CartQutChgResponse;
 import com.example.e_supermarket.customer.features.cartresponse.CartResponse;
 import com.example.e_supermarket.customer.features.cartresponse.RemoveAllResponse;
 import com.example.e_supermarket.customer.features.cartresponse.RemoveResponse;
 import com.example.e_supermarket.customer.features.chkoutresponse.CheckoutResponse;
 import com.example.e_supermarket.customer.features.customerresponse.RemoveStaffResponse;
+import com.example.e_supermarket.customer.staff.staffpay.StaffpayResponse;
 import com.example.e_supermarket.customer.staff.viewcustomerresponce.VcustResponse;
+import com.example.e_supermarket.customer.staff.vieword_response.ViewOrderResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -104,4 +107,16 @@ public interface ApiInterface
     @POST("removeprod.php")
     @FormUrlEncoded
     Call<RemoveProdResponse> removeProd(@Field("product_id") String product_id);
+
+    @POST("view_ord1.php")
+    @FormUrlEncoded
+    Call<ViewOrderResponse> vieworder(@Field("user_id") String user_id);
+
+    @POST("place_order.php")
+    @FormUrlEncoded
+    Call<PlaceOrderResponse> placeorder(@Field("user_id") String user_id);
+
+    @POST("newstaffpay.php")
+    @FormUrlEncoded
+    Call<StaffpayResponse> staffpay(@Field("user_id") String user_id);
 }

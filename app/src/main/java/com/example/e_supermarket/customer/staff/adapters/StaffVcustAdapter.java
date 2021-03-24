@@ -1,5 +1,6 @@
 package com.example.e_supermarket.customer.staff.adapters;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,9 +52,13 @@ public class StaffVcustAdapter extends RecyclerView.Adapter<StaffVcustAdapter.My
             @Override
             public void onClick(View v) {
                 //Toast.makeText(vcustFragment.getActivity(), "rfv", Toast.LENGTH_SHORT).show();
+                StaffVordFragment staffVordFragment = new StaffVordFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("cust_id", item.getUserId());
+                staffVordFragment.setArguments(bundle);
                 FragmentManager manager=vcustFragment.getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction=manager.beginTransaction();
-                transaction.replace(R.id.fl_staff,new StaffVordFragment());
+                transaction.replace(R.id.fl_staff,staffVordFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

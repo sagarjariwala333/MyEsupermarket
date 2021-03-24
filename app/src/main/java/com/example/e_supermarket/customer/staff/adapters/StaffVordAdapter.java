@@ -9,17 +9,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.staff.fragments.StaffVordFragment;
 import com.example.e_supermarket.customer.staff.models.Vord_model;
+import com.example.e_supermarket.customer.staff.vieword_response.SubarrItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StaffVordAdapter extends RecyclerView.Adapter<StaffVordAdapter.MyViewHolder> {
     private final StaffVordFragment staffVordFragment;
-    private final ArrayList<Vord_model> list;
+    private final List<SubarrItem> list;
 
-    public StaffVordAdapter(StaffVordFragment staffVordFragment, ArrayList<Vord_model> list) {
+    public StaffVordAdapter(StaffVordFragment staffVordFragment, List<SubarrItem> list) {
         this.staffVordFragment=staffVordFragment;
         this.list=list;
     }
@@ -33,14 +37,12 @@ public class StaffVordAdapter extends RecyclerView.Adapter<StaffVordAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull StaffVordAdapter.MyViewHolder holder, int position) {
-
-
-        holder.iv_vord.setImageResource(list.get(position).getImg_vord());
-        holder.tv_vordid.setText(list.get(position).getId_vord());
-        holder.tv_vordname.setText(list.get(position).getName_vord());
-        holder.tv_vordtype.setText(list.get(position).getType_vord());
-        holder.tv_vordqut.setText(list.get(position).getQut_vord());
-
+        SubarrItem subarrItem=list.get(position);
+        holder.tv_vordid.setText(subarrItem.getProductId());
+        holder.tv_vordname.setText(subarrItem.getProductName());
+        holder.tv_vordqut.setText(subarrItem.getProductQuantity());
+        holder.tv_vordtype.setText(subarrItem.getProductType());
+        Glide.with(staffVordFragment.getActivity()).load(ApiCliet.ASSET_URL+subarrItem.getProductImg()).into(holder.iv_vord);
     }
 
     @Override

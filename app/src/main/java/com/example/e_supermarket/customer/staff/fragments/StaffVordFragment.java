@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -12,10 +14,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.staff.adapters.StaffVordAdapter;
 import com.example.e_supermarket.customer.staff.models.Vord_model;
+import com.example.e_supermarket.customer.staff.staffpay.StaffpayResponse;
+import com.example.e_supermarket.customer.staff.vieword_response.ViewOrderResponse;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class StaffVordFragment extends Fragment {
@@ -25,6 +35,8 @@ public class StaffVordFragment extends Fragment {
     private ArrayList<Vord_model> list;
     private StaffVordAdapter mAdapter;
     private TextView tv_view;
+    private Button btn_plcord;
+    String cust_id = "";
 
 
     public StaffVordFragment() {
@@ -44,65 +56,56 @@ public class StaffVordFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_staff_vord, container, false);
+        btn_plcord = view.findViewById(R.id.btn_plcord);
 
-
+        cust_id = getArguments().getString("cust_id");
 
         rv_vord=view.findViewById(R.id.rv_vord);
         tv_view=view.findViewById(R.id.tv_view);
 
 
         setdata();
-        setadapter();
 
+        btn_plcord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
+                apiInterface.staffpay(cust_id).enqueue(new Callback<StaffpayResponse>() {
+                    @Override
+                    public void onResponse(Call<StaffpayResponse> call, Response<StaffpayResponse> response) {
+                        StaffpayResponse staffpayResponse = response.body();
+                        if(staffpayResponse.getSuccess4()==1) {
+                            Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<StaffpayResponse> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
         return view;
-    }
-
-    private void setadapter() {
-
-        mAdapter=new StaffVordAdapter(StaffVordFragment.this,list);
-        rv_vord.setAdapter(mAdapter);
-        rv_vord.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv_vord.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-
     }
 
     private void setdata() {
 
+        ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.vieworder(StaffVordFragment.this.getActivity().getIntent().getStringExtra("user_id")).enqueue(new Callback<ViewOrderResponse>() {
+            @Override
+            public void onResponse(Call<ViewOrderResponse> call, Response<ViewOrderResponse> response) {
+                mAdapter=new StaffVordAdapter(StaffVordFragment.this,response.body().getSubarr());
+                rv_vord.setAdapter(mAdapter);
+                rv_vord.setLayoutManager(new LinearLayoutManager(getContext()));
+                rv_vord.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+            }
 
-        list=new ArrayList<>();
+            @Override
+            public void onFailure(Call<ViewOrderResponse> call, Throwable t) {
 
-        Vord_model model1 = new Vord_model();
-        model1.setImg_vord(R.drawable.ic_launcher_background);
-        model1.setId_vord("P000001");
-        model1.setName_vord("Hide & Seek");
-        model1.setType_vord("Biscuit");
-        model1.setQut_vord("Q-005");
-        list.add(model1);
-
-        Vord_model model2 = new Vord_model();
-        model2.setImg_vord(R.drawable.ic_launcher_background);
-        model2.setId_vord("P000001");
-        model2.setName_vord("Dairy Milk");
-        model2.setType_vord("Chocolate");
-        model2.setQut_vord("Q-020");
-        list.add(model2);
-
-        Vord_model model3 = new Vord_model();
-        model3.setImg_vord(R.drawable.ic_launcher_background);
-        model3.setId_vord("P000003");
-        model3.setName_vord("Good day");
-        model3.setType_vord("Biscuit");
-        model3.setQut_vord("Q-010");
-        list.add(model3);
-
-        Vord_model model4 = new Vord_model();
-        model4.setImg_vord(R.drawable.ic_launcher_background);
-        model4.setId_vord("P000004");
-        model4.setName_vord("Dark Fantacy");
-        model4.setType_vord("Biscuit");
-        model4.setQut_vord("Q-015");
-        list.add(model4);
+            }
+        });
 
     }
 }
