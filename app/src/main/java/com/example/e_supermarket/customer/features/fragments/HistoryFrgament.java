@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,14 +20,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.Common.Variables;
+import com.example.e_supermarket.customer.PrefUtil;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.features.adapters.History_adapter;
 import com.example.e_supermarket.customer.features.models.History_model;
+import com.example.e_supermarket.customer.features.oldorders.OldOrderResponse;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HistoryFrgament extends Fragment {
 
@@ -53,37 +62,34 @@ public class HistoryFrgament extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_history_frgament, container, false);
-        rv_history=view.findViewById(R.id.rv_history);
-        tb_his=view.findViewById(R.id.tb_his);
+        View view = inflater.inflate(R.layout.fragment_history_frgament, container, false);
+        rv_history = view.findViewById(R.id.rv_history);
+        tb_his = view.findViewById(R.id.tb_his);
 
         setHasOptionsMenu(true);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(tb_his);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(tb_his);
 
         tb_his.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                FragmentManager manager=getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction=manager.beginTransaction();
-                transaction.replace(R.id.fl_cust,new HomeFragment());
+            public void onClick(View v) {
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.fl_cust, new HomeFragment());
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
 
         setdata();
-        setadapter();
 
-        ItemTouchHelper itemTouchHelper=new ItemTouchHelper(simpleCallback);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(rv_history);
 
         return view;
     }
 
 
-    ItemTouchHelper.SimpleCallback simpleCallback=new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT)
-    {
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView,
                               @NonNull RecyclerView.ViewHolder viewHolder,
@@ -92,27 +98,23 @@ public class HistoryFrgament extends Fragment {
         }
 
         @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
-        {
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-            switch (direction)
-            {
+            switch (direction) {
                 case ItemTouchHelper.LEFT:
-                    int position=viewHolder.getAdapterPosition();
-                    String removedbillid=null;
-                    removedbillid= list.get(position).getBill_id();
-                    History_model removedbill=list.get(position);
+                    int position = viewHolder.getAdapterPosition();
+                    String removedbillid = null;
+                    removedbillid = list.get(position).getBill_id();
+                    History_model removedbill = list.get(position);
                     list.remove(position);
                     mAdapter.notifyItemRemoved(position);
 
-                    Snackbar make = Snackbar.make(rv_history, "Bill ID :- "+removedbillid,
+                    Snackbar make = Snackbar.make(rv_history, "Bill ID :- " + removedbillid,
                             BaseTransientBottomBar.LENGTH_LONG);
-                    make.setAction("Undo", new View.OnClickListener()
-                    {
+                    make.setAction("Undo", new View.OnClickListener() {
                         @Override
-                        public void onClick(View v)
-                        {
-                            list.add(position,removedbill);
+                        public void onClick(View v) {
+                            list.add(position, removedbill);
                             mAdapter.notifyItemInserted(position);
                         }
                     }).show();
@@ -128,7 +130,7 @@ public class HistoryFrgament extends Fragment {
 
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder,
                     dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(),R.color.remove_item))
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(), R.color.remove_item))
                     .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete)
                     .create()
                     .decorate();
@@ -137,44 +139,27 @@ public class HistoryFrgament extends Fragment {
         }
     };
 
-    private void setadapter()
-    {
-        mAdapter=new History_adapter(HistoryFrgament.this,getActivity(),list);
-        rv_history.setAdapter(mAdapter);
-        rv_history.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv_history.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-    }
 
-    private void setdata()
-    {
-        list=new ArrayList<>();
+    private void setdata() {
+        list = new ArrayList<>();
 
-        History_model model1=new History_model();
-       // model1.setBill_img(R.drawable.ic_launcher_background);
-        model1.setBill_id("B000001");
-        model1.setBill_date("1-1-2021");
-        model1.setBill_amt("5000");
-        list.add(model1);
 
-        History_model model2=new History_model();
-     //   model2.setBill_img(R.drawable.ic_launcher_background);
-        model2.setBill_id("B000002");
-        model2.setBill_date("1-1-2021");
-        model2.setBill_amt("5000");
-        list.add(model2);
+        ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
 
-        History_model model3=new History_model();
-       // model3.setBill_img(R.drawable.ic_launcher_background);
-        model3.setBill_id("B000003");
-        model3.setBill_date("1-1-2021");
-        model3.setBill_amt("5000");
-        list.add(model3);
+        Toast.makeText(getActivity(), ""+ PrefUtil.getstringPref(Variables.userId,HistoryFrgament.this.getActivity()), Toast.LENGTH_SHORT).show();
+        apiInterface.getOldOrder(PrefUtil.getstringPref(Variables.userId,HistoryFrgament.this.getActivity())).enqueue(new Callback<OldOrderResponse>() {
+            @Override
+            public void onResponse(Call<OldOrderResponse> call, Response<OldOrderResponse> response) {
+                mAdapter = new History_adapter(HistoryFrgament.this, response.body().getSubarray());
+                rv_history.setAdapter(mAdapter);
+                rv_history.setLayoutManager(new LinearLayoutManager(getContext()));
+                rv_history.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+            }
 
-        History_model model4=new History_model();
-       // model4.setBill_img(R.drawable.ic_launcher_background);
-        model4.setBill_id("B000003");
-        model4.setBill_date("1-1-2021");
-        model4.setBill_amt("5000");
-        list.add(model4);
+            @Override
+            public void onFailure(Call<OldOrderResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

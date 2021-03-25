@@ -9,21 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.features.fragments.History_prod_Fragment;
-import com.example.e_supermarket.customer.features.models.History_prod_model;
+import com.example.e_supermarket.customer.features.oldordprod.SubarrayItem;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class History_prod_adapter extends RecyclerView.Adapter<History_prod_adapter.MyViewHolder>
 {
 
-    private final ArrayList<History_prod_model> list;
-    private final History_prod_Fragment history_prod_fragment;
 
-    public History_prod_adapter(History_prod_Fragment history_prod_fragment, ArrayList<History_prod_model> list) {
-        this.list=list;
+    private final History_prod_Fragment history_prod_fragment;
+    private final List<SubarrayItem> list;
+
+    public History_prod_adapter(History_prod_Fragment history_prod_fragment, List<SubarrayItem> subarray) {
         this.history_prod_fragment=history_prod_fragment;
+        this.list=subarray;
     }
 
     @NonNull
@@ -37,12 +40,15 @@ public class History_prod_adapter extends RecyclerView.Adapter<History_prod_adap
     public void onBindViewHolder(@NonNull History_prod_adapter.MyViewHolder holder, int position)
     {
 
-        holder.iv_his.setImageResource(list.get(position).getHis_pimg());
-        holder.tv_hisprodid.setText(list.get(position).getHis_pid());
-        holder.tv_hispordname.setText(list.get(position).getHis_pname());
-        holder.tv_hispordprice.setText(list.get(position).getHis_pprice());
-        holder.tv_hisqut.setText(list.get(position).getHis_pqut());
+        SubarrayItem item=list.get(position);
+        holder.tv_hisprodid.setText(item.getProductId());
+        holder.tv_hispordname.setText(item.getProductName());
+        holder.tv_hisqut.setText(item.getProductQuantity());
+        holder.tv_hispordprice.setText(item.getProductPrice());
 
+        Glide.with(history_prod_fragment.getActivity()).load(ApiCliet.ASSET_URL+item.getProductImg())
+                .placeholder(R.drawable.ic_baseline_add)
+                .into(holder.iv_his);
     }
 
     @Override

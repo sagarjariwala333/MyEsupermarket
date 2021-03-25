@@ -13,12 +13,16 @@ import com.example.e_supermarket.customer.admin.adminresponses.RemoveStockRespon
 import com.example.e_supermarket.customer.admin.viewprod.ViewProdResponse;
 import com.example.e_supermarket.customer.admin.viewstaff.ViewStaffResponse;
 import com.example.e_supermarket.customer.features.PlaceOrder.PlaceOrderResponse;
+import com.example.e_supermarket.customer.features.cartresponse.AddToCartResponse;
 import com.example.e_supermarket.customer.features.cartresponse.CartQutChgResponse;
 import com.example.e_supermarket.customer.features.cartresponse.CartResponse;
 import com.example.e_supermarket.customer.features.cartresponse.RemoveAllResponse;
 import com.example.e_supermarket.customer.features.cartresponse.RemoveResponse;
 import com.example.e_supermarket.customer.features.chkoutresponse.CheckoutResponse;
 import com.example.e_supermarket.customer.features.customerresponse.RemoveStaffResponse;
+import com.example.e_supermarket.customer.features.oldorders.OldOrderResponse;
+import com.example.e_supermarket.customer.features.oldordprod.OldProductResponse;
+import com.example.e_supermarket.customer.profileresponses.UpdateProfileResponse;
 import com.example.e_supermarket.customer.staff.staffpay.StaffpayResponse;
 import com.example.e_supermarket.customer.staff.viewcustomerresponce.VcustResponse;
 import com.example.e_supermarket.customer.staff.vieword_response.ViewOrderResponse;
@@ -119,4 +123,21 @@ public interface ApiInterface
     @POST("newstaffpay.php")
     @FormUrlEncoded
     Call<StaffpayResponse> staffpay(@Field("user_id") String user_id);
+
+    @POST("his_ord.php")
+    @FormUrlEncoded
+    Call<OldOrderResponse> getOldOrder(@Field("user_id") String user_id);
+
+    @POST("his_prod.php")
+    @FormUrlEncoded
+    Call<OldProductResponse> getOldProd(@Field("user_id") String user_id, @Field("order_id") String order_id);
+
+    @POST("addtocart.php")
+    @FormUrlEncoded
+    Call<AddToCartResponse> addToCart(@Field("user_id") String user_id
+                                      ,@Field("product_id") String product_id
+                                      ,@Field("product_quantity") String product_quantity);
+
+    @POST("updatestaff.php")
+    Call<UpdateProfileResponse> updateData(@Body RequestBody requestBody);
 }

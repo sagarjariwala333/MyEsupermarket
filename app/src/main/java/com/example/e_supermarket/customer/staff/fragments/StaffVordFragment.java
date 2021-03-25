@@ -35,7 +35,7 @@ public class StaffVordFragment extends Fragment {
     private ArrayList<Vord_model> list;
     private StaffVordAdapter mAdapter;
     private TextView tv_view;
-    private Button btn_plcord;
+    private Button btn_staff_pay;
     String cust_id = "";
 
 
@@ -56,7 +56,7 @@ public class StaffVordFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_staff_vord, container, false);
-        btn_plcord = view.findViewById(R.id.btn_plcord);
+        btn_staff_pay = view.findViewById(R.id.btn_staff_pay);
 
         cust_id = getArguments().getString("cust_id");
 
@@ -66,7 +66,7 @@ public class StaffVordFragment extends Fragment {
 
         setdata();
 
-        btn_plcord.setOnClickListener(new View.OnClickListener() {
+        btn_staff_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
@@ -95,7 +95,7 @@ public class StaffVordFragment extends Fragment {
         apiInterface.vieworder(StaffVordFragment.this.getActivity().getIntent().getStringExtra("user_id")).enqueue(new Callback<ViewOrderResponse>() {
             @Override
             public void onResponse(Call<ViewOrderResponse> call, Response<ViewOrderResponse> response) {
-                mAdapter=new StaffVordAdapter(StaffVordFragment.this,response.body().getSubarr());
+                mAdapter=new StaffVordAdapter(StaffVordFragment.this,response.body().getSubarray());
                 rv_vord.setAdapter(mAdapter);
                 rv_vord.setLayoutManager(new LinearLayoutManager(getContext()));
                 rv_vord.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));

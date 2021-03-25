@@ -26,14 +26,15 @@ import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.features.adapters.Cart_adapter;
 import com.example.e_supermarket.customer.features.cartresponse.CartResponse;
 import com.example.e_supermarket.customer.features.cartresponse.RemoveAllResponse;
-import com.example.e_supermarket.customer.features.models.Cart_model;
+import com.example.e_supermarket.customer.features.cartresponse.RemoveResponse;
+import com.example.e_supermarket.customer.features.cartresponse.SubarrayItem;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 import retrofit2.Call;
@@ -45,7 +46,7 @@ public class CartFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private RecyclerView rv_cart;
-    private ArrayList<Cart_model> list=new ArrayList<Cart_model>();
+    private List<SubarrayItem> list;
     private Cart_adapter mAdapter;
     private Button btn_checkout;
     private BottomAppBar btmapp_cust;
@@ -167,36 +168,35 @@ public class CartFragment extends Fragment {
                 });
     }
 
-    ItemTouchHelper.SimpleCallback simpleCallback=new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+    final ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
 
         @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction)
-        {
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-            switch (direction)
-            {
+            switch (direction) {
                 case ItemTouchHelper.LEFT:
-                    int position=viewHolder.getAdapterPosition();
-                    String removedpname=list.get(position).getP_name();
-                    Cart_model removedcartprod=list.get(position);
+                    int position = viewHolder.getAdapterPosition();
+                    String removedpname = list.get(position).getProductName();
+                    SubarrayItem removedcartprod = list.get(position);
 
                     //Removing item
                     list.remove(position);
-
-
-                    mAdapter.notifyItemRemoved(position);
-
-
-                    Snackbar make=Snackbar.make(rv_cart,removedpname, BaseTransientBottomBar.LENGTH_LONG);
+                    met_cartitemremove(list.get(position).getProductId());
+                    FragmentManager manager=getActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction=manager.beginTransaction();
+                    transaction.replace(R.id.fl_cust,new CartFragment());
+                    transaction.commit();
+                    //mAdapter.notifyItemRemoved(position);
+                    Snackbar make = Snackbar.make(rv_cart, removedpname, BaseTransientBottomBar.LENGTH_LONG);
 
                     make.setAction("Undo", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            list.add(position,removedcartprod);
+                            list.add(position, removedcartprod);
                             mAdapter.notifyItemInserted(position);
                         }
                     }).show();
@@ -211,7 +211,7 @@ public class CartFragment extends Fragment {
 
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder,
                     dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(),R.color.remove_item))
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(), R.color.remove_item))
                     .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete)
                     .create()
                     .decorate();
@@ -220,16 +220,37 @@ public class CartFragment extends Fragment {
         }
     };
 
+    private void met_cartitemremove(String productId)
+    {
+        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.removecart(getActivity().getIntent().getStringExtra("user_id"),productId)
+                .enqueue(new Callback<RemoveResponse>() {
+                    @Override
+                    public void onResponse(Call<RemoveResponse> call, Response<RemoveResponse> response) {
+                        Toast.makeText(getContext(), "Removed", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<RemoveResponse> call, Throwable t) {
+
+                    }
+                });
+    }
+
     private void setdata()
     {
 
         ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
-        apiInterface.getCart(getActivity().getIntent().getStringExtra("user_id")).enqueue(new Callback<CartResponse>() {
+        apiInterface.getCart(getActivity().getIntent().getStringExtra("user_id")).enqueue(new Callback<CartResponse>()
+        {
             @Override
-            public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
-                mAdapter=new Cart_adapter(CartFragment.this,response.body().getSubarray());
-                rv_cart.setAdapter(mAdapter);
-                rv_cart.setLayoutManager(new LinearLayoutManager(getContext()));
+            public void onResponse(Call<CartResponse> call, Response<CartResponse> response)
+            {
+                    list=response.body().getSubarray();
+                    mAdapter = new Cart_adapter(CartFragment.this, list);
+                    rv_cart.setAdapter(mAdapter);
+                    rv_cart.setLayoutManager(new LinearLayoutManager(getContext()));
+
             }
 
             @Override
@@ -237,7 +258,6 @@ public class CartFragment extends Fragment {
 
             }
         });
-
     }
 
     @Override

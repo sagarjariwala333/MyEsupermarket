@@ -1,12 +1,12 @@
 package com.example.e_supermarket.customer.features.adapters;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,45 +14,47 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.features.fragments.HistoryFrgament;
 import com.example.e_supermarket.customer.features.fragments.History_prod_Fragment;
-import com.example.e_supermarket.customer.features.models.History_model;
+import com.example.e_supermarket.customer.features.oldorders.SubarrayItem;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class History_adapter extends RecyclerView.Adapter<History_adapter.MyViewHolder>
-{
-    private final HistoryFrgament Historyfragment;
-    private final ArrayList<History_model> list;
-    private final FragmentActivity mactivity;
+public class History_adapter extends RecyclerView.Adapter<History_adapter.MyViewHolder> {
 
-    public History_adapter(HistoryFrgament historyFrgament, FragmentActivity activity, ArrayList<History_model> list)
+    private final HistoryFrgament historyFrgament;
+    private final List<SubarrayItem> list;
+
+
+    public History_adapter(HistoryFrgament historyFrgament, List<SubarrayItem> subarray)
     {
-        this.Historyfragment=historyFrgament;
-        this.mactivity=activity;
-        this.list=list;
+        this.historyFrgament=historyFrgament;
+        this.list=subarray;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.onecell_history,parent,false);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.onecell_history, parent, false);
         return new History_adapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
-    {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        SubarrayItem item = list.get(position);
         //holder.iv_bill.setImageResource(list.get(position).getBill_img());
-        holder.tv_billid.setText(list.get(position).getBill_id());
-        holder.tv_billdate.setText(list.get(position).getBill_date());
-        holder.tv_billamt.setText(list.get(position).getBill_amt());
+        holder.tv_billid.setText(item.getOldOrderid());
+        holder.tv_billdate.setText(item.getDateOldorders());
+        holder.tv_billamt.setText("7000");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager manager=mactivity.getSupportFragmentManager();
-                FragmentTransaction transaction=manager.beginTransaction();
-                transaction.replace(R.id.fl_cust,new History_prod_Fragment());
+                Bundle bundle = new Bundle();
+                History_prod_Fragment history_prod_fragment = new History_prod_Fragment();
+                bundle.putString("order_id", item.getOrderId());
+                history_prod_fragment.setArguments(bundle);
+                FragmentManager manager = historyFrgament.getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.fl_cust, history_prod_fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -72,10 +74,10 @@ public class History_adapter extends RecyclerView.Adapter<History_adapter.MyView
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-           // iv_bill=itemView.findViewById(R.id.iv_bill);
-            tv_billid=itemView.findViewById(R.id.tv_billid);
-            tv_billdate=itemView.findViewById(R.id.tv_billdate);
-            tv_billamt=itemView.findViewById(R.id.tv_billamt);
+            // iv_bill=itemView.findViewById(R.id.iv_bill);
+            tv_billid = itemView.findViewById(R.id.tv_billid);
+            tv_billdate = itemView.findViewById(R.id.tv_billdate);
+            tv_billamt = itemView.findViewById(R.id.tv_billamt);
         }
 
     }

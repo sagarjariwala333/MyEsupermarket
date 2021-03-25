@@ -1,9 +1,9 @@
-package com.example.e_supermarket.customer.staff.vieword_response;
+package com.example.e_supermarket.customer.features.oldordprod;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ViewOrderResponse{
+public class OldProductResponse{
 
 	@SerializedName("subarray")
 	private List<SubarrayItem> subarray;
@@ -19,7 +19,7 @@ public class ViewOrderResponse{
 	@Override
  	public String toString(){
 		return 
-			"ViewOrderResponse{" + 
+			"OldProductResponse{" + 
 			"subarray = '" + subarray + '\'' + 
 			"}";
 		}

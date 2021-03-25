@@ -24,6 +24,9 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
+import com.example.e_supermarket.customer.features.cartresponse.AddToCartResponse;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -31,6 +34,10 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ScannerFragment extends Fragment {
@@ -119,10 +126,12 @@ public class ScannerFragment extends Fragment {
                                                 @Override
                                                 public void onClick(View v)
                                                 {
+                                                    met_addtocart();
                                                     dialog.dismiss();
+                                                    //startActivity(ScannerFragment.this.getActivity());
                                                     FragmentManager manager=getActivity().getSupportFragmentManager();
                                                     FragmentTransaction transaction=manager.beginTransaction();
-                                                    transaction.replace(R.id.fl_cust,new CartFragment());
+                                                    transaction.replace(R.id.fl_cust,new HomeFragment<>());
                                                     transaction.addToBackStack(null);
                                                     transaction.commit();
                                                 }
@@ -195,6 +204,30 @@ public class ScannerFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void met_addtocart() {
+        ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.addToCart(getActivity().getIntent().getStringExtra("user_id")
+        ,tv_pid_alert.getText().toString()
+        ,et_disstock_alert.getText().toString())
+                .enqueue(new Callback<AddToCartResponse>() {
+                    @Override
+                    public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
+                        AddToCartResponse addToCartResponse = response.body();
+                        if (addToCartResponse.getSuccess() == 1)
+                        {
+                            Toast.makeText(getActivity(), "Added", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<AddToCartResponse> call, Throwable t) {
+
+                    }
+                });
     }
 
     @Override

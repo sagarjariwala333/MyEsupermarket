@@ -1,6 +1,7 @@
 package com.example.e_supermarket.customer.features.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.Common.Mob;
+import com.example.e_supermarket.customer.Common.Variables;
+import com.example.e_supermarket.customer.PrefUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -51,6 +55,7 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        Toast.makeText(getActivity(), ""+PrefUtil.getstringPref(Variables.userId,getActivity()), Toast.LENGTH_SHORT).show();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         tb_home=view.findViewById(R.id.tb_home);
@@ -118,6 +123,13 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
                 break;
 
             case R.id.nav_signout:
+                PrefUtil.removeString(Variables.userId,getActivity());
+                PrefUtil.removeString(Variables.role,getActivity());
+                PrefUtil.removeBoolean(Variables.isLoggedIn,getActivity());
+                PrefUtil.clearPreference(getActivity());
+                Intent intent=new Intent(HomeFragment.this.getActivity(), Mob.class);
+                getActivity().startActivity(intent);
+                getActivity().finish();
                 break;
 
             case R.id.nav_wishlist:

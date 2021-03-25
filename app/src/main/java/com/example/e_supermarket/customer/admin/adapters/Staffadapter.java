@@ -1,14 +1,15 @@
  package com.example.e_supermarket.customer.admin.adapters;
 
  import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
- import android.widget.Toast;
+import android.widget.Toast;
 
- import androidx.annotation.NonNull;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -20,14 +21,14 @@ import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.admin.fragments.UpdateProfileFragment;
 import com.example.e_supermarket.customer.admin.viewstaff.SubarrayItem;
 import com.example.e_supermarket.customer.api.ApiCliet;
- import com.example.e_supermarket.customer.api.ApiInterface;
- import com.example.e_supermarket.customer.features.customerresponse.RemoveStaffResponse;
+import com.example.e_supermarket.customer.api.ApiInterface;
+import com.example.e_supermarket.customer.features.customerresponse.RemoveStaffResponse;
 
- import java.util.List;
+import java.util.List;
 
- import retrofit2.Call;
- import retrofit2.Callback;
- import retrofit2.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
  public class Staffadapter extends RecyclerView.Adapter<Staffadapter.MyViewHolder> {
 
@@ -101,9 +102,13 @@ import com.example.e_supermarket.customer.api.ApiCliet;
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
+                        UpdateProfileFragment updateProfileFragment= new UpdateProfileFragment();
+                        Bundle bundle=new Bundle();
+                        bundle.putString("staff_id",subarrayItem.getUserId());
+                        updateProfileFragment.setArguments(bundle);
                         FragmentManager manager=mActivity.getSupportFragmentManager();
                         FragmentTransaction transaction=manager.beginTransaction();
-                        transaction.replace(R.id.frame,new UpdateProfileFragment());
+                        transaction.replace(R.id.frame,updateProfileFragment);
                         transaction.addToBackStack(null);
                         transaction.commit();
                     }

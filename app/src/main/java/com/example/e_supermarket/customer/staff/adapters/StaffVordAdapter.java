@@ -13,17 +13,15 @@ import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.staff.fragments.StaffVordFragment;
-import com.example.e_supermarket.customer.staff.models.Vord_model;
-import com.example.e_supermarket.customer.staff.vieword_response.SubarrItem;
+import com.example.e_supermarket.customer.staff.vieword_response.SubarrayItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StaffVordAdapter extends RecyclerView.Adapter<StaffVordAdapter.MyViewHolder> {
     private final StaffVordFragment staffVordFragment;
-    private final List<SubarrItem> list;
+    private final List<SubarrayItem> list;
 
-    public StaffVordAdapter(StaffVordFragment staffVordFragment, List<SubarrItem> list) {
+    public StaffVordAdapter(StaffVordFragment staffVordFragment, List<SubarrayItem> list) {
         this.staffVordFragment=staffVordFragment;
         this.list=list;
     }
@@ -37,7 +35,7 @@ public class StaffVordAdapter extends RecyclerView.Adapter<StaffVordAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull StaffVordAdapter.MyViewHolder holder, int position) {
-        SubarrItem subarrItem=list.get(position);
+        SubarrayItem subarrItem=list.get(position);
         holder.tv_vordid.setText(subarrItem.getProductId());
         holder.tv_vordname.setText(subarrItem.getProductName());
         holder.tv_vordqut.setText(subarrItem.getProductQuantity());

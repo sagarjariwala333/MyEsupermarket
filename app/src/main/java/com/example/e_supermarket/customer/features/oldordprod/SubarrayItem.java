@@ -1,17 +1,17 @@
-package com.example.e_supermarket.customer.staff.vieword_response;
+package com.example.e_supermarket.customer.features.oldordprod;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SubarrItem{
-
-	@SerializedName("product_type")
-	private String productType;
+public class SubarrayItem{
 
 	@SerializedName("user_id")
 	private String userId;
 
 	@SerializedName("product_id")
 	private String productId;
+
+	@SerializedName("product_price")
+	private String productPrice;
 
 	@SerializedName("product_name")
 	private String productName;
@@ -20,15 +20,7 @@ public class SubarrItem{
 	private String productQuantity;
 
 	@SerializedName("product_img")
-	private Object productImg;
-
-	public void setProductType(String productType){
-		this.productType = productType;
-	}
-
-	public String getProductType(){
-		return productType;
-	}
+	private String productImg;
 
 	public void setUserId(String userId){
 		this.userId = userId;
@@ -44,6 +36,14 @@ public class SubarrItem{
 
 	public String getProductId(){
 		return productId;
+	}
+
+	public void setProductPrice(String productPrice){
+		this.productPrice = productPrice;
+	}
+
+	public String getProductPrice(){
+		return productPrice;
 	}
 
 	public void setProductName(String productName){
@@ -62,21 +62,21 @@ public class SubarrItem{
 		return productQuantity;
 	}
 
-	public void setProductImg(Object productImg){
+	public void setProductImg(String productImg){
 		this.productImg = productImg;
 	}
 
-	public Object getProductImg(){
+	public String getProductImg(){
 		return productImg;
 	}
 
 	@Override
  	public String toString(){
 		return 
-			"SubarrItem{" + 
-			"product_type = '" + productType + '\'' + 
-			",user_id = '" + userId + '\'' + 
+			"SubarrayItem{" + 
+			"user_id = '" + userId + '\'' + 
 			",product_id = '" + productId + '\'' + 
+			",product_price = '" + productPrice + '\'' + 
 			",product_name = '" + productName + '\'' + 
 			",product_quantity = '" + productQuantity + '\'' + 
 			",product_img = '" + productImg + '\'' + 
