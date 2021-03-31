@@ -41,9 +41,9 @@ public class History_adapter extends RecyclerView.Adapter<History_adapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         SubarrayItem item = list.get(position);
         //holder.iv_bill.setImageResource(list.get(position).getBill_img());
-        holder.tv_billid.setText(item.getOldOrderid());
-        holder.tv_billdate.setText(item.getDateOldorders());
-        holder.tv_billamt.setText("7000");
+        holder.tv_billid.setText("Order ID :- "+item.getOrderId());
+        holder.tv_billdate.setText("Order Date :- "+item.getDateOldorders());
+        holder.tv_billamt.setText("Total amount :- "+item.getOldOrderid());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,7 +1,11 @@
 package com.example.e_supermarket.customer.admin.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,6 +21,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.Common.Mob;
+import com.example.e_supermarket.customer.Common.Variables;
+import com.example.e_supermarket.customer.PrefUtil;
 import com.example.e_supermarket.customer.admin.adapters.Staffadapter;
 import com.example.e_supermarket.customer.admin.viewstaff.ViewStaffResponse;
 import com.example.e_supermarket.customer.admin.models.Sportmodel;
@@ -158,5 +165,28 @@ public class fragment_Staff extends Fragment
             }
         });
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu,inflater);
+        getActivity().getMenuInflater().inflate(R.menu.signout,menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.tool_signout:
+                PrefUtil.removeString(Variables.userId,getActivity());
+                PrefUtil.removeString(Variables.role,getActivity());
+                PrefUtil.removeBoolean(Variables.isLoggedIn,getActivity());
+                PrefUtil.clearPreference(getActivity());
+                Intent intent=new Intent(getActivity(), Mob.class);
+                startActivity(intent);
+        }
+        return true;
     }
 }

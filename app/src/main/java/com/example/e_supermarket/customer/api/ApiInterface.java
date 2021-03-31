@@ -8,22 +8,25 @@ import com.example.e_supermarket.customer.ProfileResponse;
 import com.example.e_supermarket.customer.admin.adminresponses.AddProdResponse;
 import com.example.e_supermarket.customer.admin.adminresponses.AddStaffResponse;
 import com.example.e_supermarket.customer.admin.adminresponses.AddStockResponse;
+import com.example.e_supermarket.customer.admin.adminresponses.LoadProductResponse;
 import com.example.e_supermarket.customer.admin.adminresponses.RemoveProdResponse;
 import com.example.e_supermarket.customer.admin.adminresponses.RemoveStockResponse;
+import com.example.e_supermarket.customer.admin.adminresponses.UpdateProductResponse;
 import com.example.e_supermarket.customer.admin.viewprod.ViewProdResponse;
 import com.example.e_supermarket.customer.admin.viewstaff.ViewStaffResponse;
+import com.example.e_supermarket.customer.features.PlaceOrder.CustomerPayResponse;
 import com.example.e_supermarket.customer.features.PlaceOrder.PlaceOrderResponse;
 import com.example.e_supermarket.customer.features.cartresponse.AddToCartResponse;
 import com.example.e_supermarket.customer.features.cartresponse.CartQutChgResponse;
 import com.example.e_supermarket.customer.features.cartresponse.CartResponse;
 import com.example.e_supermarket.customer.features.cartresponse.RemoveAllResponse;
 import com.example.e_supermarket.customer.features.cartresponse.RemoveResponse;
-import com.example.e_supermarket.customer.features.chkoutresponse.CheckoutResponse;
 import com.example.e_supermarket.customer.features.customerresponse.RemoveStaffResponse;
 import com.example.e_supermarket.customer.features.oldorders.OldOrderResponse;
 import com.example.e_supermarket.customer.features.oldordprod.OldProductResponse;
 import com.example.e_supermarket.customer.profileresponses.UpdateProfileResponse;
 import com.example.e_supermarket.customer.staff.staffpay.StaffpayResponse;
+import com.example.e_supermarket.customer.staff.updatestaffpojo.UpdateFlagResponse;
 import com.example.e_supermarket.customer.staff.viewcustomerresponce.VcustResponse;
 import com.example.e_supermarket.customer.staff.vieword_response.ViewOrderResponse;
 
@@ -57,10 +60,6 @@ public interface ApiInterface
     @POST("addstaff.php")
     Call<AddStaffResponse> addstaff(@Body RequestBody addstaffBody);
 
-    @POST("profile.php")
-    @FormUrlEncoded
-    Call<ProfileResponse> profile(@Field("user_id") String user_id, @Field("role") String role);
-
     @POST("view_staff.php")
     Call<ViewStaffResponse> viewstaff();
 
@@ -73,9 +72,9 @@ public interface ApiInterface
     @POST("view_cust1.php")
     Call<VcustResponse> vcust();
 
-    @POST
+    @POST("profile.php")
     @FormUrlEncoded
-    Call<CheckoutResponse> checkout(@Field("user_id") String user_id);
+    Call<ProfileResponse> profile(@Field("user_id") String user_id, @Field("role") String role);
 
     @POST("view_cart.php")
     @FormUrlEncoded
@@ -114,7 +113,8 @@ public interface ApiInterface
 
     @POST("view_ord1.php")
     @FormUrlEncoded
-    Call<ViewOrderResponse> vieworder(@Field("user_id") String user_id);
+    Call<ViewOrderResponse> vieworder(@Field("user_id") String user_id
+                                      ,@Field("order_id") String order_id);
 
     @POST("place_order.php")
     @FormUrlEncoded
@@ -122,7 +122,8 @@ public interface ApiInterface
 
     @POST("newstaffpay.php")
     @FormUrlEncoded
-    Call<StaffpayResponse> staffpay(@Field("user_id") String user_id);
+    Call<StaffpayResponse> staffpay(@Field("user_id") String user_id
+                                    ,@Field("order_id") String order_id);
 
     @POST("his_ord.php")
     @FormUrlEncoded
@@ -136,8 +137,26 @@ public interface ApiInterface
     @FormUrlEncoded
     Call<AddToCartResponse> addToCart(@Field("user_id") String user_id
                                       ,@Field("product_id") String product_id
-                                      ,@Field("product_quantity") String product_quantity);
+                                      ,@Field("product_quantity") String product_quantity
+                                      ,@Field("price") String price);
 
     @POST("updatestaff.php")
     Call<UpdateProfileResponse> updateData(@Body RequestBody requestBody);
+
+    @POST("updateprod.php")
+    Call<UpdateProductResponse> updateProduct(@Body RequestBody requestBody);
+
+    @POST("loadprod.php")
+    @FormUrlEncoded
+    Call<LoadProductResponse> loadProduct(@Field("product_id") String product_id);
+
+    @POST("cust_pay.php")
+    @FormUrlEncoded
+    Call<CustomerPayResponse> custPay(@Field("user_id") String user_id
+                                      ,@Field("order_id") String order_id);
+
+    @POST("updateflag.php")
+    @FormUrlEncoded
+    Call<UpdateFlagResponse> updateFlag(@Field("user_id") String user_id
+                                        ,@Field("order_id") String order_id);
 }

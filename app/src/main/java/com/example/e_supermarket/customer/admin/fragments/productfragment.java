@@ -191,6 +191,7 @@ public class productfragment extends Fragment implements PickiTCallbacks {
         return view;
     }
 
+
     private void met_uploaddata()
     {
         ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
@@ -327,6 +328,7 @@ public class productfragment extends Fragment implements PickiTCallbacks {
     private void met_upload(File file)
     {
         image_name = file.getName();
+        Toast.makeText(getActivity(), ""+image_name, Toast.LENGTH_SHORT).show();
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
         RequestBody requestBody= RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imgpart = MultipartBody.Part.createFormData("id_photo",file.getName(), requestBody);

@@ -10,7 +10,7 @@
         app:cardElevation="15dp"
         app:cardCornerRadius="30dp"
         android:layout_height="wrap_content">
-
+<!--
     <RelativeLayout
         android:layout_marginBottom="15dp"
         android:layout_marginTop= "15dp"
@@ -23,7 +23,7 @@
         <RelativeLayout
             android:id="@+id/rl1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content">-->
 
 
            <!-- <ImageButton
@@ -37,13 +37,58 @@
                 />-->
 
 
-           <!-- <GridLayout
+           <GridLayout
                 android:rowCount="4"
                 android:columnCount="2"
                 android:paddingVertical="10dp"
                 android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
-                android:layout_height="75dp">-->
+                android:layout_height="75dp">
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="B001"
+                   android:layout_alignParentLeft="true"
+                   android:textColor="@color/black"
+                   android:layout_row="0"
+                   android:layout_column="1"
+                   android:id="@+id/tv_billid"/>
+
+               <TextView
+                   android:text="Bill Date"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:textColor="@color/black"
+                   android:layout_row="1"
+                   android:layout_column="1"
+                   android:id="@+id/tv_billdate"/>
+
+               <TextView
+                   android:id="@+id/tv_billamt"
+                   android:text="Bill Amount"
+                   android:layout_row="2"
+                   android:textColor="@color/black"
+                   android:layout_column="1"
+
+                   />
+
+             <!--  <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="2000bjbkjbkj"
+                   android:id="@+id/tv_billamt"
+                   android:layout_marginRight="10dp"
+                   android:textSize="18dp"
+                   android:layout_row="2"
+                   android:layout_column="1"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   />
+-->
+
+           </GridLayout>
 
 
               <!--  <TextView
@@ -56,16 +101,7 @@
                     android:layout_column="0"
                     android:id="@+id/label_billid"/>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="B001"
-                    android:textSize="18dp"
-                    android:layout_alignParentLeft="true"
-                    android:textColor="@color/black"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:id="@+id/tv_billid"/>
+
 
                <!-- <TextView
                     android:text="Bill Date"
@@ -78,16 +114,7 @@
                     android:layout_column="0"
                     android:id="@+id/label_billdate"/>-->
 
-                <TextView
-                    android:text="Bill Date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/black"
-                    android:layout_row="1"
-                    android:layout_column="1"
-                    android:id="@+id/tv_billdate"/>
+
 
                <!-- <TextView
                     android:text="Total Amount"
@@ -114,25 +141,12 @@
 
            <!-- </GridLayout>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2000"
-                    android:id="@+id/tv_billamt"
-                    android:textColor="@color/black"
-                    android:layout_marginRight="10dp"
-                    android:textSize="18dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    />
 
-
-
-        </RelativeLayout>
+      <!--  </RelativeLayout>
 
 
     </RelativeLayout>
-
+-->
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

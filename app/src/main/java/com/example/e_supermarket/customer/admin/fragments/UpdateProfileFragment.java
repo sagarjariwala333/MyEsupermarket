@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
@@ -47,7 +49,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
     private CircleImageView iv_profile;
     int SELECT_IMAGE_CODE=1;
     PickiT pickiT;
-    private String image_name;
+    private String image_name="";
     private Button btn_updateprof;
     private EditText et_fname,et_lname,et_email,et_gen;
     String staff_id = "";
@@ -126,8 +128,9 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
                     et_fname.setText(profileResponse.getFirstName());
                     et_lname.setText(profileResponse.getLastName());
                     et_email.setText(profileResponse.getEmail());
-                    et_cnum.setText(profileResponse.getMobileNo());
+                   // et_cnum.setText(profileResponse.getMobileNo());
                     et_gen.setText(profileResponse.getGender());
+                    image_name=profileResponse.getId_photo();
                     Toast.makeText(getActivity(), ""+ApiCliet.ASSET_URL+profileResponse.getId_photo(), Toast.LENGTH_SHORT).show();
                     Glide
                             .with(getActivity())
@@ -153,7 +156,6 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
                 .addFormDataPart("last_name",et_lname.getText().toString().trim())
                 .addFormDataPart("email",et_email.getText().toString().trim())
                 .addFormDataPart("gender",et_gen.getText().toString().trim())
-                .addFormDataPart("mobile_no",et_cnum.getText().toString().trim())
                 .addFormDataPart("role","S")
                 .addFormDataPart("id_photo",image_name)
                 .build();
@@ -162,6 +164,11 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
             @Override
             public void onResponse(Call<UpdateProfileResponse> call, Response<UpdateProfileResponse> response) {
                 Toast.makeText(getActivity(), "Data Updated", Toast.LENGTH_SHORT).show();
+                FragmentManager manager=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                transaction.replace(R.id.frame,new fragment_Staff());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
 
             @Override

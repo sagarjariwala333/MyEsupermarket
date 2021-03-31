@@ -65,12 +65,14 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.MyViewHolder
             @Override
             public void onClick(View v)
             {
-
                 int num= Integer.parseInt(holder.et_disstock.getText().toString());
                 num=num+1;
                 String str= String.valueOf(num);
                 holder.et_disstock.setText(str);
-
+                int price= Integer.parseInt(holder.tv_price.getText().toString());
+                price=price*2;
+                String str1= String.valueOf(price);
+                holder.tv_price.setText(str1);
             }
         });
 
@@ -78,15 +80,17 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.MyViewHolder
             @Override
             public void onClick(View v)
             {
-
                 int num= Integer.parseInt(holder.et_disstock.getText().toString());
                 if (num!=0)
                 {
                     num = num - 1;
                     String str = String.valueOf(num);
                     holder.et_disstock.setText(str);
+                    int price= Integer.parseInt(holder.tv_price.getText().toString());
+                    price=price/2;
+                    String str1= String.valueOf(price);
+                    holder.tv_price.setText(str1);
                 }
-
             }
         });
 

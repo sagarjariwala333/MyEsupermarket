@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -63,7 +64,10 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
     private String filepath1;
     Uri uri1;
     String image_name = "";
+    String gen="";
     private EditText et_mobile;
+    private RadioButton rb_male;
+    private RadioButton rb_female;
 
     public AddStaffFragment() {
         // Required empty public constructor
@@ -94,8 +98,18 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
         et_mobile=view.findViewById(R.id.et_mobile);
         iv_profile=view.findViewById(R.id.iv_profile);
         btn_addstaff=view.findViewById(R.id.btn_addstaff);
+        rb_male=view.findViewById(R.id.rb_male);
+        rb_female=view.findViewById(R.id.rb_female);
 
 
+        if (rb_male.isChecked())
+        {
+            gen="Male";
+        }
+        if (rb_female.isChecked())
+        {
+            gen="Female";
+        }
 
         iv_profile.setOnClickListener(v -> Dexter
                 .withContext(getActivity())
@@ -146,7 +160,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
                 .addFormDataPart("first_name",et_fname.getText().toString().trim())
                 .addFormDataPart("last_name",et_lname.getText().toString().trim())
                 .addFormDataPart("email",et_email.getText().toString().trim())
-                .addFormDataPart("gender",et_gen.getText().toString().trim())
+                .addFormDataPart("gender",gen.toString())
                 .addFormDataPart("mobile_no",et_mobile.getText().toString().trim())
                 .addFormDataPart("password",et_vrfpass.getText().toString().trim())
                 .addFormDataPart("id_photo",image_name)
@@ -220,52 +234,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
     }
 
 
-  /*  private void met_addstaff(String fname,String lname,String email,String gen,String pass)
-    {
-        ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
-        //RequestBody filepart=RequestBody.create()
-     //   RequestBody requestBody=RequestBody.create(MultipartBody.FORM,et_fname.getText().toString());
 
-        //Call<R>
-
-        RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-        MultipartBody.Part imgpart=MultipartBody.Part.createFormData("image",filename, requestBody);
-
-        RequestBody fname_requestbody=RequestBody.create(MediaType.parse("multipart/form-data"),et_fname.getText().toString());
-        RequestBody lname_requestbody=RequestBody.create(MediaType.parse("multipart/form-data"),et_lname.getText().toString());
-        RequestBody email_requestbody=RequestBody.create(MediaType.parse("multipart/form-data"),et_email.getText().toString());
-        RequestBody pass_requestbody=RequestBody.create(MediaType.parse("multipart/form-data"),et_createpass.getText().toString());
-        RequestBody gen_requestbody=RequestBody.create(MediaType.parse("multipart/form-data"),et_gen.getText().toString());
-
-        apiInterface.addstaff(imgpart,fname_requestbody,lname_requestbody,email_requestbody,pass_requestbody,gen_requestbody)
-                .enqueue(new Callback<AddStaffResponse>() {
-                    @Override
-                    public void onResponse(Call<AddStaffResponse> call, Response<AddStaffResponse> response)
-                    {
-                        if (response.isSuccessful() && response.body()!=null)
-                        {
-                            AddStaffResponse addStaffResponse=response.body();
-
-                            if (addStaffResponse.getSuccess()==0)
-                            {
-                                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                            }
-                            else
-                            {
-                                Toast.makeText(getActivity(), "Staff added successfully", Toast.LENGTH_SHORT).show();
-
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<AddStaffResponse> call, Throwable t) {
-
-                    }
-                });
-
-    }*/
 
     @Override
     public void PickiTonUriReturned()

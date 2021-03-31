@@ -23,7 +23,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.admin.adminresponses.LoadProductResponse;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.features.cartresponse.AddToCartResponse;
@@ -55,6 +57,7 @@ public class ScannerFragment extends Fragment {
     private ImageView iv_prod_alert;
     private Button btn_cancel_alert;
     private Button btn_addtocart_alert;
+    int one_price;
 
     public ScannerFragment() {
         // Required empty public constructor
@@ -119,7 +122,9 @@ public class ScannerFragment extends Fragment {
                                             btn_cancel_alert=dialog.findViewById(R.id.btn_cancel_alert);
 
 
+                                            et_disstock_alert.setText("1");
                                             tv_pid_alert.setText(scanned_itm);
+                                            met_loadproduct();
 
 
                                             btn_addtocart_alert.setOnClickListener(new View.OnClickListener() {
@@ -129,11 +134,7 @@ public class ScannerFragment extends Fragment {
                                                     met_addtocart();
                                                     dialog.dismiss();
                                                     //startActivity(ScannerFragment.this.getActivity());
-                                                    FragmentManager manager=getActivity().getSupportFragmentManager();
-                                                    FragmentTransaction transaction=manager.beginTransaction();
-                                                    transaction.replace(R.id.fl_cust,new HomeFragment<>());
-                                                    transaction.addToBackStack(null);
-                                                    transaction.commit();
+
                                                 }
                                             });
 
@@ -152,6 +153,10 @@ public class ScannerFragment extends Fragment {
                                                     num=num+1;
                                                     String str= String.valueOf(num);
                                                     et_disstock_alert.setText(str);
+                                                    int price= Integer.parseInt(tv_price_alert.getText().toString());
+                                                    price=price+one_price;
+                                                    String str_price= String.valueOf(price);
+                                                    tv_price_alert.setText(str_price);
                                                 }
                                             });
 
@@ -165,6 +170,10 @@ public class ScannerFragment extends Fragment {
                                                         num = num - 1;
                                                         String str = String.valueOf(num);
                                                         et_disstock_alert.setText(str);
+                                                        int price= Integer.parseInt(tv_price_alert.getText().toString());
+                                                        price=price-one_price;
+                                                        String str_price= String.valueOf(price);
+                                                        tv_price_alert.setText(str_price);
                                                     }
                                                 }
                                             });
@@ -206,11 +215,41 @@ public class ScannerFragment extends Fragment {
         return view;
     }
 
+    private void met_loadproduct() {
+        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.loadProduct(scanned_itm).enqueue(new Callback<LoadProductResponse>() {
+            @Override
+            public void onResponse(Call<LoadProductResponse> call, Response<LoadProductResponse> response) {
+                LoadProductResponse loadProductResponse=response.body();
+                if (loadProductResponse.getSuccess()==1)
+                {
+                    Glide.with(getActivity())
+                            .load(ApiCliet.ASSET_URL+loadProductResponse.getProductImg())
+                            .placeholder(R.drawable.ic_baseline_add)
+                            .into(iv_prod_alert);
+                    tv_pname_alert.setText(loadProductResponse.getProductName());
+                    tv_price_alert.setText(loadProductResponse.getProductPrice());
+                    one_price= Integer.parseInt(loadProductResponse.getProductPrice());
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoadProductResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void met_addtocart() {
         ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
         apiInterface.addToCart(getActivity().getIntent().getStringExtra("user_id")
         ,tv_pid_alert.getText().toString()
-        ,et_disstock_alert.getText().toString())
+        ,et_disstock_alert.getText().toString()
+        ,tv_price_alert.getText().toString())
                 .enqueue(new Callback<AddToCartResponse>() {
                     @Override
                     public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
@@ -218,6 +257,20 @@ public class ScannerFragment extends Fragment {
                         if (addToCartResponse.getSuccess() == 1)
                         {
                             Toast.makeText(getActivity(), "Added", Toast.LENGTH_SHORT).show();
+                            FragmentManager manager=getActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction=manager.beginTransaction();
+                            transaction.replace(R.id.fl_cust,new HomeFragment<>());
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+
+                        }
+                        else if (addToCartResponse.getSuccess()==2)
+                        {
+                            Toast.makeText(getActivity(), "Product already in cart", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
                         }
 
 

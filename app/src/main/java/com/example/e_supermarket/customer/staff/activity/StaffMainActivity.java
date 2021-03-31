@@ -48,8 +48,8 @@ public class StaffMainActivity extends AppCompatActivity {
             {
                 /*case R.id.staffitm_home:
                     fragment=new StaffHomeFragment();
-                    break;*/
-
+                    break;
+*/
                 case R.id.staffitm_mngord:
                     fragment=new StaffVcustFragment();
                     break;

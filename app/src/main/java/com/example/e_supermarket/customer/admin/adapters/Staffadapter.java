@@ -62,7 +62,7 @@ import retrofit2.Response;
             public void onClick(View v)
             {
                 final AlertDialog.Builder alert=new AlertDialog.Builder(mActivity);
-                alert.setTitle(holder.tv_staffid.getText().toString());
+                alert.setTitle("Staff-ID :- "+holder.tv_staffid.getText().toString());
                 alert.setMessage("Staff Name :- "+holder.tv_staffname.getText().toString());
 
                 alert.setNeutralButton("Remove", new DialogInterface.OnClickListener() {
@@ -80,6 +80,8 @@ import retrofit2.Response;
                                     RemoveStaffResponse removeStaffResponse=response.body();
                                     if (removeStaffResponse.getSuccess()==1)
                                     {
+                                        //Staffadapter.this.notify();
+                                        notifyItemRemoved(position);
                                         Toast.makeText(mActivity, ""+removeStaffResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
                                     }
                                     else

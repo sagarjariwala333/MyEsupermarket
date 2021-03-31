@@ -1,6 +1,5 @@
 package com.example.e_supermarket.customer.features.fragments;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,8 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.Common.Variables;
+import com.example.e_supermarket.customer.PrefUtil;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
+import com.example.e_supermarket.customer.features.PlaceOrder.CustomerPayResponse;
 import com.example.e_supermarket.customer.features.PlaceOrder.PlaceOrderResponse;
 import com.example.e_supermarket.customer.features.adapters.Checkout_adapter;
 import com.example.e_supermarket.customer.features.cartresponse.CartResponse;
@@ -38,6 +40,9 @@ public class PlaceOrdFragment extends Fragment {
     private Checkout_adapter mAdapter;
     private Toolbar tb_placeorder;
     private Button btn_plcord;
+    private int flag=0;
+    private String order_id="";
+    private String amount="";
 
     public PlaceOrdFragment() {
         // Required empty public constructor
@@ -81,26 +86,11 @@ public class PlaceOrdFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
+                        flag=1;
                         meth_placeorder();
-                        ProgressDialog progressDialog=new ProgressDialog(getActivity());
-                        progressDialog.setTitle("Please Wait");
-                        progressDialog.setMessage("Loading");
-                        new Thread(new Runnable() {
-                            public void run() {
-                                try
-                                {
-                                    Thread.sleep(3000);
-                                    Toast.makeText(PlaceOrdFragment.this.getActivity(), "Done", Toast.LENGTH_SHORT).show();
-                                }
-                                catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                progressDialog.dismiss();
-                            }
-                        }).start();
-                        //Toast.makeText(PlaceOrdFragment.this.getActivity(), "Done", Toast.LENGTH_SHORT).show();
-                        progressDialog.show();
+
                     }
+
                 });
 
                 alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -114,7 +104,6 @@ public class PlaceOrdFragment extends Fragment {
             }
         });
 
-
         setdata();
 
 
@@ -126,7 +115,27 @@ public class PlaceOrdFragment extends Fragment {
         apiInterface.placeorder(PlaceOrdFragment.this.getActivity().getIntent().getStringExtra("user_id")).enqueue(new Callback<PlaceOrderResponse>() {
             @Override
             public void onResponse(Call<PlaceOrderResponse> call, Response<PlaceOrderResponse> response) {
-                Toast.makeText(getActivity(), "Order Placed Successfully!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Order Placed Successfully!", Toast.LENGTH_SHORT).show();
+                //PlaceOrderFragment placeOrdFragment=response.body();
+                PlaceOrderResponse placeOrderResponse=response.body();
+                if (placeOrderResponse.getSuccess()==1)
+                {
+                    String amt= String.valueOf(placeOrderResponse.getAmt());
+                    order_id=placeOrderResponse.getOrderId();
+
+                    AlertDialog.Builder alert1=new AlertDialog.Builder(getActivity());
+                    alert1.setTitle("Payment");
+                    alert1.setMessage(amt);
+                    alert1.setPositiveButton("Pay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            met_custpay();
+
+                            Toast.makeText(getActivity(), "Payment done"+order_id, Toast.LENGTH_SHORT).show();
+                        }
+                    }).create().show();
+                }
             }
 
             @Override
@@ -134,6 +143,29 @@ public class PlaceOrdFragment extends Fragment {
 
             }
         });
+    }
+
+    private void met_custpay() {
+
+        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface
+                .custPay(PrefUtil.getstringPref(Variables.userId,getActivity()).toString()
+                        ,order_id.toString()).enqueue(new Callback<CustomerPayResponse>() {
+            @Override
+            public void onResponse(Call<CustomerPayResponse> call, Response<CustomerPayResponse> response) {
+                CustomerPayResponse customerPayResponse=response.body();
+                if (customerPayResponse.getSuccess()==1)
+                {
+                    Toast.makeText(getActivity(), "Payment Success", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CustomerPayResponse> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void setdata()
@@ -154,6 +186,5 @@ public class PlaceOrdFragment extends Fragment {
 
             }
         });
-
     }
 }

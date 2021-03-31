@@ -1,6 +1,7 @@
 package com.example.e_supermarket.customer.staff.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class StaffVordFragment extends Fragment {
     private TextView tv_view;
     private Button btn_staff_pay;
     String cust_id = "";
+    private String order_id;
 
 
     public StaffVordFragment() {
@@ -59,6 +61,7 @@ public class StaffVordFragment extends Fragment {
         btn_staff_pay = view.findViewById(R.id.btn_staff_pay);
 
         cust_id = getArguments().getString("cust_id");
+        order_id = getArguments().getString("order_id");
 
         rv_vord=view.findViewById(R.id.rv_vord);
         tv_view=view.findViewById(R.id.tv_view);
@@ -70,11 +73,12 @@ public class StaffVordFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
-                apiInterface.staffpay(cust_id).enqueue(new Callback<StaffpayResponse>() {
+                apiInterface.staffpay(cust_id,order_id).enqueue(new Callback<StaffpayResponse>() {
                     @Override
                     public void onResponse(Call<StaffpayResponse> call, Response<StaffpayResponse> response) {
                         StaffpayResponse staffpayResponse = response.body();
-                        if(staffpayResponse.getSuccess4()==1) {
+                        if(staffpayResponse.getSuccess4()==1)
+                        {
                             Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -92,9 +96,12 @@ public class StaffVordFragment extends Fragment {
     private void setdata() {
 
         ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
-        apiInterface.vieworder(StaffVordFragment.this.getActivity().getIntent().getStringExtra("user_id")).enqueue(new Callback<ViewOrderResponse>() {
+        apiInterface.vieworder(cust_id,order_id).enqueue(new Callback<ViewOrderResponse>() {
             @Override
-            public void onResponse(Call<ViewOrderResponse> call, Response<ViewOrderResponse> response) {
+            public void onResponse(Call<ViewOrderResponse> call, Response<ViewOrderResponse> response)
+            {
+                Log.d("Customer",cust_id+order_id);
+                Toast.makeText(getActivity(), ""+cust_id+order_id, Toast.LENGTH_SHORT).show();
                 mAdapter=new StaffVordAdapter(StaffVordFragment.this,response.body().getSubarray());
                 rv_vord.setAdapter(mAdapter);
                 rv_vord.setLayoutManager(new LinearLayoutManager(getContext()));

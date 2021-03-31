@@ -107,7 +107,7 @@
             android:hint="Last Name"
             android:textColorHint="@color/dark"
             android:textColor="@color/dark"
-            android:inputType="textPassword"
+            android:inputType="text"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

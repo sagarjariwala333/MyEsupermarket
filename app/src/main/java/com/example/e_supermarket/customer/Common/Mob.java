@@ -58,7 +58,8 @@ public class Mob extends AppCompatActivity {
                     //Toast.makeText(Mob.this, ""+mobileResponse.getRole(), Toast.LENGTH_SHORT).show();
                     if (mobileResponse.getSuccess()==0)
                     {
-                        Intent intent=new Intent(Mob.this,Signup.class);
+                        Intent intent=new Intent(Mob.this,Cust_profilephoto.class)
+                                .putExtra("mobile_no",et_mob.getText().toString());
                         startActivity(intent);
                         finish();
                     }

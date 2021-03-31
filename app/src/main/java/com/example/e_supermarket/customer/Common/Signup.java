@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,9 @@ public class Signup extends AppCompatActivity {
     private String gender;
     private ImageButton ib_google;
     public String gen_str;
+    private String mobilenumber;
+    private String image_name;
+    int sel_gen;
 
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile
@@ -57,6 +61,8 @@ public class Signup extends AppCompatActivity {
                             ".{6,}"+
                             "$"
                     );
+    private RadioButton rb_male;
+    private RadioButton rb_female;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,35 +80,16 @@ public class Signup extends AppCompatActivity {
         et_confirmpass=findViewById(R.id.et_confirmpass);
         rg_gen=findViewById(R.id.rg_gen);
         ib_google=findViewById(R.id.ib_google);
+        rb_male=findViewById(R.id.rb_male);
+        rb_female=findViewById(R.id.rb_female);
 
 
-        //rg_gen.clearCheck();
+
+        image_name=getIntent().getStringExtra("image_name");
+        mobilenumber=getIntent().getStringExtra("mobile_no");
+        et_cnum.setText(mobilenumber);
 
 
-        //rg_gen.getCheckedRadioButtonId();
-        /*rg_gen.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                int a=checkedId/1000000000;
-                String str=String.valueOf(a);
-                Toast.makeText(Signup.this, ""+str, Toast.LENGTH_SHORT).show();
-                if (checkedId==0)
-                {
-                    gender="Male";
-                }
-                else if (checkedId==1)
-                {
-                    gender="Female";
-                }
-                else
-                {
-                    gender="None";
-                }
-            }
-
-        });*/
 
         ib_google.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +105,18 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-
+                if (rb_female.isChecked())
+                {
+                    sel_gen=1;
+                }
+                else if (rb_male.isChecked())
+                {
+                    sel_gen=2;
+                }
+                else
+                {
+                    sel_gen=0;
+                }
                 validation();
 
                /* int g=rg_gen.getCheckedRadioButtonId();
@@ -232,17 +230,18 @@ public class Signup extends AppCompatActivity {
            click6=true;
        }
 
-        int g=rg_gen.getCheckedRadioButtonId();
-        g=g/1000000000;
-        Toast.makeText(this, ""+g, Toast.LENGTH_SHORT).show();
-        if (g==2131231144)
-        {
-            gen_str="Male";
-            click7=true;
-        }
-        else if (g==2131231143)
+        //int g=rg_gen.getCheckedRadioButtonId();
+        //g=g/1000000000;
+        //Toast.makeText(this, ""+g, Toast.LENGTH_SHORT).show();
+        if (sel_gen==1)
         {
             gen_str="Female";
+            click7=true;
+        }
+
+        else if (sel_gen==2)
+        {
+            gen_str="Male";
             click7=true;
         }
         else
@@ -269,6 +268,7 @@ public class Signup extends AppCompatActivity {
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
+                .addFormDataPart("id_photo",image_name)
                 .addFormDataPart("first_name",et_fname.getText().toString().trim())
                 .addFormDataPart("last_name",et_lname.getText().toString().trim())
                 .addFormDataPart("gender",gen_str)

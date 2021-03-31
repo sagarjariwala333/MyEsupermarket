@@ -56,6 +56,7 @@ public class CartFragment extends Fragment {
     private Toolbar tb_cart;
     String user_id;
     private Button btn_removeall;
+    private int pos;
 
     public CartFragment()
     {
@@ -184,8 +185,9 @@ public class CartFragment extends Fragment {
                     SubarrayItem removedcartprod = list.get(position);
 
                     //Removing item
-                    list.remove(position);
                     met_cartitemremove(list.get(position).getProductId());
+                    pos=position;
+                    list.remove(position);
                     FragmentManager manager=getActivity().getSupportFragmentManager();
                     FragmentTransaction transaction=manager.beginTransaction();
                     transaction.replace(R.id.fl_cust,new CartFragment());
@@ -227,6 +229,7 @@ public class CartFragment extends Fragment {
                 .enqueue(new Callback<RemoveResponse>() {
                     @Override
                     public void onResponse(Call<RemoveResponse> call, Response<RemoveResponse> response) {
+                        mAdapter.notifyItemRemoved(pos);
                         Toast.makeText(getContext(), "Removed", Toast.LENGTH_SHORT).show();
                     }
 
@@ -246,16 +249,22 @@ public class CartFragment extends Fragment {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response)
             {
-                    list=response.body().getSubarray();
-                    mAdapter = new Cart_adapter(CartFragment.this, list);
-                    rv_cart.setAdapter(mAdapter);
-                    rv_cart.setLayoutManager(new LinearLayoutManager(getContext()));
-
+                if(response.isSuccessful() && response.body() != null) {
+                    list = response.body().getSubarray();
+                    if (list == null) {
+                        btn_checkout.setVisibility(View.GONE);
+                    }
+                    else {
+                        mAdapter = new Cart_adapter(CartFragment.this, list);
+                        rv_cart.setAdapter(mAdapter);
+                        rv_cart.setLayoutManager(new LinearLayoutManager(getContext()));
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<CartResponse> call, Throwable t) {
-
+                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

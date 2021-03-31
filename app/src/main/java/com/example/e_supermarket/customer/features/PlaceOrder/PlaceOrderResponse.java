@@ -4,58 +4,58 @@ import com.google.gson.annotations.SerializedName;
 
 public class PlaceOrderResponse{
 
-	@SerializedName("success_orderid")
-	private int successOrderid;
+	@SerializedName("meassage")
+	private String meassage;
 
-	@SerializedName("inc_ord")
-	private int incOrd;
+	@SerializedName("success")
+	private int success;
 
-	@SerializedName("ins_pay")
-	private int insPay;
+	@SerializedName("amt")
+	private int amt;
 
-	@SerializedName("sel_prod")
-	private int selProd;
+	@SerializedName("order_id")
+	private String orderId;
 
-	public void setSuccessOrderid(int successOrderid){
-		this.successOrderid = successOrderid;
+	public void setMeassage(String meassage){
+		this.meassage = meassage;
 	}
 
-	public int getSuccessOrderid(){
-		return successOrderid;
+	public String getMeassage(){
+		return meassage;
 	}
 
-	public void setIncOrd(int incOrd){
-		this.incOrd = incOrd;
+	public void setSuccess(int success){
+		this.success = success;
 	}
 
-	public int getIncOrd(){
-		return incOrd;
+	public int getSuccess(){
+		return success;
 	}
 
-	public void setInsPay(int insPay){
-		this.insPay = insPay;
+	public void setAmt(int amt){
+		this.amt = amt;
 	}
 
-	public int getInsPay(){
-		return insPay;
+	public int getAmt(){
+		return amt;
 	}
 
-	public void setSelProd(int selProd){
-		this.selProd = selProd;
+	public void setOrderId(String orderId){
+		this.orderId = orderId;
 	}
 
-	public int getSelProd(){
-		return selProd;
+	public String getOrderId(){
+		return orderId;
 	}
 
 	@Override
  	public String toString(){
 		return 
 			"PlaceOrderResponse{" + 
-			"success_orderid = '" + successOrderid + '\'' + 
-			",inc_ord = '" + incOrd + '\'' + 
-			",ins_pay = '" + insPay + '\'' + 
-			",sel_prod = '" + selProd + '\'' + 
+			"meassage = '" + meassage + '\'' + 
+			",success = '" + success + '\'' +
+			",amt = '" + amt + '\'' +
+			",order_id = '" + orderId + '\'' + 
 			"}";
 		}
 }
