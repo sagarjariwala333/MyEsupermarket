@@ -1,5 +1,6 @@
 package com.example.e_supermarket.customer.staff.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +24,7 @@ import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.staff.adapters.StaffVordAdapter;
 import com.example.e_supermarket.customer.staff.models.Vord_model;
 import com.example.e_supermarket.customer.staff.staffpay.StaffpayResponse;
+import com.example.e_supermarket.customer.staff.updatestaffpojo.UpdateFlagResponse;
 import com.example.e_supermarket.customer.staff.vieword_response.ViewOrderResponse;
 
 import java.util.ArrayList;
@@ -60,9 +65,10 @@ public class StaffVordFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_staff_vord, container, false);
         btn_staff_pay = view.findViewById(R.id.btn_staff_pay);
 
+
         cust_id = getArguments().getString("cust_id");
         order_id = getArguments().getString("order_id");
-
+        meth_updateflag();
         rv_vord=view.findViewById(R.id.rv_vord);
         tv_view=view.findViewById(R.id.tv_view);
 
@@ -91,6 +97,55 @@ public class StaffVordFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void meth_updateflag()
+    {
+        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.updateFlag(cust_id,order_id).enqueue(new Callback<UpdateFlagResponse>() {
+            @Override
+            public void onResponse(Call<UpdateFlagResponse> call, Response<UpdateFlagResponse> response) {
+                UpdateFlagResponse updateFlagResponse=response.body();
+                if (updateFlagResponse.getSuccess()==1)
+                {
+                    Toast.makeText(getActivity(), ""+updateFlagResponse.getMeassage(), Toast.LENGTH_SHORT).show();
+                }
+                else if (updateFlagResponse.getSuccess()==2)
+                {
+                    final androidx.appcompat.app.AlertDialog.Builder alert=new AlertDialog.Builder(getActivity());
+                    alert.setCancelable(false);
+                    alert.setTitle("Alert");
+                    alert.setMessage("You can`t see this. Already seen");
+                    alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            FragmentManager manager=getActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction=manager.beginTransaction();
+                            transaction.replace(R.id.fl_staff,new StaffVcustFragment());
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        }
+
+                    });
+                    alert.create().show();
+
+
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), ""+updateFlagResponse.getMeassage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateFlagResponse> call, Throwable t) {
+
+                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
     }
 
     private void setdata() {

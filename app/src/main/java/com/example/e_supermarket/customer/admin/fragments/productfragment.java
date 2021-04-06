@@ -125,7 +125,8 @@ public class productfragment extends Fragment implements PickiTCallbacks {
 
                 btn_mng_up_prodimg.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v)
+                    {
                         Dexter
                                 .withContext(getActivity())
                                 .withPermissions(Manifest.permission.CAMERA,
@@ -144,16 +145,14 @@ public class productfragment extends Fragment implements PickiTCallbacks {
                                             startActivityForResult(Intent.createChooser(intent,"Title"),SELECT_IMAGE_CODE);
                                         }
                                     }
-
                                     @Override
-                                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken)
+                                    {
                                         permissionToken.continuePermissionRequest();
                                     }
                                 }).check();
                     }
                 });
-               // btn_mng_up_prodimg.setOnClickListener(V ->
-
                 btn_mng_addprod.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -353,8 +352,6 @@ public class productfragment extends Fragment implements PickiTCallbacks {
             }
         });
     }
-
-
 }
 
 

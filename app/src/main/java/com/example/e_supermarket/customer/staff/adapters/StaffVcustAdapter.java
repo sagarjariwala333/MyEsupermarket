@@ -27,14 +27,16 @@ public class StaffVcustAdapter extends RecyclerView.Adapter<StaffVcustAdapter.My
     private final List<SubarrayItem> list;
     SubarrayItem item;
 
-    public StaffVcustAdapter(StaffVcustFragment staffVcustFragment, List<SubarrayItem> list) {
+    public StaffVcustAdapter(StaffVcustFragment staffVcustFragment, List<SubarrayItem> list)
+    {
         this.vcustFragment=staffVcustFragment;
         this.list=list;
     }
 
     @NonNull
     @Override
-    public StaffVcustAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StaffVcustAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.onecell_vcust,parent,false);
         return new MyViewHolder(view);
     }
@@ -50,6 +52,8 @@ public class StaffVcustAdapter extends RecyclerView.Adapter<StaffVcustAdapter.My
         holder.tv_vcustnum.setText(item.getMobileNo());
         //String a=item.getFlag();
         Glide.with(vcustFragment.getActivity()).load(ApiCliet.ASSET_URL+item.getIdPhoto()).into(holder.iv_vcust);
+
+
     }
 
 

@@ -22,6 +22,7 @@ import com.example.e_supermarket.customer.features.cartresponse.CartResponse;
 import com.example.e_supermarket.customer.features.cartresponse.RemoveAllResponse;
 import com.example.e_supermarket.customer.features.cartresponse.RemoveResponse;
 import com.example.e_supermarket.customer.features.customerresponse.RemoveStaffResponse;
+import com.example.e_supermarket.customer.features.invoices.InvoiceResponse;
 import com.example.e_supermarket.customer.features.oldorders.OldOrderResponse;
 import com.example.e_supermarket.customer.features.oldordprod.OldProductResponse;
 import com.example.e_supermarket.customer.profileresponses.UpdateProfileResponse;
@@ -159,4 +160,10 @@ public interface ApiInterface
     @FormUrlEncoded
     Call<UpdateFlagResponse> updateFlag(@Field("user_id") String user_id
                                         ,@Field("order_id") String order_id);
+
+    @POST("pdfcreate.php")
+    @FormUrlEncoded
+    Call<InvoiceResponse> getInvoices(@Field("user_id") String user_id
+                                    ,@Field("order_id") String order_id);
+
 }

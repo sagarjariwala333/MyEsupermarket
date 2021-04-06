@@ -19,11 +19,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.e_supermarket.R;
+import com.example.e_supermarket.customer.features.fragments.CartFragment;
 import com.example.e_supermarket.customer.features.fragments.HistoryFrgament;
 import com.example.e_supermarket.customer.features.fragments.HomeFragment;
 import com.example.e_supermarket.customer.features.fragments.ProfileFragment;
 import com.example.e_supermarket.customer.features.fragments.ScannerFragment;
-import com.example.e_supermarket.customer.features.fragments.WishlistFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -176,7 +176,7 @@ public class HomeActivity extends AppCompatActivity
                     break;
 
                 case R.id.itm_cart:
-                    fragment=new WishlistFragment();
+                    fragment=new CartFragment();
                     break;
 
                 case R.id.itm_profile:

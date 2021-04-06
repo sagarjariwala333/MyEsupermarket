@@ -21,20 +21,23 @@ public class StaffVordAdapter extends RecyclerView.Adapter<StaffVordAdapter.MyVi
     private final StaffVordFragment staffVordFragment;
     private final List<SubarrayItem> list;
 
-    public StaffVordAdapter(StaffVordFragment staffVordFragment, List<SubarrayItem> list) {
+    public StaffVordAdapter(StaffVordFragment staffVordFragment, List<SubarrayItem> list)
+    {
         this.staffVordFragment=staffVordFragment;
         this.list=list;
     }
 
     @NonNull
     @Override
-    public StaffVordAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StaffVordAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.onecell_vord,parent,false);
         return new StaffVordAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StaffVordAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StaffVordAdapter.MyViewHolder holder, int position)
+    {
         SubarrayItem subarrItem=list.get(position);
         holder.tv_vordid.setText(subarrItem.getProductId());
         holder.tv_vordname.setText(subarrItem.getProductName());
@@ -57,11 +60,10 @@ public class StaffVordAdapter extends RecyclerView.Adapter<StaffVordAdapter.MyVi
         private final TextView tv_vordname;
         private final TextView tv_vordtype;
         private final TextView tv_vordqut;
+
         public MyViewHolder(@NonNull View itemView)
         {
             super(itemView);
-
-
             iv_vord=itemView.findViewById(R.id.iv_vord);
             tv_vordid=itemView.findViewById(R.id.tv_vordid);
             tv_vordname=itemView.findViewById(R.id.tv_vordname);

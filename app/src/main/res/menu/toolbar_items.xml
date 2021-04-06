@@ -9,11 +9,11 @@
         app:showAsAction="ifRoom"
         />
 
-    <item
+   <!-- <item
         android:id="@+id/tool_notify"
         android:title="Notification"
         android:icon="@drawable/ic_baseline_notifications"
         app:showAsAction="ifRoom"
-        />
+        />-->
 
 </menu>

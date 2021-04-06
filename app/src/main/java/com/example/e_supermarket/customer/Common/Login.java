@@ -2,6 +2,7 @@ package com.example.e_supermarket.customer.Common;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,15 +56,16 @@ public class Login extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                //Intent intent=new Intent(Login.this, HomeActivity.class);
-                //startActivity(intent);
-                met_password();
+                if (TextUtils.isEmpty(et_pass.getText().toString().trim()))
+                {
+                    Toast.makeText(Login.this, "Enter password", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    met_password();
+                }
             }
         });
-//        tabLayout.addTab(tabLayout.newTab().setText("Login"));
-      //  tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-
     }
 
     private void met_password()
@@ -125,7 +127,7 @@ public class Login extends AppCompatActivity
                 }
                 else
                 {
-                    Toast.makeText(Login.this, "Error 2", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Error", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -133,7 +135,7 @@ public class Login extends AppCompatActivity
             @Override
             public void onFailure(Call<PasswordResponse> call, Throwable t)
             {
-
+                Toast.makeText(Login.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
 

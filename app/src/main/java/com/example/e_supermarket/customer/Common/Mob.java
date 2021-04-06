@@ -2,6 +2,7 @@ package com.example.e_supermarket.customer.Common;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +36,18 @@ public class Mob extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                met_mobile(et_mob.getText().toString());
+                if (!TextUtils.isEmpty(et_mob.getText().toString()))
+                {
+                    et_mob.setError("Enter mobile number");
+                }
+                else if (et_mob.getText().toString().trim().length()!=10)
+                {
+                    et_mob.setError("Enter valid mobile number");
+                }
+                else
+                {
+                    met_mobile(et_mob.getText().toString().trim());
+                }
             }
         });
     }
@@ -65,18 +77,6 @@ public class Mob extends AppCompatActivity {
                     }
                     else if (mobileResponse.getSuccess()==1)
                     {
-                        /*if (mobileResponse.getRole().equals("S"))
-                        {
-                            //Staff intent
-                        }
-                        else if (mobileResponse.getRole().equals("A"))
-                        {
-                            //Admin pass
-                        }
-                        else if (mobileResponse.getRole().equals("C"))
-                        {
-                            //Cust intent
-                        }*/
                         Intent intent=new Intent(Mob.this,Login.class)
                                 .putExtra("userid",mobileResponse.getUserId().toString())
                                 .putExtra("role",mobileResponse.getRole().toString());
@@ -88,18 +88,15 @@ public class Mob extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(Mob.this, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Mob.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<MobileResponse> call, Throwable t) {
-
+                Toast.makeText(Mob.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
-
 }

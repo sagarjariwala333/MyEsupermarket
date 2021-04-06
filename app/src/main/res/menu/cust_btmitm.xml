@@ -20,7 +20,7 @@
     <item android:id="@+id/itm_cart"
         android:title="Cart"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_favorite"/>
+        android:icon="@drawable/ic_baseline_add_shopping_cart_24"/>
 
     <item android:id="@+id/itm_profile"
         android:title="Profile"

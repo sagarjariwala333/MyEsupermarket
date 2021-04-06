@@ -22,6 +22,9 @@ public class SubarrayItem{
 	@SerializedName("product_img")
 	private String productImg;
 
+	@SerializedName("one_price")
+	private String onePrice;
+
 	public void setProductType(String productType){
 		this.productType = productType;
 	}
@@ -70,6 +73,16 @@ public class SubarrayItem{
 		return productImg;
 	}
 
+	public void setOne_price(String onePrice)
+	{
+		this.onePrice=onePrice;
+	}
+
+	public String getOnePrice()
+	{
+		return onePrice;
+	}
+
 	@Override
  	public String toString(){
 		return 
@@ -79,7 +92,8 @@ public class SubarrayItem{
 			",product_price = '" + productPrice + '\'' + 
 			",product_name = '" + productName + '\'' + 
 			",product_quantity = '" + productQuantity + '\'' + 
-			",product_img = '" + productImg + '\'' + 
+			",product_img = '" + productImg + '\'' +
+			",one_price = '" + onePrice + '\'' +
 			"}";
 		}
 }

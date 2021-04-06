@@ -1,7 +1,9 @@
 package com.example.e_supermarket.customer.features.fragments;
 
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -84,7 +87,8 @@ public class CartFragment extends Fragment {
         user_id=getActivity().getIntent().getStringExtra("user_id");
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(tb_cart);
-
+        btn_removeall.setEnabled(false);
+        btn_checkout.setEnabled(false);
         setdata();
         tb_cart.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +107,29 @@ public class CartFragment extends Fragment {
         btn_removeall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                met_removeall();
+                final AlertDialog.Builder alert=new AlertDialog.Builder(getActivity());
+                alert.setTitle("Remove All");
+                alert.setMessage("Remove all items from cart");
+                alert.setPositiveButton("Remove All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+
+                        met_removeall();
+
+                    }
+
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.create().show();
+
             }
         });
 
@@ -112,6 +138,7 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Fragment fragment=new PlaceOrdFragment();
+
                 FragmentManager manager=getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction=manager.beginTransaction();
                 transaction.replace(R.id.fl_cust,new PlaceOrdFragment());
@@ -143,7 +170,9 @@ public class CartFragment extends Fragment {
         return view;
     }
 
-    private void met_removeall() {
+    private void met_removeall()
+    {
+
         ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
         apiInterface.removeallcart(getActivity().getIntent().getStringExtra("user_id"))
                 .enqueue(new Callback<RemoveAllResponse>() {
@@ -154,13 +183,24 @@ public class CartFragment extends Fragment {
                             RemoveAllResponse removeAllResponse=response.body();
                             if (removeAllResponse.getSuccess()==1)
                             {
+
                                 FragmentManager manager=getActivity().getSupportFragmentManager();
                                 FragmentTransaction transaction=manager.beginTransaction();
                                 transaction.replace(R.id.fl_cust,new CartFragment());
+                                transaction.addToBackStack(null);
                                 transaction.commit();
                             }
+                            else
+                            {
+                                Toast.makeText(getActivity(), ""+removeAllResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                            }
+
                         }
+
+
                     }
+
+
 
                     @Override
                     public void onFailure(Call<RemoveAllResponse> call, Throwable t) {
@@ -251,10 +291,13 @@ public class CartFragment extends Fragment {
             {
                 if(response.isSuccessful() && response.body() != null) {
                     list = response.body().getSubarray();
-                    if (list == null) {
-                        btn_checkout.setVisibility(View.GONE);
-                    }
-                    else {
+
+                    if (list != null && !list.isEmpty())
+                    {
+                        Log.d("Null1","null1");
+                        Toast.makeText(getActivity(), "Null1", Toast.LENGTH_SHORT).show();
+                        btn_removeall.setEnabled(true);
+                        btn_checkout.setEnabled(true);
                         mAdapter = new Cart_adapter(CartFragment.this, list);
                         rv_cart.setAdapter(mAdapter);
                         rv_cart.setLayoutManager(new LinearLayoutManager(getContext()));

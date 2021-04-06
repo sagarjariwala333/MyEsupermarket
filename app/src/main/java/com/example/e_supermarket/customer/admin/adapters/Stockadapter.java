@@ -1,6 +1,7 @@
 package com.example.e_supermarket.customer.admin.adapters;
 
 import android.app.Dialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +85,9 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                 btn_ar_cancel.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View view)
+                    {
+
                         dialog.dismiss();
                     }
                 });
@@ -92,61 +95,65 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                 btn_ar_remove.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
-                    public void onClick(View view)
-                    {
-                        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
-                        apiInterface.removestock(holder.tv_stockid.getText().toString(),et_ar_stock.getText().toString())
-                                .enqueue(new Callback<RemoveStockResponse>() {
-                                    @Override
-                                    public void onResponse(Call<RemoveStockResponse> call, Response<RemoveStockResponse> response) {
-                                        if (response.isSuccessful() && response.body()!=null)
-                                        {
-                                            RemoveStockResponse removeStockResponse=response.body();
-                                            if (removeStockResponse.getSuccess()==1)
-                                            {
-                                                Toast.makeText(mActivity.getActivity(), ""+removeStockResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(et_ar_stock.getText().toString().trim())) {
+                            et_ar_stock.setError("Enter stock");
+                        } else {
+                            ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
+                            apiInterface.removestock(holder.tv_stockid.getText().toString(), et_ar_stock.getText().toString())
+                                    .enqueue(new Callback<RemoveStockResponse>() {
+                                        @Override
+                                        public void onResponse(Call<RemoveStockResponse> call, Response<RemoveStockResponse> response) {
+                                            if (response.isSuccessful() && response.body() != null) {
+                                                RemoveStockResponse removeStockResponse = response.body();
+                                                if (removeStockResponse.getSuccess() == 1) {
+                                                    Toast.makeText(mActivity.getActivity(), "" + removeStockResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                                }
                                             }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onFailure(Call<RemoveStockResponse> call, Throwable t) {
+                                        @Override
+                                        public void onFailure(Call<RemoveStockResponse> call, Throwable t) {
 
-                                    }
-                                });
-                        Toast.makeText(mActivity.getActivity(), "Removed", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
+                                        }
+                                    });
+                            Toast.makeText(mActivity.getActivity(), "Removed", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
                     }
+
                 });
 
                 btn_ar_add.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
-                    public void onClick(View view)
-                    {
-                        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
-                        apiInterface.addstock(holder.tv_stockid.getText().toString(),et_ar_stock.getText().toString())
-                                .enqueue(new Callback<AddStockResponse>() {
-                                    @Override
-                                    public void onResponse(Call<AddStockResponse> call, Response<AddStockResponse> response) {
-                                        if (response.isSuccessful() && response.body()!=null)
-                                        {
-                                            AddStockResponse addStockResponse=response.body();
-                                            if (addStockResponse.getSuccess()==1)
-                                            {
-                                                Toast.makeText(mActivity.getActivity(), ""+addStockResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(et_ar_stock.getText().toString().trim())) {
+                            et_ar_stock.setError("Enter stock");
+                        } else {
+                            ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
+                            apiInterface.addstock(holder.tv_stockid.getText().toString(), et_ar_stock.getText().toString())
+                                    .enqueue(new Callback<AddStockResponse>() {
+                                        @Override
+                                        public void onResponse(Call<AddStockResponse> call, Response<AddStockResponse> response) {
+                                            if (response.isSuccessful() && response.body() != null) {
+                                                AddStockResponse addStockResponse = response.body();
+                                                if (addStockResponse.getSuccess() == 1) {
+                                                    Toast.makeText(mActivity.getActivity(), "" + addStockResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                                }
                                             }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onFailure(Call<AddStockResponse> call, Throwable t) {
+                                        @Override
+                                        public void onFailure(Call<AddStockResponse> call, Throwable t) {
 
-                                    }
-                                });
+                                        }
 
-                        Toast.makeText(mActivity.getActivity(), "Added", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
+                                    });
+
+                            Toast.makeText(mActivity.getActivity(), "Added", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
                     }
                 });
 

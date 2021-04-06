@@ -139,39 +139,36 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
+
+                <RadioGroup
                     android:id="@+id/til_gen"
-                    app:errorEnabled="true"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/til_email"
-                    app:boxBackgroundMode="outline"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    app:endIconMode="password_toggle"
-                    android:layout_height="wrap_content"
-                    >
-                    <EditText
-                        android:id="@+id/et_gen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Gender"
-                        android:inputType="text"
-                        android:textColorHint="@color/black"
-                        android:textColor="@color/black"
-                        />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <RadioButton
+                        android:id="@+id/rb_male"
+                        android:text="Male"
+                        android:textColorHint="@color/dark"
+                        android:textColor="@color/dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
+                    <RadioButton
+                        android:id="@+id/rb_female"
+                        android:text="Female"
+                        android:textColorHint="@color/dark"
+                        android:textColor="@color/dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                <Button
-                    android:id="@+id/btn_chgpass"
-                    android:layout_below="@+id/til_gen"
-                    android:layout_width="match_parent"
-                    android:text="Change Password"
-                    android:layout_height="wrap_content"/>
+                </RadioGroup>
+
 
                 <Button
                     android:id="@+id/btn_updateprof"
-                    android:layout_below="@+id/btn_chgpass"
+                    android:layout_below="@+id/til_gen"
                     android:layout_width="match_parent"
                     android:text="Update"
                     android:layout_height="wrap_content"/>

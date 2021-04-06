@@ -119,34 +119,6 @@ public class Signup extends AppCompatActivity {
                 }
                 validation();
 
-               /* int g=rg_gen.getCheckedRadioButtonId();
-                if (g==2131231144)
-                {
-                    gen_str="Male";
-                    Toast.makeText(Signup.this, "Male", Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(Signup.this, ""+, Toast.LENGTH_SHORT).show();
-                }
-                else if (g==2131231143)
-                {
-                    gen_str="Female";
-                    //et_confirmpass.setText("Female");
-                    Toast.makeText(Signup.this, "Female", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    gen_str="Error";
-                    Toast.makeText(Signup.this, "Error", Toast.LENGTH_SHORT).show();
-                }*/
-/*
-                if (et_confirmpass.getText().toString().equals(et_pass.getText().toString()))
-                {
-                    Toast.makeText(Signup.this, "Password Matched", Toast.LENGTH_SHORT).show();
-                    met_signup();
-                }
-                else
-                {
-                    Toast.makeText(Signup.this, "Password not matched", Toast.LENGTH_SHORT).show();
-                }*/
             }
         });
     }
@@ -293,12 +265,11 @@ public class Signup extends AppCompatActivity {
 
                     if (registrationCustResponse.getSuccess()==0)
                     {
-                        Toast.makeText(Signup.this, "Not done", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Signup.this, "Not done", Toast.LENGTH_SHORT).show();
                         Toast.makeText(Signup.this, "Account already exist", Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
-
                         Intent intent=new Intent(Signup.this,Mob.class);
                         startActivity(intent);
                         finish();
@@ -311,7 +282,7 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onFailure(Call<RegistrationCustResponse> call, Throwable t)
             {
-
+                Toast.makeText(Signup.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
     }

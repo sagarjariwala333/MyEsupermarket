@@ -4,11 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -54,6 +57,11 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
     private EditText et_fname,et_lname,et_email,et_gen;
     String staff_id = "";
     private EditText et_cnum;
+    private String mobile_no;
+    private int sel_gen;
+    private String gen_str="";
+    private RadioButton rb_female;
+    private RadioButton rb_male;
 
     public UpdateProfileFragment() {
         // Required empty public constructor
@@ -78,16 +86,31 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
         et_fname=view.findViewById(R.id.et_fname);
         et_lname=view.findViewById(R.id.et_lname);
         et_email=view.findViewById(R.id.et_email);
-        et_gen=view.findViewById(R.id.et_gen);
+       // et_gen=view.findViewById(R.id.et_gen);
         et_cnum=view.findViewById(R.id.et_cnum);
+        rb_female=view.findViewById(R.id.rb_female);
+        rb_male=view.findViewById(R.id.rb_female);
         staff_id=getArguments().getString("staff_id");
 
         getProfile();
 
         btn_updateprof.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                met_updatestaff();
+            public void onClick(View v)
+            {
+                if (rb_female.isChecked())
+                {
+                    sel_gen=1;
+                }
+                else if (rb_male.isChecked())
+                {
+                    sel_gen=2;
+                }
+                else
+                {
+                    sel_gen=0;
+                }
+                validation();
             }
         });
 
@@ -116,6 +139,69 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
         return view;
     }
 
+    private void validation() {
+        Boolean click1=false;
+        Boolean click2=false;
+        //Boolean click3=false;
+        Boolean click4=false;
+        //Boolean click5=false;
+      //  Boolean click6=false;
+        Boolean click7=false;
+        if(TextUtils.isEmpty(et_fname.getText().toString()))
+        {
+            et_fname.setError("Enter data");
+        }
+        else
+        {
+            click1=true;
+        }
+
+        if (TextUtils.isEmpty(et_lname.getText().toString()))
+        {
+            et_lname.setError("Enter data");
+        }
+        else
+        {
+            click2=true;
+        }
+        if (TextUtils.isEmpty(et_email.getText().toString()))
+        {
+            et_email.setError("Enter email address");
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(et_email.getText().toString()).matches())
+        {
+            et_email.setError("Enter valid email");
+        }
+        else
+        {
+            click4=true;
+        }
+        if (sel_gen==1)
+        {
+            gen_str="Female";
+            click7=true;
+        }
+        else if (sel_gen==2)
+        {
+            gen_str="Male";
+            click7=true;
+        }
+        else
+        {
+            click7=false;
+            Toast.makeText(getActivity(), "Gender not selected", Toast.LENGTH_SHORT).show();
+        }
+
+        if (click1 && click2 && click4 && click7)
+        {
+            met_updatestaff();
+        }
+        else
+        {
+            Toast.makeText(getActivity(), "Invalid data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void getProfile()
     {
         ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
@@ -129,8 +215,23 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
                     et_lname.setText(profileResponse.getLastName());
                     et_email.setText(profileResponse.getEmail());
                    // et_cnum.setText(profileResponse.getMobileNo());
-                    et_gen.setText(profileResponse.getGender());
+                  //  et_gen.setText(profileResponse.getGender());
+                    if (profileResponse.getGender().equals("Male"))
+                    {
+                        rb_male.setChecked(true);
+                        gen_str="Male";
+                    }
+                    else if (profileResponse.getGender().equals("Female"))
+                    {
+                        rb_female.setChecked(true);
+                        gen_str="Female";
+                    }
+                    else
+                    {
+                        gen_str="";
+                    }
                     image_name=profileResponse.getId_photo();
+                    mobile_no=profileResponse.getMobileNo();
                     Toast.makeText(getActivity(), ""+ApiCliet.ASSET_URL+profileResponse.getId_photo(), Toast.LENGTH_SHORT).show();
                     Glide
                             .with(getActivity())
@@ -141,6 +242,8 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
 
             @Override
             public void onFailure(Call<ProfileResponse> call, Throwable t) {
+
+                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -158,6 +261,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
                 .addFormDataPart("gender",et_gen.getText().toString().trim())
                 .addFormDataPart("role","S")
                 .addFormDataPart("id_photo",image_name)
+                .addFormDataPart("mobile_no",mobile_no)
                 .build();
 
         apiInterface.updateData(requestBody).enqueue(new Callback<UpdateProfileResponse>() {

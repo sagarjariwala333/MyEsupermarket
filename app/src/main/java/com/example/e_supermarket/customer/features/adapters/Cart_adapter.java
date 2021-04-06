@@ -54,6 +54,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.MyViewHolder
         holder.tv_pid.setText(item.getProductId());
         holder.tv_pname.setText(item.getProductName());
         holder.tv_price.setText(item.getProductPrice());
+        int oneprice= Integer.parseInt(item.getOnePrice());
         holder.et_disstock.setText(item.getProductQuantity());
 
         Glide.with(cartfragment.getActivity())
@@ -70,7 +71,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.MyViewHolder
                 String str= String.valueOf(num);
                 holder.et_disstock.setText(str);
                 int price= Integer.parseInt(holder.tv_price.getText().toString());
-                price=price*2;
+                price=price+oneprice;
                 String str1= String.valueOf(price);
                 holder.tv_price.setText(str1);
             }
@@ -87,7 +88,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.MyViewHolder
                     String str = String.valueOf(num);
                     holder.et_disstock.setText(str);
                     int price= Integer.parseInt(holder.tv_price.getText().toString());
-                    price=price/2;
+                    price=price-oneprice;
                     String str1= String.valueOf(price);
                     holder.tv_price.setText(str1);
                 }

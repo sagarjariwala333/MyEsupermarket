@@ -25,7 +25,8 @@ public class Splash extends AppCompatActivity
         new Handler().postDelayed(new Runnable()
         {
             @Override
-            public void run() {
+            public void run()
+            {
                 loggedIn = PrefUtil.getbooleanPref(Variables.isLoggedIn, Splash.this);
                 role = PrefUtil.getstringPref(Variables.role, Splash.this);
 

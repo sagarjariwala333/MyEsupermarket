@@ -71,6 +71,7 @@ public class HistoryFrgament extends Fragment {
 
         tb_his.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
@@ -153,7 +154,9 @@ public class HistoryFrgament extends Fragment {
                 mAdapter = new History_adapter(HistoryFrgament.this, response.body().getSubarray());
                 rv_history.setAdapter(mAdapter);
                 rv_history.setLayoutManager(new LinearLayoutManager(getContext()));
-                rv_history.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+                rv_history. addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+
+
             }
 
             @Override

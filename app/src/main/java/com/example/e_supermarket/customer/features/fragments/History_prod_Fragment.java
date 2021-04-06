@@ -1,9 +1,12 @@
 package com.example.e_supermarket.customer.features.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,12 +22,11 @@ import com.example.e_supermarket.customer.PrefUtil;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.features.adapters.History_prod_adapter;
+import com.example.e_supermarket.customer.features.invoices.InvoiceResponse;
 import com.example.e_supermarket.customer.features.models.History_prod_model;
 import com.example.e_supermarket.customer.features.oldordprod.OldProductResponse;
-import com.example.e_supermarket.customer.features.oldordprod.SubarrayItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +40,7 @@ public class History_prod_Fragment extends Fragment {
     private ArrayList<History_prod_model> list=new ArrayList<History_prod_model>();
     private History_prod_adapter mAdapter;
     String order_id;
+    private Button btn_getinvoice;
 
     public History_prod_Fragment() {
         // Required empty public constructor
@@ -59,6 +62,14 @@ public class History_prod_Fragment extends Fragment {
 
         rv_his_prod=view.findViewById(R.id.rv_his_prod);
         tb_his_prod=view.findViewById(R.id.tb_his_prod);
+        btn_getinvoice=view.findViewById(R.id.btn_getinvoice);
+
+        btn_getinvoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getInvoice();
+            }
+        });
 
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(tb_his_prod);
@@ -68,6 +79,26 @@ public class History_prod_Fragment extends Fragment {
 
 
         return view;
+    }
+
+    private void getInvoice() {
+        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.getInvoices(PrefUtil.getstringPref(Variables.userId,getActivity()),order_id)
+                .enqueue(new Callback<InvoiceResponse>() {
+                    @Override
+                    public void onResponse(Call<InvoiceResponse> call, Response<InvoiceResponse> response) {
+                        //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                        InvoiceResponse invoiceResponse=response.body();
+                        Uri uriWebsite=Uri.parse("http://192.168.43.51/Admin/Esupermarket/ "+invoiceResponse.getData());
+                        Intent intent=new Intent(Intent.ACTION_VIEW,uriWebsite);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<InvoiceResponse> call, Throwable t) {
+
+                    }
+                });
     }
 
 

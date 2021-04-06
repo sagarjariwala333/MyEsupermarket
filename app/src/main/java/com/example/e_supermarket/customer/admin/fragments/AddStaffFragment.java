@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.File;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -46,8 +49,6 @@ import retrofit2.Response;
 
 public class AddStaffFragment extends Fragment implements PickiTCallbacks
 {
-
-
     private EditText et_fname;
     private EditText et_lname;
     private EditText et_email;
@@ -68,6 +69,22 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
     private EditText et_mobile;
     private RadioButton rb_male;
     private RadioButton rb_female;
+
+    int sel_gen;
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile
+                    (
+                            "^"+
+                                    "(?=.*[0-9])"+
+                                    "(?=.*[a-z])"+
+                                    "(?=.*[A-Z])"+
+                                    "(?=.*[@#$%^&+=])"+
+                                    "(?=\\S+$)"+
+                                    ".{6,}"+
+                                    "$"
+                    );
+    private String gen_str;
 
     public AddStaffFragment() {
         // Required empty public constructor
@@ -91,9 +108,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
         et_fname=view.findViewById(R.id.et_fname);
         et_lname=view.findViewById(R.id.et_lname);
         et_email=view.findViewById(R.id.et_email);
-        //et_fname=view.findViewById(R.id.et_pass);
-        et_gen=view.findViewById(R.id.et_gen);
-        et_createpass=view.findViewById(R.id.et_createpass);
+        //et_gen=view.findViewById(R.id.et_gen);
         et_vrfpass=view.findViewById(R.id.et_vrfpass);
         et_mobile=view.findViewById(R.id.et_mobile);
         iv_profile=view.findViewById(R.id.iv_profile);
@@ -102,14 +117,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
         rb_female=view.findViewById(R.id.rb_female);
 
 
-        if (rb_male.isChecked())
-        {
-            gen="Male";
-        }
-        if (rb_female.isChecked())
-        {
-            gen="Female";
-        }
+
 
         iv_profile.setOnClickListener(v -> Dexter
                 .withContext(getActivity())
@@ -136,20 +144,124 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
 
         btn_addstaff.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (et_createpass.getText().toString().equals(et_vrfpass.getText( ).toString()))
+            public void onClick(View v)
+            {
+                if (rb_male.isChecked())
                 {
-                    met_staffsignup();
+                    sel_gen=2;
                 }
-                else
+                if (rb_female.isChecked())
                 {
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    sel_gen=1;
                 }
+                validation();
             }
         });
-
-        //met_addstaff();
         return view;
+    }
+
+    private void validation() {
+        Boolean click1=false;
+        Boolean click2=false;
+        Boolean click3=false;
+        Boolean click4=false;
+        Boolean click5=false;
+        Boolean click6=false;
+        Boolean click7=false;
+        if(TextUtils.isEmpty(et_fname.getText().toString()))
+        {
+            et_fname.setError("Enter data");
+        }
+        else
+        {
+            click1=true;
+        }
+
+        if (TextUtils.isEmpty(et_lname.getText().toString()))
+        {
+            et_lname.setError("Enter data");
+        }
+        else
+        {
+            click2=true;
+        }
+
+        if (TextUtils.isEmpty(et_mobile.getText().toString()))
+        {
+            et_mobile.setError("Enter mobile number");
+        }
+        else if (et_mobile.getText().toString().length()>10 || et_mobile.getText().toString().length()<10)
+        {
+            et_mobile.setError("Enter valid mobile number");
+        }
+        else
+        {
+            click3=true;
+        }
+
+        if (TextUtils.isEmpty(et_email.getText().toString()))
+        {
+            et_email.setError("Enter email address");
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(et_email.getText().toString()).matches())
+        {
+            et_email.setError("Enter valid email");
+        }
+        else
+        {
+            click4=true;
+        }
+
+        if (TextUtils.isEmpty(et_createpass.getText().toString()))
+        {
+            et_createpass.setError("Enter password");
+        }
+        else if (!PASSWORD_PATTERN.matcher(et_createpass.getText().toString()).matches())
+        {
+            et_createpass.setError("Password too weak");
+        }
+        else
+        {
+            click5=true;
+        }
+
+        if (TextUtils.isEmpty(et_vrfpass.getText().toString()))
+        {
+            et_vrfpass.setError("Enter confirm password");
+        }
+        else if (!et_vrfpass.getText().toString().equals(et_vrfpass.getText().toString()))
+        {
+            et_vrfpass.setError("Password not matched");
+        }
+        else
+        {
+            click6=true;
+        }
+        if (sel_gen==1)
+        {
+            gen_str="Female";
+            click7=true;
+        }
+
+        else if (sel_gen==2)
+        {
+            gen_str="Male";
+            click7=true;
+        }
+        else
+        {
+            click7=false;
+            Toast.makeText(getActivity(), "Gender not selected", Toast.LENGTH_SHORT).show();
+        }
+
+        if (click1 && click2 && click3 && click4 && click5 && click6 && click7)
+        {
+            met_staffsignup();
+        }
+        else
+        {
+            Toast.makeText(getActivity(), "Invalid data", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void met_staffsignup() {

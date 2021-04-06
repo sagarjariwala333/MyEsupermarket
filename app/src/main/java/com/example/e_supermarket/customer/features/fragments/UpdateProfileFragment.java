@@ -1,7 +1,8 @@
 package com.example.e_supermarket.customer.features.fragments;
 
+import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,18 +23,31 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.Common.Variables;
+import com.example.e_supermarket.customer.ImageResponse;
 import com.example.e_supermarket.customer.PrefUtil;
 import com.example.e_supermarket.customer.ProfileResponse;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
+import com.example.e_supermarket.customer.profileresponses.UpdateProfileResponse;
+import com.hbisoft.pickit.PickiT;
+import com.hbisoft.pickit.PickiTCallbacks;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.File;
+import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UpdateProfileFragment extends Fragment {
+public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
 
 
     private Toolbar tb_up_profile;
@@ -42,12 +56,16 @@ public class UpdateProfileFragment extends Fragment {
     private ImageView iv_profile;
     int SELECT_IMAGE_CODE = 1;
     File file;
+    PickiT pickiT;
     private String filename;
     private EditText et_fname;
     private EditText et_lname;
     private EditText et_email;
     private RadioButton rb_female;
     private RadioButton rb_male;
+    private String image_name="";
+    private String gender="";
+    private String mobile_no="";
 
     public UpdateProfileFragment() {
         // Required empty public constructor
@@ -66,6 +84,7 @@ public class UpdateProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_update_profile, container, false);
         tb_up_profile = view.findViewById(R.id.tb_up_profile);
         btn_chgpass = view.findViewById(R.id.btn_chgpass);
+        pickiT=new PickiT(getActivity(),this, getActivity());
         btn_updateprof = view.findViewById(R.id.btn_updateprof);
         iv_profile = view.findViewById(R.id.iv_profile);
         et_fname = view.findViewById(R.id.et_fname);
@@ -104,6 +123,56 @@ public class UpdateProfileFragment extends Fragment {
             public void onClick(View v) {
 
                 //met_addstaff();
+                met_update();
+
+            }
+        });
+
+        iv_profile.setOnClickListener(v -> Dexter
+                .withContext(getActivity())
+                .withPermissions(Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+                        if(multiplePermissionsReport.areAllPermissionsGranted()) {
+                            Intent intent=new Intent();
+                            intent.setType("image/*");
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            startActivityForResult(Intent.createChooser(intent,"Title"),SELECT_IMAGE_CODE);
+
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                        permissionToken.continuePermissionRequest();
+                    }
+                }).check());
+
+
+        return view;
+    }
+
+    private void met_update() {
+        ApiInterface apiInterface=ApiCliet.getClient().create(ApiInterface.class);
+
+        RequestBody requestBody=new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("user_id",PrefUtil.getstringPref(Variables.userId,getActivity()))
+                .addFormDataPart("first_name",et_fname.getText().toString().trim())
+                .addFormDataPart("last_name",et_lname.getText().toString().trim())
+                .addFormDataPart("email",et_email.getText().toString().trim())
+                .addFormDataPart("gender",gender)
+                .addFormDataPart("role","C")
+                .addFormDataPart("id_photo",image_name)
+                .addFormDataPart("mobile_no",mobile_no)
+                .build();
+
+        apiInterface.updateData(requestBody).enqueue(new Callback<UpdateProfileResponse>() {
+            @Override
+            public void onResponse(Call<UpdateProfileResponse> call, Response<UpdateProfileResponse> response) {
+                Toast.makeText(getActivity(), "Data Updated", Toast.LENGTH_SHORT).show();
                 Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
@@ -111,20 +180,12 @@ public class UpdateProfileFragment extends Fragment {
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
-        });
 
-        iv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Title"), SELECT_IMAGE_CODE);
+            public void onFailure(Call<UpdateProfileResponse> call, Throwable t) {
+
             }
         });
-
-
-        return view;
     }
 
     private void met_loadprofile() {
@@ -142,12 +203,14 @@ public class UpdateProfileFragment extends Fragment {
                                 et_fname.setText(profileResponse.getFirstName());
                                 et_lname.setText(profileResponse.getLastName());
                                 et_email.setText(profileResponse.getEmail());
-                                //tv_gender.setText(profileResponse.getGender());
+                                gender=profileResponse.getGender().toString();
+                                mobile_no=profileResponse.getMobileNo();
                                 if (profileResponse.getGender().toString().equals("Male")) {
                                     rb_male.setChecked(true);
                                 } else {
                                     rb_female.setChecked(true);
                                 }
+                                image_name=profileResponse.getId_photo();
                                 Glide
                                         .with(getActivity())
                                         .load(ApiCliet.ASSET_URL + profileResponse.getId_photo())
@@ -171,11 +234,62 @@ public class UpdateProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1) {
-            Uri uri = data.getData();
-            iv_profile.setImageURI(uri);
-            file = new File(data.getData().getPath());
-            filename = file.getName();
+            pickiT.getPath(data.getData(), Build.VERSION.SDK_INT);
         }
     }
+
+    @Override
+    public void PickiTonUriReturned() {
+
+    }
+
+    @Override
+    public void PickiTonStartListener() {
+
+    }
+
+    @Override
+    public void PickiTonProgressUpdate(int progress) {
+
+    }
+
+    @Override
+    public void PickiTonCompleteListener(String path, boolean wasDriveFile, boolean wasUnknownProvider, boolean wasSuccessful, String Reason) {
+
+        Glide
+                .with(getActivity())
+                .load(path)
+                .into(iv_profile);
+        Toast.makeText(getActivity(), "" + path, Toast.LENGTH_SHORT).show();
+        met_uploadimg(new File(path));
+    }
+
+    private void met_uploadimg(File file) {
+        image_name = file.getName();
+        ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
+        RequestBody requestBody= RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part imgpart = MultipartBody.Part.createFormData("id_photo",file.getName(), requestBody);
+
+        apiInterface.img(imgpart).enqueue(new Callback<ImageResponse>() {
+            @Override
+            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
+                if (response.isSuccessful() && response.body()!=null)
+                {
+                    ImageResponse imageResponse=response.body();
+                    image_name=imageResponse.getImageName();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "Error 1", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ImageResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
 }
 
