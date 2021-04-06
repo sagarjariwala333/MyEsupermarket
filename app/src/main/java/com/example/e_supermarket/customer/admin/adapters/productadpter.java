@@ -1,7 +1,9 @@
 package com.example.e_supermarket.customer.admin.adapters;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.admin.adminresponses.RemoveProdResponse;
 import com.example.e_supermarket.customer.admin.fragments.UpdateProdFragment;
+import com.example.e_supermarket.customer.admin.fragments.fragment_Staff;
 import com.example.e_supermarket.customer.admin.fragments.productfragment;
 import com.example.e_supermarket.customer.admin.viewprod.SubarrayItem;
 import com.example.e_supermarket.customer.api.ApiCliet;
@@ -109,7 +112,28 @@ public class productadpter extends RecyclerView.Adapter<productadpter.MyViewHold
                                             RemoveProdResponse removeProdResponse=response.body();
                                             if (removeProdResponse.getSuccess()==1)
                                             {
-                                                Toast.makeText(mActivity.getActivity(), ""+removeProdResponse.getMeassage(), Toast.LENGTH_SHORT).show();
+                                                FragmentManager manager=mActivity.getActivity().getSupportFragmentManager();
+                                                FragmentTransaction transaction=manager.beginTransaction();
+                                                transaction.replace(R.id.frame,new fragment_Staff());
+                                                transaction.addToBackStack(null);
+                                                transaction.commit();
+
+                                                ProgressDialog progressDialog=new ProgressDialog(mActivity.getActivity());
+                                                progressDialog.setMessage("Please Wait");
+                                                progressDialog.show();
+
+                                                Runnable progressRunnable = new Runnable() {
+
+                                                    @Override
+                                                    public void run() {
+                                                        progressDialog.cancel();
+                                                    }
+                                                };
+
+                                                Handler pdCanceller = new Handler();
+                                                pdCanceller.postDelayed(progressRunnable, 1000);
+                                                Toast.makeText(mActivity.getActivity(), ""+removeProdResponse.getMeassage().toString(), Toast.LENGTH_SHORT).show();
+                                               // Toast.makeText(mActivity.getActivity(), ""+removeProdResponse.getMeassage(), Toast.LENGTH_SHORT).show();
                                             }
                                             else
                                             {

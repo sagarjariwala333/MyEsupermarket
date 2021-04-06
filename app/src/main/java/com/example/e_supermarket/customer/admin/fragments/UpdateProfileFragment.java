@@ -62,6 +62,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
     private String gen_str="";
     private RadioButton rb_female;
     private RadioButton rb_male;
+    private View til_gen;
 
     public UpdateProfileFragment() {
         // Required empty public constructor
@@ -89,8 +90,9 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
        // et_gen=view.findViewById(R.id.et_gen);
         et_cnum=view.findViewById(R.id.et_cnum);
         rb_female=view.findViewById(R.id.rb_female);
-        rb_male=view.findViewById(R.id.rb_female);
+        rb_male=view.findViewById(R.id.rb_male);
         staff_id=getArguments().getString("staff_id");
+        til_gen=view.findViewById(R.id.til_gen);
 
         getProfile();
 
@@ -100,11 +102,11 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
             {
                 if (rb_female.isChecked())
                 {
-                    sel_gen=1;
+                    gen_str=rb_female.getText().toString();
                 }
                 else if (rb_male.isChecked())
                 {
-                    sel_gen=2;
+                    gen_str=rb_male.getText().toString();
                 }
                 else
                 {
@@ -176,14 +178,14 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
         {
             click4=true;
         }
-        if (sel_gen==1)
+        if (rb_female.isChecked())
         {
-            gen_str="Female";
+            //gen_str="Female";
             click7=true;
         }
-        else if (sel_gen==2)
+        else if (rb_male.isChecked())
         {
-            gen_str="Male";
+//            gen_str="Male";
             click7=true;
         }
         else
@@ -216,15 +218,16 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
                     et_email.setText(profileResponse.getEmail());
                    // et_cnum.setText(profileResponse.getMobileNo());
                   //  et_gen.setText(profileResponse.getGender());
-                    if (profileResponse.getGender().equals("Male"))
+                    gen_str=profileResponse.getGender().toString();
+                    rb_female.setChecked(false);
+                    rb_male.setChecked(false);
+                    if (gen_str.equals("Male"))
                     {
                         rb_male.setChecked(true);
-                        gen_str="Male";
                     }
-                    else if (profileResponse.getGender().equals("Female"))
+                    else if (gen_str.equals("Female"))
                     {
                         rb_female.setChecked(true);
-                        gen_str="Female";
                     }
                     else
                     {
@@ -258,7 +261,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
                 .addFormDataPart("first_name",et_fname.getText().toString().trim())
                 .addFormDataPart("last_name",et_lname.getText().toString().trim())
                 .addFormDataPart("email",et_email.getText().toString().trim())
-                .addFormDataPart("gender",et_gen.getText().toString().trim())
+                .addFormDataPart("gender",gen_str.trim())
                 .addFormDataPart("role","S")
                 .addFormDataPart("id_photo",image_name)
                 .addFormDataPart("mobile_no",mobile_no)

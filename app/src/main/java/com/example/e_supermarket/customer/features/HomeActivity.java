@@ -24,9 +24,11 @@ import com.example.e_supermarket.customer.features.fragments.HistoryFrgament;
 import com.example.e_supermarket.customer.features.fragments.HomeFragment;
 import com.example.e_supermarket.customer.features.fragments.ProfileFragment;
 import com.example.e_supermarket.customer.features.fragments.ScannerFragment;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import static com.example.e_supermarket.R.id.itm_cart;
 import static com.example.e_supermarket.R.id.itm_history;
 //import static com.example.e_supermarket.R.id.tv_pid_alert;
 
@@ -44,6 +46,8 @@ public class HomeActivity extends AppCompatActivity
     private ImageView iv_prod_alert;
     private Button btn_cancel_alert;
     private Button btn_addtocart_alert;
+    private BottomAppBar btm_appcust;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -58,6 +62,9 @@ public class HomeActivity extends AppCompatActivity
         btmnav_cust=findViewById(R.id.btmnav_cust);
         fab_add=findViewById(R.id.fab_add);
         btmnav_cust.setOnNavigationItemSelectedListener(mListener);
+        btm_appcust=findViewById(R.id.btmapp_cust);
+       // fab_add=findViewById(R.id.fab_add);
+
 
         fab_add.setOnClickListener(new View.OnClickListener()
         {
@@ -135,6 +142,15 @@ public class HomeActivity extends AppCompatActivity
                 dialog.show();*/
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        btm_appcust.setVisibility(View.VISIBLE);
+        fab_add.setVisibility(View.VISIBLE);
 
     }
 

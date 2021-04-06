@@ -16,10 +16,6 @@
             android:icon="@drawable/ic_baseline_shopping_cart"
             />
 
-      <!--  <item android:id="@+id/nav_wishlist"
-            android:title="Wishlist"
-            android:icon="@drawable/ic_baseline_favorite"
-            />-->
     </group>
 
     <item android:title="Account">
@@ -37,7 +33,7 @@
         </menu>
     </item>
 
-   <!-- <item android:title="About">
+    <item android:title="About">
         <menu>
             <item android:id="@+id/nav_about"
                 android:title="About Us"
@@ -49,6 +45,6 @@
                 android:icon="@drawable/ic_baseline_contact_phone"
                 />
         </menu>
-    </item>-->
+    </item>
 
 </menu>

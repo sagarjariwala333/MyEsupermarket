@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,7 +117,8 @@ public class UpdateProdFragment extends Fragment implements PickiTCallbacks {
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                met_updateproduct();
+                validation();
+                //met_updateproduct();
             }
         });
 
@@ -123,6 +126,56 @@ public class UpdateProdFragment extends Fragment implements PickiTCallbacks {
 
         return view;
     }
+
+    private void validation() {
+        Boolean click1=false;
+        Boolean click2=false;
+        //Boolean click3=false;
+        Boolean click4=false;
+        //Boolean click5=false;
+        //  Boolean click6=false;
+        Boolean click7=false;
+        float et_mng_prodprice1= Float.parseFloat(et_mng_prodprice.getText().toString());
+        if(TextUtils.isEmpty(et_mng_prodname.getText().toString()))
+        {
+            et_mng_prodname.setError("Enter data");
+        }
+        else
+        {
+            click1=true;
+        }
+
+        if (TextUtils.isEmpty(et_mng_prodtype.getText().toString()))
+        {
+            et_mng_prodtype.setError("Enter data");
+        }
+        else
+        {
+            click2=true;
+        }
+        if (TextUtils.isEmpty(et_mng_prodprice.getText().toString()))
+        {
+            et_mng_prodprice.setError("Enter Data");
+        }
+        if (et_mng_prodprice1<1)
+        {
+            et_mng_prodprice.setError("Enter valid price");
+        }
+        else
+        {
+            click4=true;
+        }
+
+        if (click1 && click2 && click4)
+        {
+            met_updateproduct();
+        }
+        else
+        {
+            Toast.makeText(getActivity(), "Invalid data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void met_uploadimg(File file) {
 

@@ -36,7 +36,7 @@ public class Mob extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                if (!TextUtils.isEmpty(et_mob.getText().toString()))
+                if (TextUtils.isEmpty(et_mob.getText().toString()))
                 {
                     et_mob.setError("Enter mobile number");
                 }

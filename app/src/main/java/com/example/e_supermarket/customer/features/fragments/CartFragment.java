@@ -104,6 +104,8 @@ public class CartFragment extends Fragment {
         });
 
 
+
+
         btn_removeall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,6 +171,7 @@ public class CartFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(rv_cart);
         return view;
     }
+
 
     private void met_removeall()
     {

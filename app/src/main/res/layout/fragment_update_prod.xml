@@ -19,7 +19,7 @@
             android:background="@color/white"
             android:elevation="0dp"
             app:navigationIcon="@drawable/ic_baseline_arrow_back"
-            app:title="Update Staff"
+            app:title="Update Product"
             app:titleTextColor="@color/black"
             android:layout_alignParentTop="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
