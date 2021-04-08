@@ -31,14 +31,17 @@ public class Splash extends AppCompatActivity
                 role = PrefUtil.getstringPref(Variables.role, Splash.this);
 
                 if(loggedIn) {
-                    if(role.equals("A")) {
+                    if(role.equals("A"))
+                    {
                         Intent intent=new Intent(Splash.this, AdminMainActivity.class).putExtra("user_id",PrefUtil.getstringPref(Variables.userId, Splash.this)).putExtra("role",role);;
                         startActivity(intent);
-                    } else if(role.equals("C")) {
+                    } else if(role.equals("C"))
+                    {
                         Intent intent=new Intent(Splash.this, HomeActivity.class).putExtra("user_id",PrefUtil.getstringPref(Variables.userId, Splash.this)).putExtra("role",role);;
                         startActivity(intent);
 
-                    }else if(role.equals("S")) {
+                    }else if(role.equals("S"))
+                    {
                         Intent intent=new Intent(Splash.this, StaffMainActivity.class).putExtra("user_id",PrefUtil.getstringPref(Variables.userId, Splash.this)).putExtra("role",role);;
                         startActivity(intent);
                     }
@@ -50,6 +53,6 @@ public class Splash extends AppCompatActivity
                 /*Intent intent=new Intent(Splash.this,Mob.class);
                 startActivity(intent);*/
             }
-        },5000);
+        },4500);
     }
 }

@@ -7,7 +7,6 @@
     tools:context=".customer.staff.fragments.StaffProfileFragment">
 
     <RelativeLayout
-        android:background="@drawable/prime_back"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
@@ -23,7 +22,20 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+        <TextView
+            android:id="@+id/tv1"
+            android:text="My Profile"
+            android:layout_below="@+id/tb_profile"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:layout_marginLeft="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
         <RelativeLayout
+            android:layout_below="@+id/tv1"
             android:id="@+id/rl_placeholder"
             android:layout_width="match_parent"
             android:layout_height="200dp">
@@ -39,31 +51,31 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_profile"
-                android:layout_width="130dp"
+                android:layout_width="300dp"
                 android:layout_centerVertical="true"
-                android:layout_height="130dp"
+                android:layout_height="300dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_below="@+id/iv_profile"
                 android:layout_centerHorizontal="true"
-                android:text="XYZ ABC"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textSize="21sp"
+                android:text="XYZ ABC"
                 android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             app:cardElevation="15dp"
             app:cardCornerRadius="30dp"
-            android:backgroundTint="@color/design_default_color_primary"
+            android:layout_marginTop="25dp"
             android:layout_below="@+id/rl_placeholder"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -76,61 +88,6 @@
                 android:layout_width="360dp"
                 android:layout_height="wrap_content">
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp"
-                    >
-
-                    <ImageView
-                        android:src="@drawable/ic_baseline_vpn_key"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"/>
-
-                    <TextView
-                        android:id="@+id/tv_uid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14dp"
-                        android:textColor="@color/black"
-                        android:paddingLeft="20dp"
-                        android:text="C00001"
-                        android:layout_gravity="center_vertical"
-                        />
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp"
-                    >
-
-                    <ImageView
-                        android:src="@drawable/ic_baseline_wysiwyg"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"/>
-
-                    <TextView
-                        android:id="@+id/tv_uname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="20dp"
-                        android:text="Staff"
-                        android:textSize="14dp"
-                        android:textColor="@color/black"
-
-                        android:layout_gravity="center_vertical"
-                        />
-
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_marginTop="20dp"
@@ -151,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
                         android:text="Xyz Abc"
-                        android:textSize="14dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"
 
                         android:layout_gravity="center_vertical"
@@ -178,7 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
-                        android:textSize="14dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"
                         android:text="Male"
                         android:layout_gravity="center_vertical"
@@ -205,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
-                        android:textSize="14dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"
                         android:text="xyzabc123@gmail.com"
                         android:layout_gravity="center_vertical"
@@ -232,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
                         android:text="9999999999"
-                        android:textSize="14dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"
                         android:layout_gravity="center_vertical"
                         />

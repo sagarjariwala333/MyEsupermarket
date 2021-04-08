@@ -7,7 +7,6 @@
     tools:context=".customer.features.fragments.ProfileFragment">
 
     <RelativeLayout
-        android:background="@drawable/prime_back"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
@@ -22,29 +21,36 @@
             app:title="Profile"
             app:menu="@menu/profile_toolbar_itm"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tv1"
+            android:text="My Profile"
+            android:layout_below="@+id/tb_profile"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:layout_marginLeft="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <RelativeLayout
             android:id="@+id/rl_placeholder"
+            android:layout_below="@+id/tv1"
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
-           <!-- <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_launcher_background"
-                android:layout_width="100dp"
-                android:layout_height="100dp"/>-->
+
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_profile"
-                android:layout_width="130dp"
+                android:layout_width="300dp"
                 android:layout_centerVertical="true"
-                android:layout_height="130dp"
+                android:layout_height="300dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:src="@drawable/ic_launcher_background" />
 
             <TextView
@@ -64,6 +70,7 @@
         <androidx.cardview.widget.CardView
             app:cardElevation="15dp"
             app:cardCornerRadius="30dp"
+            android:layout_marginTop="25dp"
             android:layout_below="@+id/rl_placeholder"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -76,6 +83,7 @@
                 android:layout_width="360dp"
                 android:layout_height="wrap_content">
 
+<!--
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,8 +91,9 @@
                 android:orientation="horizontal"
                 android:paddingLeft="25dp"
                 >
+-->
 
-                <ImageView
+              <!--  <ImageView
                     android:src="@drawable/ic_baseline_vpn_key"
                     android:layout_width="30dp"
                     android:layout_height="30dp"/>
@@ -99,13 +108,15 @@
                     android:paddingLeft="20dp"
                     android:text="C00001"
                     android:layout_gravity="center_vertical"
-                    />
+                    />-->
+
+<!--
+
+            //</LinearLayout>
+-->
 
 
-            </LinearLayout>
-
-
-                <LinearLayout
+               <!-- <LinearLayout
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -132,7 +143,7 @@
 
 
                 </LinearLayout>
-
+-->
                 <LinearLayout
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
@@ -152,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
                         android:text="Xyz Abc"
-                        android:textSize="14dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"
 
                         android:layout_gravity="center_vertical"
@@ -179,7 +190,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
-                        android:textSize="14dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"
                         android:text="Male"
                         android:layout_gravity="center_vertical"
@@ -206,7 +217,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
-                        android:textSize="14dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"
                         android:text="xyzabc123@gmail.com"
                         android:layout_gravity="center_vertical"
@@ -233,12 +244,13 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
                         android:text="9999999999"
-                        android:textSize="14dp"
+                        android:textSize="20sp"
                         android:textColor="@color/black"
                         android:layout_gravity="center_vertical"
                         />
 
                 </LinearLayout>
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

@@ -1,4 +1,4 @@
-        package com.example.e_supermarket.customer.features.fragments;
+package com.example.e_supermarket.customer.features.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -67,6 +67,7 @@ public class ProfileFragment extends Fragment {
                 transaction.commit();
             }
         });
+
         tv_uid=view.findViewById(R.id.tv_uid);
         iv_profile=view.findViewById(R.id.iv_profile);
         tv_uname=view.findViewById(R.id.tv_uname);
@@ -76,8 +77,10 @@ public class ProfileFragment extends Fragment {
         tv_cnum=view.findViewById(R.id.tv_cnum);
         user_id=getActivity().getIntent().getStringExtra("user_id");
         role=getActivity().getIntent().getStringExtra("role");
+
         meth_profilecust();
         return view;
+
     }
 
     private void meth_profilecust()
@@ -93,15 +96,17 @@ public class ProfileFragment extends Fragment {
                     //LoginResponse loginResponse=response.body();
                     ProfileResponse profileResponse=response.body();
                     if (profileResponse.getSuccess()==1){
-                        tv_uid.setText(user_id);
+                        //tv_uid.setText(user_id);
                         tv_cnum.setText(profileResponse.getMobileNo());
                         tv_email.setText(profileResponse.getEmail());
                         tv_fullname.setText(profileResponse.getFirstName()+" "+profileResponse.getLastName());
                         tv_gender.setText(profileResponse.getGender());
+
                         Glide
                                 .with(getActivity())
                                 .load(ApiCliet.ASSET_URL+profileResponse.getId_photo())
                                 .into(iv_profile);
+
                     }
                     //Toast.makeText(Mob.this, ""+mobileResponse.getRole(), Toast.LENGTH_SHORT).show();
 

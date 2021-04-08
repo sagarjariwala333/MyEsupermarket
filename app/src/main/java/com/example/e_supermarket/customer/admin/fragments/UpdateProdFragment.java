@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
@@ -234,6 +235,11 @@ public class UpdateProdFragment extends Fragment implements PickiTCallbacks {
                     if (updateProductResponse.getSuccess()==1)
                     {
                         Toast.makeText(getActivity(), ""+updateProductResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        FragmentManager manager=getActivity().getSupportFragmentManager();
+                        FragmentTransaction transaction=manager.beginTransaction();
+                        transaction.replace(R.id.frame,new productfragment());
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                     }
                     else
                     {

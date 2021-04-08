@@ -26,7 +26,6 @@ import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.Common.Mob;
 import com.example.e_supermarket.customer.Common.Variables;
 import com.example.e_supermarket.customer.PrefUtil;
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -39,7 +38,6 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
     private NavigationView cust_nav;
     private FrameLayout fl_home;
     private FloatingActionButton fab_add;
-    private BottomAppBar btm_appcust;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -64,9 +62,6 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
         cust_dl=view.findViewById(R.id.cust_dl);
         cust_nav=view.findViewById(R.id.cust_nav);
         fl_home=view.findViewById(R.id.fl_home);
-        btm_appcust=view.findViewById(R.id.btmapp_cust);
-
-//        btm_appcust.setVisibility(View.VISIBLE);
         //fab_add=view.findViewById(R.id.fab_add);
 
 
@@ -137,10 +132,10 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
                 getActivity().finish();
                 break;
 
-            /*case R.id.nav_wishlist:
+           /* case R.id.nav_wishlist:
                 fragment=new WishlistFragment();
-                break;
-*/
+                break;*/
+
             default:
                 return false;
         }

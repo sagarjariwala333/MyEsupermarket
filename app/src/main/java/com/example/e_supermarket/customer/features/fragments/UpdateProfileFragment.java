@@ -83,7 +83,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_update_profile, container, false);
         tb_up_profile = view.findViewById(R.id.tb_up_profile);
-        btn_chgpass = view.findViewById(R.id.btn_chgpass);
+//        btn_chgpass = view.findViewById(R.id.btn_chgpass);
         pickiT=new PickiT(getActivity(),this, getActivity());
         btn_updateprof = view.findViewById(R.id.btn_updateprof);
         iv_profile = view.findViewById(R.id.iv_profile);
@@ -106,7 +106,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
             }
         });
 
-        btn_chgpass.setOnClickListener(new View.OnClickListener() {
+       /* btn_chgpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getActivity().getSupportFragmentManager();
@@ -115,7 +115,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
-        });
+        });*/
 
 
         btn_updateprof.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +123,18 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
             public void onClick(View v) {
 
                 //met_addstaff();
+                if(rb_male.isChecked())
+                {
+                    gender="Male";
+                }
+                else if (rb_female.isChecked())
+                {
+                    gender="Female";
+                }
+                else
+                {
+                    gender="";
+                }
                 met_update();
 
             }

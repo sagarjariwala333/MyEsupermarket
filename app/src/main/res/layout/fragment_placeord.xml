@@ -3,12 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mytemp"
+    android:background="#80E2FF"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".customer.features.fragments.PlaceOrdFragment">
 
     <RelativeLayout
-        android:background="@drawable/tempback"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
@@ -48,7 +47,7 @@
                <Button
                    android:id="@+id/btn_plcord"
                    android:text="Place Order"
-                   android:layout_alignParentBottom="true"
+                   android:layout_below="@+id/rv_placeord"
                    android:layout_width="match_parent"
                    android:layout_marginLeft="15dp"
                    android:layout_marginRight="15dp"

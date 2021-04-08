@@ -4,43 +4,53 @@
 <vector
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="1594dp"
-    android:height="2766dp"
-    android:viewportWidth="1594"
-    android:viewportHeight="2766">
+    android:width="1651dp"
+    android:height="100dp"
+    android:viewportWidth="2202"
+    android:viewportHeight="461"
+    >
 
     <group>
 
         <clip-path
-            android:pathData="M0 0H1594V2766H0V0Z"
+            android:pathData="M100 0H2102C2157.23 0 2202 44.7715 2202 100V361C2202 416.228 2157.23 461 2102 461H100C44.7715 461 0 416.228 0 361V100C0 44.7715 44.7715 0 100 0Z"
             />
 
         <group
-            android:translateX="-0.011"
-            android:translateY="-1.309"
-            android:pivotX="797"
-            android:pivotY="1383"
-            android:scaleX="5.625"
-            android:scaleY="4.172"
-            android:rotation="44.672"
+            android:translateX="3.544"
+            android:translateY="-16.486"
+            android:pivotX="1101"
+            android:pivotY="230.5"
+            android:scaleX="12.536"
+            android:scaleY="56.811"
+            android:rotation="88.374"
             >
 
             <path
-                android:pathData="M0 0V2766H1594V0"
+                android:pathData="M0 0V461H2202V0"
                 >
 
                 <aapt:attr name="android:fillColor">
 
                     <gradient
                         android:type="radial"
-                        android:centerX="797"
-                        android:centerY="1383"
-                        android:gradientRadius="398.5"
+                        android:centerX="1101"
+                        android:centerY="230.5"
+                        android:gradientRadius="550.5"
                         >
+                        <item
+                            android:color="#EFEFEF"
+                            android:offset="0"
+                            />
 
                         <item
-                            android:color="#FFFEFE"
-                            android:offset="0"
+                            android:color="#C1E5E5E5"
+                            android:offset="0.042"
+                            />
+
+                        <item
+                            android:color="#13C7C7C7"
+                            android:offset="1"
                             />
 
                         <item
@@ -55,6 +65,12 @@
             </path>
 
         </group>
+
+        <path
+            android:pathData="M100 0H2102C2157.23 0 2202 44.7715 2202 100V361C2202 416.228 2157.23 461 2102 461H100C44.7715 461 0 416.228 0 361V100C0 44.7715 44.7715 0 100 0Z"
+            android:strokeWidth="6"
+            android:strokeColor="#FFFFFF"
+            />
 
     </group>
 

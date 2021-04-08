@@ -29,6 +29,7 @@ import com.example.e_supermarket.customer.admin.adminresponses.LoadProductRespon
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.features.cartresponse.AddToCartResponse;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -58,6 +59,7 @@ public class ScannerFragment extends Fragment {
     private Button btn_cancel_alert;
     private Button btn_addtocart_alert;
     int one_price;
+    private BottomAppBar btmapp_cust;
 
     public ScannerFragment() {
         // Required empty public constructor
@@ -76,6 +78,10 @@ public class ScannerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_scanner, container, false);
+
+        btmapp_cust=view.findViewById(R.id.btmapp_cust);
+        btmapp_cust.setVisibility(View.GONE);
+
 
         CodeScannerView scannerView=view.findViewById(R.id.scanner);
 
