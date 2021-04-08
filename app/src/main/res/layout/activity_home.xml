@@ -33,6 +33,7 @@
             android:id="@+id/btmnav_cust"
             android:layout_width="match_parent"
             app:elevation="0dp"
+            android:foregroundTint="#aed6d8"
             android:background="@android:color/transparent"
             android:layout_height="match_parent"
             app:menu="@menu/cust_btmitm"
@@ -44,6 +45,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"
+        android:backgroundTint="#aed6d8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/btmapp_cust"

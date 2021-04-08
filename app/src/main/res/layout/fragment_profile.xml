@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#aed6d8"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".customer.features.fragments.ProfileFragment">
 
     <RelativeLayout
+
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
@@ -19,6 +21,7 @@
             android:background="@android:color/transparent"
             android:elevation="4dp"
             app:title="Profile"
+            app:titleTextColor="@color/white"
             app:menu="@menu/profile_toolbar_itm"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -26,7 +29,7 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tv1"
             android:text="My Profile"
             android:layout_below="@+id/tb_profile"
@@ -34,11 +37,11 @@
             android:textSize="30dp"
             android:layout_marginLeft="17dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"/>-->
 
         <RelativeLayout
             android:id="@+id/rl_placeholder"
-            android:layout_below="@+id/tv1"
+            android:layout_below="@+id/tb_profile"
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
@@ -51,7 +54,7 @@
                 android:layout_height="300dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/no_profile" />
 
             <TextView
                 android:id="@+id/tv_name"

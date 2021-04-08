@@ -105,6 +105,7 @@ public class ProfileFragment extends Fragment {
                         Glide
                                 .with(getActivity())
                                 .load(ApiCliet.ASSET_URL+profileResponse.getId_photo())
+                                .placeholder(R.drawable.no_profile)
                                 .into(iv_profile);
 
                     }

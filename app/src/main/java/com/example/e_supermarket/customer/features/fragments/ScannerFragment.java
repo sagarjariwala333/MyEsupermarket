@@ -80,7 +80,7 @@ public class ScannerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_scanner, container, false);
 
         btmapp_cust=view.findViewById(R.id.btmapp_cust);
-        btmapp_cust.setVisibility(View.GONE);
+       // btmapp_cust.setVisibility(View.GONE);
 
 
         CodeScannerView scannerView=view.findViewById(R.id.scanner);
