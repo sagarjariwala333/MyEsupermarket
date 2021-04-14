@@ -1,12 +1,12 @@
 package com.example.e_supermarket.customer.staff.adapters;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -25,6 +25,7 @@ import java.util.List;
 public class StaffVcustAdapter extends RecyclerView.Adapter<StaffVcustAdapter.MyViewHolder> {
     private final StaffVcustFragment vcustFragment;
     private final List<SubarrayItem> list;
+    //String cid;
     SubarrayItem item;
 
     public StaffVcustAdapter(StaffVcustFragment staffVcustFragment, List<SubarrayItem> list)
@@ -44,14 +45,33 @@ public class StaffVcustAdapter extends RecyclerView.Adapter<StaffVcustAdapter.My
     @Override
     public void onBindViewHolder(@NonNull StaffVcustAdapter.MyViewHolder holder, int position)
     {
-
-
         item = list.get(position);
         holder.tv_vcustid.setText(item.getUserId());
         holder.tv_vcustname.setText(item.getFirstName());
         holder.tv_vcustnum.setText(item.getMobileNo());
         //String a=item.getFlag();
+        holder.cid=item.getUserId();
+        holder.oid=item.getOrderId();
         Glide.with(vcustFragment.getActivity()).load(ApiCliet.ASSET_URL+item.getIdPhoto()).into(holder.iv_vcust);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(vcustFragment.getActivity(), ""+holder.cid+holder.oid, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(vcustFragment.getActivity(), ""+holder.oid, Toast.LENGTH_SHORT).show();
+                Toast.makeText(vcustFragment.getActivity(), "Done", Toast.LENGTH_SHORT).show();
+                StaffVordFragment staffVordFragment = new StaffVordFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("cust_id", holder.cid);
+                bundle.putString("order_id", holder.oid);
+                staffVordFragment.setArguments(bundle);
+                FragmentManager manager=vcustFragment.getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                transaction.replace(R.id.fl_staff,staffVordFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
 
     }
@@ -69,6 +89,8 @@ public class StaffVcustAdapter extends RecyclerView.Adapter<StaffVcustAdapter.My
         private final TextView tv_vcustname;
         private final TextView tv_vcustnum;
         private final TextView tv_view;
+        private String cid;
+        private String oid;
 
         public MyViewHolder(@NonNull View itemView)
         {
@@ -80,7 +102,7 @@ public class StaffVcustAdapter extends RecyclerView.Adapter<StaffVcustAdapter.My
             tv_vcustnum=itemView.findViewById(R.id.tv_vcustnum);
             tv_view=itemView.findViewById(R.id.tv_view);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+          /*  itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -97,7 +119,7 @@ public class StaffVcustAdapter extends RecyclerView.Adapter<StaffVcustAdapter.My
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
-            });
+            });*/
         }
 
     }

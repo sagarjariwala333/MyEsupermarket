@@ -1,16 +1,15 @@
 package com.example.e_supermarket.customer.features.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.e_supermarket.R;
 
@@ -41,10 +40,12 @@ public class AboutFragment extends Fragment {
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(tb_abt);
 
+
+        
+
         tb_abt.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-
             {
                 FragmentManager manager=getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction=manager.beginTransaction();

@@ -73,7 +73,7 @@ public class StaffVordFragment extends Fragment {
         tv_view=view.findViewById(R.id.tv_view);
 
 
-        setdata();
+
 
         btn_staff_pay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +85,11 @@ public class StaffVordFragment extends Fragment {
                         StaffpayResponse staffpayResponse = response.body();
                         if(staffpayResponse.getSuccess4()==1)
                         {
+                            FragmentManager manager=getActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction=manager.beginTransaction();
+                            transaction.replace(R.id.fl_staff,new StaffVcustFragment());
+                            transaction.addToBackStack(null);
+                            transaction.commit();
                             Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -108,7 +113,9 @@ public class StaffVordFragment extends Fragment {
                 UpdateFlagResponse updateFlagResponse=response.body();
                 if (updateFlagResponse.getSuccess()==1)
                 {
+
                     Toast.makeText(getActivity(), ""+updateFlagResponse.getMeassage(), Toast.LENGTH_SHORT).show();
+                    setdata();
                 }
                 else if (updateFlagResponse.getSuccess()==2)
                 {
@@ -126,7 +133,6 @@ public class StaffVordFragment extends Fragment {
                             transaction.addToBackStack(null);
                             transaction.commit();
                         }
-
                     });
                     alert.create().show();
 

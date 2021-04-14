@@ -30,6 +30,7 @@ public class profileFragment extends Fragment {
     private TextView tv_cnum;
     private TextView tv_uid;
     String user_id,role;
+
     public profileFragment() {
         // Required empty public constructor
     }
@@ -52,8 +53,11 @@ public class profileFragment extends Fragment {
         tv_gender=view.findViewById(R.id.tv_gender);
         tv_email=view.findViewById(R.id.tv_email);
         tv_cnum=view.findViewById(R.id.tv_cnum);
+
         user_id=getActivity().getIntent().getStringExtra("user_id");
         role=getActivity().getIntent().getStringExtra("role");
+
+
         metth_prrofile();
         return view;
     }
@@ -78,6 +82,7 @@ public class profileFragment extends Fragment {
                         Glide
                                 .with(getActivity())
                                 .load(ApiCliet.ASSET_URL + profileResponse.getId_photo())
+                                .placeholder(R.drawable.no_profile)
                                 .into(iv_profile);
                     }
                 }

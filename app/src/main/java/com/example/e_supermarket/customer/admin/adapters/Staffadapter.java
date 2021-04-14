@@ -57,7 +57,8 @@ import retrofit2.Response;
         SubarrayItem subarrayItem=list.get(position);
         holder.tv_staffid.setText(subarrayItem.getUserId());
         holder.tv_staffname.setText(subarrayItem.getFirstName());
-        Glide.with(mActivity).load(ApiCliet.ASSET_URL+subarrayItem.getIdPhoto()).placeholder(R.drawable.ic_baseline_add).into(holder.iv_staff);
+        holder.tv_staffcnum.setText(subarrayItem.getMobile_no());
+        Glide.with(mActivity).load(ApiCliet.ASSET_URL+subarrayItem.getIdPhoto()).placeholder(R.drawable.no_profile).into(holder.iv_staff);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -159,12 +160,14 @@ import retrofit2.Response;
         private final ImageView iv_staff;
         private final TextView tv_staffid;
         private final TextView tv_staffname;
+        private final TextView tv_staffcnum;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_staff=itemView.findViewById(R.id.iv_staff);
             tv_staffid=itemView.findViewById(R.id.tv_staffid);
             tv_staffname=itemView.findViewById(R.id.tv_staffname);
+            tv_staffcnum=itemView.findViewById(R.id.tv_staffcnum);
         }
 
     }

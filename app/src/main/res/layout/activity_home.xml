@@ -52,42 +52,6 @@
         android:src="@drawable/ic_baseline_add"
         />
 
-    <!--<com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/btmapp_cust"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:backgroundTint="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:fabCradleMargin="10dp"
-        app:fabCradleVerticalOffset="10dp"
-        app:fabCradleRoundedCornerRadius="10dp"
-        tools:ignore="BottomAppBar">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/btmnav_cust"
-            android:layout_width="match_parent"
-            app:elevation="0dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/transparent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:menu="@menu/cust_btmitm"
-            />
-
-    </com.google.android.material.bottomappbar.BottomAppBar>
-
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/btmapp_cust"
-        android:src="@drawable/ic_baseline_add"
-        />-->
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

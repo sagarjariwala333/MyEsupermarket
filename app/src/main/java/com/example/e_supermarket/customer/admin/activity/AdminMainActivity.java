@@ -1,10 +1,12 @@
 package com.example.e_supermarket.customer.admin.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -93,6 +95,28 @@ public class AdminMainActivity extends AppCompatActivity
             };
 
 
+    @Override
+    public void onBackPressed() {
+        //   super.onBackPressed();
+
+        AlertDialog.Builder alertDialog= new AlertDialog.Builder(AdminMainActivity.this);
+        alertDialog.setTitle("Exit");
+        alertDialog.setMessage("Press exit button to exit");
+        alertDialog.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.setCancelable(true);
+            }
+        }).create().show();
+
+    }
 
 
 }

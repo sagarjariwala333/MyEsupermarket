@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -60,6 +62,8 @@ public class UpdateProdFragment extends Fragment implements PickiTCallbacks {
     String image_name="";
     private int SELECT_IMAGE_CODE=1;
     private PickiT pickiT;
+    private TextView tv1;
+    private RelativeLayout rl_nest_upprod;
 
     public UpdateProdFragment() {
         // Required empty public constructor
@@ -85,9 +89,27 @@ public class UpdateProdFragment extends Fragment implements PickiTCallbacks {
         et_mng_prodtype=view.findViewById(R.id.et_mng_prodtype);
         et_mng_prodprice=view.findViewById(R.id.et_mng_prodprice);
         btn_update=view.findViewById(R.id.btn_update);
+        tb_updateprod=view.findViewById(R.id.tb_updateprod);
+        //rl_nest_upprod=view.findViewById(R.id.rl_nest_upprod);
+        tv1=view.findViewById(R.id.tv1);
+
+        //rl_nest_upprod.startAnimation(AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.move));
 
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(tb_updateprod);
+
+
+        tb_updateprod.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                FragmentManager manager=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                transaction.replace(R.id.frame,new productfragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         product_id=getArguments().getString("product_id");
 

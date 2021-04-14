@@ -21,14 +21,20 @@
         <activity android:name=".customer.admin.activity.AdminMainActivity"></activity>
         <activity android:name=".customer.features.HomeActivity"></activity>
         <activity android:name=".customer.Common.Splash">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
         <activity android:name=".customer.Common.Mob"></activity>
-        <activity android:name=".customer.Common.Signup"></activity>
+        <activity android:name=".customer.Common.Signup">
+
+
+        </activity>
         <activity android:name=".customer.Common.Login" />
         <activity android:name=".customer.Common.MainActivity" />
 

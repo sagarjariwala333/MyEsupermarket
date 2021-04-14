@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -149,24 +150,6 @@ public class CartFragment extends Fragment {
             }
         });
 
-        /*place_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager manager=getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction=manager.beginTransaction();
-                transaction.replace(R.id.fl_cust,new PlaceOrdFragment());
-                transaction.commit();
-            }
-        });*/
-
-        //Making Bottom Appbar and floating action button invisible
-        btmapp_cust.setVisibility(View.INVISIBLE);
-        fab_add.setVisibility(View.INVISIBLE);
-
-
-
-        //Clicked on place order button
-
         ItemTouchHelper itemTouchHelper=new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(rv_cart);
         return view;
@@ -197,13 +180,8 @@ public class CartFragment extends Fragment {
                             {
                                 Toast.makeText(getActivity(), ""+removeAllResponse.getMsg(), Toast.LENGTH_SHORT).show();
                             }
-
                         }
-
-
                     }
-
-
 
                     @Override
                     public void onFailure(Call<RemoveAllResponse> call, Throwable t) {
@@ -304,6 +282,7 @@ public class CartFragment extends Fragment {
                         mAdapter = new Cart_adapter(CartFragment.this, list);
                         rv_cart.setAdapter(mAdapter);
                         rv_cart.setLayoutManager(new LinearLayoutManager(getContext()));
+                        rv_cart.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
                     }
                 }
             }

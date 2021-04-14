@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,8 +48,6 @@ public class History_prod_Fragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +74,17 @@ public class History_prod_Fragment extends Fragment {
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(tb_his_prod);
 
+        tb_his_prod.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                transaction.replace(R.id.fl_cust,new HistoryFrgament());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
         order_id=getArguments().getString("order_id");
         setdata();
 
@@ -89,7 +100,7 @@ public class History_prod_Fragment extends Fragment {
                     public void onResponse(Call<InvoiceResponse> call, Response<InvoiceResponse> response) {
                         //Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         InvoiceResponse invoiceResponse=response.body();
-                        Uri uriWebsite=Uri.parse("http://192.168.43.51/Admin/Esupermarket/ "+invoiceResponse.getData());
+                        Uri uriWebsite=Uri.parse(ApiCliet.INVOICE_URL+invoiceResponse.getData());
                         Intent intent=new Intent(Intent.ACTION_VIEW,uriWebsite);
                         startActivity(intent);
                     }

@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -85,6 +86,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
                                     "$"
                     );
     private String gen_str;
+    private Toolbar tb_addstaff;
 
     public AddStaffFragment() {
         // Required empty public constructor
@@ -109,6 +111,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
         et_lname=view.findViewById(R.id.et_lname);
         et_email=view.findViewById(R.id.et_email);
         //et_gen=view.findViewById(R.id.et_gen);
+        tb_addstaff=view.findViewById(R.id.tb_addstaff);
         et_vrfpass=view.findViewById(R.id.et_vrfpass);
         et_mobile=view.findViewById(R.id.et_mobile);
         iv_profile=view.findViewById(R.id.iv_profile);
@@ -118,6 +121,17 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
 
 
 
+        tb_addstaff.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                FragmentManager manager=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                transaction.replace(R.id.frame,new fragment_Staff());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         iv_profile.setOnClickListener(v -> Dexter
                 .withContext(getActivity())

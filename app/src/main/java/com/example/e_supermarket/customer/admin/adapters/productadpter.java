@@ -48,7 +48,8 @@ public class productadpter extends RecyclerView.Adapter<productadpter.MyViewHold
     PickiT pickiT;
 
 
-    public productadpter(productfragment productfragment, List<SubarrayItem> list) {
+    public productadpter(productfragment productfragment, List<SubarrayItem> list)
+    {
         this.mActivity=productfragment;
         this.list=list;
     }

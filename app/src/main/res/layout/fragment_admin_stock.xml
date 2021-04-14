@@ -3,21 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/newbg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".customer.admin.fragments.Fragment_stock">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/skin_200">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_manage_stock"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/ic_baseline_arrow_back"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             app:popupTheme="@style/Theme.AppCompat.Light"
             android:elevation="15dp"
+            app:titleTextColor="@color/white"
             android:background="@android:color/transparent"
             app:title="Manage Stock"/>
 

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/newbg"
     tools:context=".customer.features.fragments.UpdateProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -26,20 +27,20 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/tv1"
             android:text="Update Profile"
             android:layout_below="@+id/tb_up_profile"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="30dp"
             android:layout_marginLeft="17dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"/>-->
 
 
 
     <RelativeLayout
-        android:layout_below="@+id/tv1"
+        android:layout_below="@+id/tb_up_profile"
         android:id="@+id/rl_placeholder"
         android:layout_width="match_parent"
         android:layout_height="200dp">

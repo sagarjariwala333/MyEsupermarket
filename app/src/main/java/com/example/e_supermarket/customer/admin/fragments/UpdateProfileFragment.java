@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -63,6 +64,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
     private RadioButton rb_female;
     private RadioButton rb_male;
     private View til_gen;
+    private Toolbar tb_upprof;
 
     public UpdateProfileFragment() {
         // Required empty public constructor
@@ -89,10 +91,23 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
         et_email=view.findViewById(R.id.et_email);
        // et_gen=view.findViewById(R.id.et_gen);
         et_cnum=view.findViewById(R.id.et_cnum);
+        tb_upprof=view.findViewById(R.id.tb_upprof);
         rb_female=view.findViewById(R.id.rb_female);
         rb_male=view.findViewById(R.id.rb_male);
         staff_id=getArguments().getString("staff_id");
         til_gen=view.findViewById(R.id.til_gen);
+
+
+        tb_upprof.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                transaction.replace(R.id.frame,new fragment_Staff());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         getProfile();
 

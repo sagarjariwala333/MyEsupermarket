@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,12 +24,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.Common.Mob;
 import com.example.e_supermarket.customer.Common.Variables;
 import com.example.e_supermarket.customer.PrefUtil;
+import com.example.e_supermarket.customer.ProfileResponse;
+import com.example.e_supermarket.customer.api.ApiCliet;
+import com.example.e_supermarket.customer.api.ApiInterface;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment<onCreateView> extends Fragment implements NavigationView.OnNavigationItemSelectedListener{
     private String mParam1;
@@ -38,6 +48,8 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
     private NavigationView cust_nav;
     private FrameLayout fl_home;
     private FloatingActionButton fab_add;
+    private ImageView iv_cust;
+    private TextView tv_uname;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -62,6 +74,12 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
         cust_dl=view.findViewById(R.id.cust_dl);
         cust_nav=view.findViewById(R.id.cust_nav);
         fl_home=view.findViewById(R.id.fl_home);
+
+        View view1=cust_nav.getHeaderView(0);
+        tv_uname=view1.findViewById(R.id.tv_uname);
+        iv_cust=view1.findViewById(R.id.iv_cust);
+
+        loadnavigationdrawerdata();
         //fab_add=view.findViewById(R.id.fab_add);
 
 
@@ -85,6 +103,32 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
 
         cust_nav.setNavigationItemSelectedListener(this);
         return view;
+    }
+
+    private void loadnavigationdrawerdata() {
+        ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.profile(PrefUtil.getstringPref(Variables.userId,getActivity()),"C").enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                if (response.isSuccessful() && response.body()!=null)
+                {
+                    ProfileResponse profileResponse=response.body();
+                    if (profileResponse.getSuccess()==1)
+                    {
+                        tv_uname.setText("Hello, "+profileResponse.getFirstName());
+                        Glide.with(getActivity())
+                                .load(ApiCliet.ASSET_URL+profileResponse.getId_photo())
+                                .placeholder(R.drawable.no_profile)
+                                .into(iv_cust);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+
+            }
+        });
     }
 
 

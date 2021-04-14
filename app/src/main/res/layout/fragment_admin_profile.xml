@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/newbg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".customer.admin.fragments.profileFragment">
 
 
     <RelativeLayout
-        android:background="@color/skin_200"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
@@ -33,15 +33,7 @@
             android:id="@+id/rl_placeholder"
             android:layout_width="match_parent"
             android:layout_height="200dp">
-<!--
-            <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="15dp"
-                android:src="@drawable/ic_launcher_background" />-->
+
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_profile"
@@ -59,7 +51,6 @@
                 android:layout_below="@+id/iv_profile"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="XYZ ABC"
                 android:textColor="@color/white"
                 android:textSize="21sp"
                 android:textStyle="bold" />

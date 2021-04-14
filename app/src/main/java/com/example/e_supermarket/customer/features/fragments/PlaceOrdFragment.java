@@ -125,7 +125,7 @@ public class PlaceOrdFragment extends Fragment {
 
                     AlertDialog.Builder alert1=new AlertDialog.Builder(getActivity());
                     alert1.setTitle("Payment");
-                    alert1.setMessage(amt);
+                    alert1.setMessage("Pay "+amt+" INR");
                     alert1.setPositiveButton("Pay", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

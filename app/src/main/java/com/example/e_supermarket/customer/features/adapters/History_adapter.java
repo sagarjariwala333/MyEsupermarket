@@ -22,6 +22,7 @@ public class History_adapter extends RecyclerView.Adapter<History_adapter.MyView
 
     private final HistoryFrgament historyFrgament;
     private final List<SubarrayItem> list;
+    String cid;
 
 
     public History_adapter(HistoryFrgament historyFrgament, List<SubarrayItem> subarray)
@@ -45,9 +46,13 @@ public class History_adapter extends RecyclerView.Adapter<History_adapter.MyView
         holder.tv_billdate.setText("Order Date :- "+item.getDateOldorders());
         holder.tv_billamt.setText("Total amount :- "+item.getOldOrderid());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+
                 Bundle bundle = new Bundle();
                 History_prod_Fragment history_prod_fragment = new History_prod_Fragment();
                 bundle.putString("order_id", item.getOrderId());
@@ -57,6 +62,7 @@ public class History_adapter extends RecyclerView.Adapter<History_adapter.MyView
                 transaction.replace(R.id.fl_cust, history_prod_fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+
             }
         });
     }

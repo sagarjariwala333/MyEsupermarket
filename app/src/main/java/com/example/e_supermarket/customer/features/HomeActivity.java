@@ -28,7 +28,6 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import static com.example.e_supermarket.R.id.itm_cart;
 import static com.example.e_supermarket.R.id.itm_history;
 //import static com.example.e_supermarket.R.id.tv_pid_alert;
 
@@ -58,7 +57,6 @@ public class HomeActivity extends AppCompatActivity
         transaction.replace(R.id.fl_cust,new HomeFragment());
         transaction.commit();
 
-
         btmnav_cust=findViewById(R.id.btmnav_cust);
         fab_add=findViewById(R.id.fab_add);
         btmnav_cust.setOnNavigationItemSelectedListener(mListener);
@@ -78,79 +76,36 @@ public class HomeActivity extends AppCompatActivity
                 transaction.addToBackStack(null);
                 transaction.commit();
 
-               /* Dialog dialog=new Dialog(HomeActivity.this);
-                dialog.setContentView(R.layout.popupview);
-                dialog.setCancelable(true);
-                dialog.getWindow().setLayout(1000,WindowManager.LayoutParams.WRAP_CONTENT);
-                dialog.getWindow().getAttributes().windowAnimations= android.R.style.Animation_Dialog;
-
-                tv_pid_alert=dialog.findViewById(R.id.tv_pid_alert);
-                tv_pname_alert=dialog.findViewById(R.id.tv_pname_alert);
-                tv_price_alert=dialog.findViewById(R.id.tv_price_alert);
-                iv_prod_alert=dialog.findViewById(R.id.iv_prod_alert);
-                ib_add_alert=dialog.findViewById(R.id.ib_add_alert);
-                ib_minus_alert=dialog.findViewById(R.id.ib_minus_alert);
-                et_disstock_alert=dialog.findViewById(R.id.et_disstock_alert);
-                btn_addtocart_alert=dialog.findViewById(R.id.btn_addtocart_alert);
-                btn_cancel_alert=dialog.findViewById(R.id.btn_cancel_alert);
-
-                btn_addtocart_alert.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        dialog.dismiss();
-                        FragmentManager manager=getSupportFragmentManager();
-                        FragmentTransaction transaction=manager.beginTransaction();
-                        transaction.replace(R.id.fl_cust,new CartFragment());
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                    }
-                });
-
-                btn_cancel_alert.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                ib_add_alert.setOnClickListener(new View.OnClickListener() {
-                     @Override
-                    public void onClick(View v)
-                    {
-                        int num= Integer.parseInt(et_disstock_alert.getText().toString());
-                        num=num+1;
-                        String str= String.valueOf(num);
-                        et_disstock_alert.setText(str);
-                    }
-                });
-
-                ib_minus_alert.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v)
-                    {
-                        int num= Integer.parseInt(et_disstock_alert.getText().toString());
-                        if (num!=0)
-                        {
-                            num = num - 1;
-                            String str = String.valueOf(num);
-                            et_disstock_alert.setText(str);
-                        }
-                    }
-                });
-
-                dialog.show();*/
             }
         });
 
+
     }
+
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+     //   super.onBackPressed();
 
         btm_appcust.setVisibility(View.VISIBLE);
         fab_add.setVisibility(View.VISIBLE);
+
+        AlertDialog.Builder alertDialog= new AlertDialog.Builder(HomeActivity.this);
+        alertDialog.setTitle("Exit");
+        alertDialog.setMessage("Press exit button to exit");
+        alertDialog.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.setCancelable(true);
+            }
+        }).create().show();
 
     }
 
@@ -211,4 +166,6 @@ public class HomeActivity extends AppCompatActivity
             return true;
         }
     };
+
+
 }
