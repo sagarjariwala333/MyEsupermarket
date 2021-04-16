@@ -61,6 +61,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_below="@+id/rv_cart"
                     android:text="Remove All"
+                    android:background="@drawable/btn_corner"
                     android:textColor="@color/white"/>
 
                 <Button
@@ -71,6 +72,8 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_corner"
                     android:text="Check Out" />
 
             </RelativeLayout>

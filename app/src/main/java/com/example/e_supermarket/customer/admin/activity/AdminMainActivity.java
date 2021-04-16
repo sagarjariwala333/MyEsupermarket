@@ -1,8 +1,14 @@
 package com.example.e_supermarket.customer.admin.activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +37,20 @@ public class AdminMainActivity extends AppCompatActivity
         setContentView(R.layout.activity_admin_main);
 
 
+        if (Build.VERSION.SDK_INT>=19 && Build.VERSION.SDK_INT<21)
+        {
+            setWindowsFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,true);
+        }
+        if (Build.VERSION.SDK_INT>=19)
+        {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+        if (Build.VERSION.SDK_INT>=21)
+        {
+            setWindowsFlag(this,WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
         //String role=getIntent().getStringExtra("role");
         BottomNavigationView bt_bottom_nav;
         String user_id=getIntent().getStringExtra("user_id");
@@ -118,5 +138,18 @@ public class AdminMainActivity extends AppCompatActivity
 
     }
 
-
+    private void setWindowsFlag(Activity activity, final int Bits, boolean on)
+    {
+        Window win=activity.getWindow();
+        WindowManager.LayoutParams Winparams=win.getAttributes();
+        if (on)
+        {
+            Winparams.flags|=Bits;
+        }
+        else
+        {
+            Winparams.flags&=~Bits;
+        }
+        win.setAttributes(Winparams);
+    }
 }

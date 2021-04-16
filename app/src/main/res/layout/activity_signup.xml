@@ -257,6 +257,7 @@
         android:text="Signup"
         android:textColorHint="@color/dark"
         android:textColor="@color/dark"
+        android:background="@drawable/btn_corner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

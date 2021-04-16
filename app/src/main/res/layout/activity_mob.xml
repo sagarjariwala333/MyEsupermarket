@@ -2,13 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/teal_200"
+    android:background="@color/newbg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".customer.Common.Mob">
-
-
-
 
 
     <androidx.cardview.widget.CardView
@@ -31,6 +28,7 @@
             android:text="Enter mobile no."
             android:layout_alignParentTop="true"
             android:textSize="30dp"
+            android:textColor="@color/black"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
@@ -59,6 +57,7 @@
     <Button
         android:id="@+id/btn_entermob"
         android:text="Enter"
+        android:background="@drawable/btn_corner"
         android:layout_below="@+id/til_mob"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

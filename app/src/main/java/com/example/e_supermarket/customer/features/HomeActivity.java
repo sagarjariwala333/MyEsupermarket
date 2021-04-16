@@ -1,9 +1,14 @@
 package com.example.e_supermarket.customer.features;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -52,6 +57,22 @@ public class HomeActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        if (Build.VERSION.SDK_INT>=19 && Build.VERSION.SDK_INT<21)
+        {
+            setWindowsFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,true);
+        }
+        if (Build.VERSION.SDK_INT>=19)
+        {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+        if (Build.VERSION.SDK_INT>=21)
+        {
+            setWindowsFlag(this,WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+
         FragmentManager manager=getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         transaction.replace(R.id.fl_cust,new HomeFragment());
@@ -61,7 +82,6 @@ public class HomeActivity extends AppCompatActivity
         fab_add=findViewById(R.id.fab_add);
         btmnav_cust.setOnNavigationItemSelectedListener(mListener);
         btm_appcust=findViewById(R.id.btmapp_cust);
-       // fab_add=findViewById(R.id.fab_add);
 
 
         fab_add.setOnClickListener(new View.OnClickListener()
@@ -78,8 +98,6 @@ public class HomeActivity extends AppCompatActivity
 
             }
         });
-
-
     }
 
 
@@ -168,4 +186,18 @@ public class HomeActivity extends AppCompatActivity
     };
 
 
+    private void setWindowsFlag(Activity activity, final int Bits, boolean on)
+    {
+        Window win=activity.getWindow();
+        WindowManager.LayoutParams Winparams=win.getAttributes();
+        if (on)
+        {
+            Winparams.flags|=Bits;
+        }
+        else
+        {
+            Winparams.flags&=~Bits;
+        }
+        win.setAttributes(Winparams);
+    }
 }
