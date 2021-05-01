@@ -3,7 +3,6 @@ package com.example.e_supermarket.customer.features.fragments;
 import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -103,8 +102,6 @@ public class CartFragment extends Fragment {
                 btmapp_cust.setVisibility(View.VISIBLE);
             }
         });
-
-
 
 
         btn_removeall.setOnClickListener(new View.OnClickListener() {
@@ -207,8 +204,8 @@ public class CartFragment extends Fragment {
 
                     //Removing item
                     met_cartitemremove(list.get(position).getProductId());
-                    pos=position;
-                    list.remove(position);
+                //    pos=position;
+                   // list.remove(position);
                     FragmentManager manager=getActivity().getSupportFragmentManager();
                     FragmentTransaction transaction=manager.beginTransaction();
                     transaction.replace(R.id.fl_cust,new CartFragment());
@@ -216,13 +213,6 @@ public class CartFragment extends Fragment {
                     //mAdapter.notifyItemRemoved(position);
                     Snackbar make = Snackbar.make(rv_cart, removedpname, BaseTransientBottomBar.LENGTH_LONG);
 
-                    make.setAction("Undo", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            list.add(position, removedcartprod);
-                            mAdapter.notifyItemInserted(position);
-                        }
-                    }).show();
 
             }
         }
@@ -249,9 +239,9 @@ public class CartFragment extends Fragment {
         apiInterface.removecart(getActivity().getIntent().getStringExtra("user_id"),productId)
                 .enqueue(new Callback<RemoveResponse>() {
                     @Override
-                    public void onResponse(Call<RemoveResponse> call, Response<RemoveResponse> response) {
-                        mAdapter.notifyItemRemoved(pos);
-                        Toast.makeText(getContext(), "Removed", Toast.LENGTH_SHORT).show();
+                    public void onResponse(Call<RemoveResponse> call, Response<RemoveResponse> response)
+                    {
+                        Toast.makeText(getActivity(), "Item Removed", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -273,10 +263,9 @@ public class CartFragment extends Fragment {
                 if(response.isSuccessful() && response.body() != null) {
                     list = response.body().getSubarray();
 
+
                     if (list != null && !list.isEmpty())
                     {
-                        Log.d("Null1","null1");
-                        Toast.makeText(getActivity(), "Null1", Toast.LENGTH_SHORT).show();
                         btn_removeall.setEnabled(true);
                         btn_checkout.setEnabled(true);
                         mAdapter = new Cart_adapter(CartFragment.this, list);

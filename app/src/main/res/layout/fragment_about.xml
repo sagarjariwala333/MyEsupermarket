@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/newbg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".customer.features.fragments.AboutFragment">
 
@@ -10,7 +11,6 @@
 
     <RelativeLayout
         android:id="@+id/rl_about"
-        android:background="@drawable/prime_back"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -40,6 +40,64 @@
             android:background="@drawable/cart_corner"
             android:padding="15dp"
             app:cardElevation="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+              <ImageView
+                  android:id="@+id/iv_dmart"
+                  android:layout_width="match_parent"
+                  android:layout_height="300dp"
+                  android:src="@drawable/dmart"
+                  />
+
+                <TextView
+                    android:id="@+id/para1"
+                    android:layout_below="@+id/iv_dmart"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Avenue Supermarts Limited, d/b/a DMart, is an Indian retail corporation that operates a chain of hypermarkets in India. It was founded by Radhakishan Damani in 2002, with its first branch in Powai's Hiranandani Gardens.[3] As of 31 December 2019, it had 196 stores in 72 cities across 11 states in India including Maharashtra, Andhra Pradesh, Telangana, Gujarat, Madhya Pradesh, Chhattisgarh, Rajasthan, National Capital Region, Tamil Nadu, Karnataka, Uttar Pradesh, Daman and Punjab.[4][5]"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/para2"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/black"
+                    android:text="DMart is promoted by Avenue Supermarts Ltd. (ASL).[6] The company has its headquarters in Mumbai. As of 31 March 2019, DMart had a total of 7,713 permanent employees and 33,597 employees hired on contractual basis."
+                    android:layout_below="@id/para1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/para3"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/black"
+                    android:text="After the IPO listing (as Avenue Supermarts Ltd.), it made a record opening on the market on the National Stock Exchange. After the close of the stock on 22 March 2017, its market value rose to ₹39,988 crore. This pegged it as the 65th most valuable Indian firm, ahead of Britannia Industries, Marico and Bank of Baroda."
+                    android:layout_below="@id/para2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+               <!-- <TextView
+                    android:id="@+id/para4"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/black"
+                    android:text="As of 21 November 2019, the market capitalization of DMart is close to ₹114,000 crore, making it the 33rd largest company listed on the Bombay Stock Exchange."
+                    android:layout_below="@id/para3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>-->
+
+            </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
     </RelativeLayout>

@@ -23,6 +23,9 @@ import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.ProfileResponse;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +39,9 @@ public class ProfileFragment extends Fragment {
     private TextView tv_uid,tv_uname,tv_fullname,tv_gender,tv_email,tv_cnum;
     private ImageView iv_profile;
     String user_id,role;
+    private BottomAppBar btmapp_cust;
+    private FloatingActionButton fab_add;
+    private BottomNavigationView btmnav_cust;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -52,6 +58,12 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_profile, container, false);
         tb_profile=view.findViewById(R.id.tb_profile);
+
+
+        btmapp_cust=getActivity().findViewById(R.id.btmapp_cust);
+        fab_add=getActivity().findViewById(R.id.fab_add);
+        btmnav_cust=getActivity().findViewById(R.id.btmnav_cust);
+
 
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(tb_profile);
@@ -88,14 +100,17 @@ public class ProfileFragment extends Fragment {
         Toast.makeText(getActivity(), "Method called", Toast.LENGTH_SHORT).show();
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
 
-        apiInterface.profile(user_id,role).enqueue(new Callback<ProfileResponse>() {
+        apiInterface.profile(user_id,role).enqueue(new Callback<ProfileResponse>()
+        {
             @Override
-            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response)
+            {
                 if (response.isSuccessful() && response.body()!=null)
                 {
                     //LoginResponse loginResponse=response.body();
                     ProfileResponse profileResponse=response.body();
-                    if (profileResponse.getSuccess()==1){
+                    if (profileResponse.getSuccess()==1)
+                    {
                         //tv_uid.setText(user_id);
                         tv_cnum.setText(profileResponse.getMobileNo());
                         tv_email.setText(profileResponse.getEmail());
@@ -109,8 +124,6 @@ public class ProfileFragment extends Fragment {
                                 .into(iv_profile);
 
                     }
-                    //Toast.makeText(Mob.this, ""+mobileResponse.getRole(), Toast.LENGTH_SHORT).show();
-
                 }
             }
 

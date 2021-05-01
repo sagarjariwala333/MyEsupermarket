@@ -214,6 +214,8 @@
                     android:layout_below="@+id/rg_gen"
                     android:layout_width="match_parent"
                     android:text="Update"
+                    android:textColor="@color/white"
+                    android:background="@drawable/btn_corner"
                     android:layout_height="wrap_content"/>
 
 

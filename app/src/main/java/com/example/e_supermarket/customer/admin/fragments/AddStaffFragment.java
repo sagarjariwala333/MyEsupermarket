@@ -112,6 +112,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
         et_email=view.findViewById(R.id.et_email);
         //et_gen=view.findViewById(R.id.et_gen);
         tb_addstaff=view.findViewById(R.id.tb_addstaff);
+        et_createpass=view.findViewById(R.id.et_createpass);
         et_vrfpass=view.findViewById(R.id.et_vrfpass);
         et_mobile=view.findViewById(R.id.et_mobile);
         iv_profile=view.findViewById(R.id.iv_profile);
@@ -162,13 +163,19 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
             {
                 if (rb_male.isChecked())
                 {
-                    sel_gen=2;
+                    gen="Male";
+                    validation();
                 }
-                if (rb_female.isChecked())
+                else if (rb_female.isChecked())
                 {
-                    sel_gen=1;
+                    gen="Female";
+                    validation();
                 }
-                validation();
+                else
+                {
+                    Toast.makeText(getActivity(), "Select gender", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         return view;
@@ -251,7 +258,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
         {
             click6=true;
         }
-        if (sel_gen==1)
+        /*if (sel_gen==1)
         {
             gen_str="Female";
             click7=true;
@@ -267,10 +274,14 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
             click7=false;
             Toast.makeText(getActivity(), "Gender not selected", Toast.LENGTH_SHORT).show();
         }
-
-        if (click1 && click2 && click3 && click4 && click5 && click6 && click7)
+*/
+        if (click1 && click2 && click3 && click4 && click5 && click6)
         {
             met_staffsignup();
+        }
+        else if (!et_createpass.getText().toString().equals(et_vrfpass.getText().toString()))
+        {
+            Toast.makeText(getActivity(), "Password mismatch", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -384,7 +395,6 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
                 .with(getActivity())
                 .load(path)
                 .into(iv_profile);
-        Toast.makeText(getActivity(), "" + path, Toast.LENGTH_SHORT).show();
         met_uploadimg(new File(path));
     }
 }

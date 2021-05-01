@@ -40,7 +40,7 @@
                 android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/no_profile" />
 
             <TextView
                 android:id="@+id/tv_name"
@@ -50,8 +50,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/white"
-                android:textSize="21sp"
-                android:textStyle="bold" />
+                android:textSize="21sp" />
 
         </RelativeLayout>
 
@@ -80,7 +79,6 @@
                     android:id="@+id/til_fname"
                     android:layout_alignParentTop="true"
                     app:errorEnabled="true"
-                    android:textColorHint="@color/black"
                     app:boxBackgroundMode="outline"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
@@ -237,6 +235,8 @@
                     android:layout_below="@+id/rg_gen"
                     android:layout_width="match_parent"
                     android:text="Add Staff"
+                    android:background="@drawable/btn_corner"
+                    android:textColor="@color/white"
                     android:layout_height="wrap_content"/>
 
 

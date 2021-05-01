@@ -76,17 +76,24 @@ public class StaffMainActivity extends AppCompatActivity {
 */
                 case R.id.staffitm_mngord:
                     fragment=new StaffVcustFragment();
+                    FragmentManager manager1=getSupportFragmentManager();
+                    FragmentTransaction transaction1=manager1.beginTransaction();
+                    transaction1.replace(R.id.fl_staff,fragment);
+                    transaction1.addToBackStack(null);
+                    transaction1.commit();
                     break;
 
                 case R.id.staffitm_profile:
                     fragment=new StaffProfileFragment();
+                    FragmentManager manager2=getSupportFragmentManager();
+                    FragmentTransaction transaction2=manager2.beginTransaction();
+                    transaction2.replace(R.id.fl_staff,fragment);
+                    transaction2.addToBackStack(null);
+                    transaction2.commit();
                     break;
             }
 
-            FragmentManager manager=getSupportFragmentManager();
-            FragmentTransaction transaction=manager.beginTransaction();
-            transaction.replace(R.id.fl_staff,fragment);
-            transaction.commit();
+
             return true;
         }
     };

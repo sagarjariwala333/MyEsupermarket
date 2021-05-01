@@ -85,30 +85,41 @@ public class AdminMainActivity extends AppCompatActivity
 
                         case R.id.page_2:
                             fragment = new fragment_Staff();
+                            FragmentManager manager1 = getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction1 = manager1.beginTransaction();
+                            fragmentTransaction1.replace(R.id.frame,fragment);
+                            fragmentTransaction1.addToBackStack(null);
+                            fragmentTransaction1.commit();
                             break;
 
                         case R.id.page_3:
                             fragment = new Fragment_stock();
+                            FragmentManager manager2 = getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction2 = manager2.beginTransaction();
+                            fragmentTransaction2.replace(R.id.frame,fragment);
+                            fragmentTransaction2.addToBackStack(null);
+                            fragmentTransaction2.commit();
                             break;
 
                         case R.id.page_4:
                             fragment = new profileFragment();
+                            FragmentManager manager3 = getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction3 = manager3.beginTransaction();
+                            fragmentTransaction3.replace(R.id.frame,fragment);
+                            fragmentTransaction3.addToBackStack(null);
+                            fragmentTransaction3.commit();
                             break;
 
                         case R.id.page_5:
                             fragment = new productfragment();
+                            FragmentManager manager4 = getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction4 = manager4.beginTransaction();
+                            fragmentTransaction4.replace(R.id.frame,fragment);
+                            fragmentTransaction4.addToBackStack(null);
+                            fragmentTransaction4.commit();
                             break;
 
                     }
-
-                    FragmentManager manager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                    /*Bundle bundle=new Bundle();
-                    bundle.putString("user_id",user_id);
-                    bundle.putString("role",role);
-                    fragment.setArguments(bundle);*/
-                    fragmentTransaction.replace(R.id.frame,fragment);
-                    fragmentTransaction.commit();
                     return true;
                 }
 

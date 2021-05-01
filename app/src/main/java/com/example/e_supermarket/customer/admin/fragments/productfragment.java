@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,12 +154,39 @@ public class productfragment extends Fragment implements PickiTCallbacks {
                                 }).check();
                     }
                 });
+
                 btn_mng_addprod.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getActivity(), "Add", Toast.LENGTH_SHORT).show();
-                        met_uploaddata();
-                        dialog.dismiss();
+                        int done=1;
+                        if (TextUtils.isEmpty(et_mng_prodname.getText().toString()))
+                        {
+                            done=0;
+                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                            et_mng_prodname.setError("Enter product name");
+                        }
+                        if (TextUtils.isEmpty(et_mng_prodqut.getText().toString()))
+                        {
+                            done=0;
+                            et_mng_prodqut.setError("Enter product quantity");
+                        }
+                        if (TextUtils.isEmpty(et_mng_prodprice.getText().toString()))
+                        {
+                            done=0;
+                            et_mng_prodprice.setError("Enter price");
+                        }
+                        if (TextUtils.isEmpty(et_mng_prodtype.getText().toString()))
+                        {
+                            done=0;
+                            et_mng_prodtype.setError("Enter type");
+                        }
+                        if (done==1)
+                        {
+                            met_uploaddata();
+                            dialog.dismiss();
+                        }
+
                     }
                 });
 
@@ -213,6 +241,11 @@ public class productfragment extends Fragment implements PickiTCallbacks {
                    if (addProdResponse.getSuccess()==1)
                    {
                        Toast.makeText(getActivity(), ""+addProdResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                       FragmentManager manager=getActivity().getSupportFragmentManager();
+                       FragmentTransaction transaction=manager.beginTransaction();
+                       transaction.replace(R.id.fl_cust,new productfragment());
+                       transaction.addToBackStack(null);
+                       transaction.commit();
                    }
                    else
                    {

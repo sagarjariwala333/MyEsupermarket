@@ -57,6 +57,7 @@
     <Button
         android:id="@+id/btn_entermob"
         android:text="Enter"
+        android:textColor="@color/white"
         android:background="@drawable/btn_corner"
         android:layout_below="@+id/til_mob"
         android:layout_width="match_parent"

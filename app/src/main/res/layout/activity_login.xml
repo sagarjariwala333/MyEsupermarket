@@ -58,6 +58,7 @@
         android:layout_below="@+id/til_pass"
         android:text="Login"
         android:textSize="14dp"
+        android:textColor="@color/white"
         android:background="@drawable/btn_corner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

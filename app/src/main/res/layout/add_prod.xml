@@ -14,6 +14,7 @@
         <TextView
             android:layout_alignParentTop="true"
             android:text="Add Product"
+            android:textColor="@color/black"
             android:textSize="22dp"
             android:id="@+id/tv_admin_prod_title"
             android:layout_width="wrap_content"
@@ -40,12 +41,14 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/tv_admin_prod_title"
         app:boxBackgroundMode="outline"
+        app:errorEnabled="true"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/et_mng_prodname"
             android:hint="Enter Product Name"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -56,12 +59,14 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/til_mng_prodname"
         app:boxBackgroundMode="outline"
+        app:errorEnabled="true"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/et_mng_prodqut"
             android:hint="Enter Product Quantity"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -72,12 +77,14 @@
             android:layout_width="match_parent"
             android:layout_below="@+id/til_mng_prodqut"
             app:boxBackgroundMode="outline"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/et_mng_prodtype"
                 android:hint="Enter Product Type"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -88,12 +95,15 @@
             android:layout_width="match_parent"
             android:layout_below="@+id/til_mng_prodtype"
             app:boxBackgroundMode="outline"
+            app:errorEnabled="true"
+
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/et_mng_prodprice"
                 android:hint="Enter Product Price"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

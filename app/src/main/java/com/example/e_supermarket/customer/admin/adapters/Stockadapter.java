@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -108,6 +110,11 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                                                 RemoveStockResponse removeStockResponse = response.body();
                                                 if (removeStockResponse.getSuccess() == 1) {
                                                     Toast.makeText(mActivity.getActivity(), "" + removeStockResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                                    FragmentManager manager=mActivity.getActivity().getSupportFragmentManager();
+                                                    FragmentTransaction transaction=manager.beginTransaction();
+                                                    transaction.replace(R.id.fl_cust,new Fragment_stock());
+                                                    transaction.addToBackStack(null);
+                                                    transaction.commit();
                                                 }
                                             }
                                         }
@@ -140,6 +147,11 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                                                 AddStockResponse addStockResponse = response.body();
                                                 if (addStockResponse.getSuccess() == 1) {
                                                     Toast.makeText(mActivity.getActivity(), "" + addStockResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                                    FragmentManager manager=mActivity.getActivity().getSupportFragmentManager();
+                                                    FragmentTransaction transaction=manager.beginTransaction();
+                                                    transaction.replace(R.id.fl_cust,new Fragment_stock());
+                                                    transaction.addToBackStack(null);
+                                                    transaction.commit();
                                                 }
                                             }
                                         }

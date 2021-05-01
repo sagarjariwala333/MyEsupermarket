@@ -158,7 +158,7 @@ public class UpdateProdFragment extends Fragment implements PickiTCallbacks {
         //Boolean click5=false;
         //  Boolean click6=false;
         Boolean click7=false;
-        float et_mng_prodprice1= Float.parseFloat(et_mng_prodprice.getText().toString());
+
         if(TextUtils.isEmpty(et_mng_prodname.getText().toString()))
         {
             et_mng_prodname.setError("Enter data");
@@ -180,14 +180,19 @@ public class UpdateProdFragment extends Fragment implements PickiTCallbacks {
         {
             et_mng_prodprice.setError("Enter Data");
         }
-        if (et_mng_prodprice1<1)
-        {
-            et_mng_prodprice.setError("Enter valid price");
-        }
         else
         {
-            click4=true;
+            float et_mng_prodprice1= Float.parseFloat(et_mng_prodprice.getText().toString());
+            if (et_mng_prodprice1<1)
+            {
+                et_mng_prodprice.setError("Enter valid price");
+            }
+            else
+            {
+                click4=true;
+            }
         }
+
 
         if (click1 && click2 && click4)
         {
@@ -292,6 +297,7 @@ public class UpdateProdFragment extends Fragment implements PickiTCallbacks {
                         et_mng_prodname.setText(loadProductResponse.getProductName());
                         et_mng_prodprice.setText(loadProductResponse.getProductPrice());
                         et_mng_prodtype.setText(loadProductResponse.getProductType());
+                        image_name=loadProductResponse.getProductImg();
                         Glide.with(getActivity())
                                 .load(ApiCliet.ASSET_URL+loadProductResponse.getProductImg())
                                 .placeholder(R.drawable.ic_baseline_add)

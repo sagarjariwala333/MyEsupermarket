@@ -2,6 +2,7 @@ package com.example.e_supermarket.customer.features;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -76,7 +77,14 @@ public class HomeActivity extends AppCompatActivity
         FragmentManager manager=getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         transaction.replace(R.id.fl_cust,new HomeFragment());
+        transaction.addToBackStack(null);
         transaction.commit();
+
+        FragmentManager manager1=getSupportFragmentManager();
+        FragmentTransaction transaction1=manager1.beginTransaction();
+        transaction1.replace(R.id.fl_cust,new HomeFragment());
+        transaction1.addToBackStack(null);
+        transaction1.commit();
 
         btmnav_cust=findViewById(R.id.btmnav_cust);
         fab_add=findViewById(R.id.fab_add);
@@ -92,7 +100,7 @@ public class HomeActivity extends AppCompatActivity
 
                 FragmentManager manager=getSupportFragmentManager();
                 FragmentTransaction transaction=manager.beginTransaction();
-                transaction.replace(R.id.fl_cust,new ScannerFragment());
+                transaction.replace(R.id.fl_cust,new ScannerFragment(),"My_fragment");
                 transaction.addToBackStack(null);
                 transaction.commit();
 
@@ -108,22 +116,32 @@ public class HomeActivity extends AppCompatActivity
         btm_appcust.setVisibility(View.VISIBLE);
         fab_add.setVisibility(View.VISIBLE);
 
-        AlertDialog.Builder alertDialog= new AlertDialog.Builder(HomeActivity.this);
-        alertDialog.setTitle("Exit");
-        alertDialog.setMessage("Press exit button to exit");
-        alertDialog.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                System.exit(0);
-            }
-        });
+        ScannerFragment scannerFragment= (ScannerFragment) getSupportFragmentManager().findFragmentByTag("My_fragment");
 
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                alertDialog.setCancelable(true);
-            }
-        }).create().show();
+        if (scannerFragment != null && scannerFragment.isVisible())
+        {
+            Intent intent=new Intent(HomeActivity.this,HomeActivity.class);
+            startActivity(intent);
+        }
+        else {
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this);
+            alertDialog.setTitle("Exit");
+            alertDialog.setMessage("Press exit button to exit");
+            alertDialog.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    System.exit(0);
+                }
+            });
+
+            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    alertDialog.setCancelable(true);
+                }
+            }).create().show();
+        }
 
     }
 

@@ -6,13 +6,12 @@
     android:background="@color/newbg"
     android:gravity="bottom">
 
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_cust"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/no_profile"
         />
 
     <TextView
@@ -22,9 +21,9 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/white"
+        android:textColor="#aed6d8"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        />
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,36 +107,33 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
             }
         });
 
-       /* btn_chgpass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager manager = getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fl_cust, new ChgPassFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });*/
+
 
 
         btn_updateprof.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //met_addstaff();
-                if(rb_male.isChecked())
+                if (TextUtils.isEmpty(et_fname.getText().toString()))
                 {
-                    gender="Male";
+                    et_fname.setError("Enter First Name");
                 }
-                else if (rb_female.isChecked())
+                else if (TextUtils.isEmpty(et_lname.getText().toString()))
                 {
-                    gender="Female";
+                    et_lname.setError("Enter lastname");
                 }
-                else
-                {
-                    gender="";
+                else {
+
+                    //met_addstaff();
+                    if (rb_male.isChecked()) {
+                        gender = "Male";
+                    } else if (rb_female.isChecked()) {
+                        gender = "Female";
+                    } else {
+                        gender = "";
+                    }
+                    met_update();
                 }
-                met_update();
 
             }
         });

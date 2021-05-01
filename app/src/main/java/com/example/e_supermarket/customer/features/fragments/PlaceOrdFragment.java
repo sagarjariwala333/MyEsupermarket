@@ -12,6 +12,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -70,7 +73,11 @@ public class PlaceOrdFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                getActivity().onBackPressed();
+                FragmentManager manager=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction=manager.beginTransaction();
+                transaction.replace(R.id.fl_cust,new CartFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -179,6 +186,8 @@ public class PlaceOrdFragment extends Fragment {
                 mAdapter=new Checkout_adapter(PlaceOrdFragment.this,response.body().getSubarray());
                 rv_placeord.setAdapter(mAdapter);
                 rv_placeord.setLayoutManager(new LinearLayoutManager(getContext()));
+                rv_placeord. addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+
             }
 
             @Override

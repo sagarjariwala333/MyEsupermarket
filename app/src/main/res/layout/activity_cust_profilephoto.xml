@@ -13,7 +13,7 @@
         android:textSize="25dp"
         android:textColor="@color/white"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -22,13 +22,14 @@
         android:id="@+id/cir_img"
         android:layout_height="200dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/no_profile"
         android:layout_centerInParent="true"
         />
 
     <Button
         android:id="@+id/btn_upload"
         android:text="Upload Image"
+        android:background="@drawable/btn_corner"
         android:layout_below="@+id/cir_img"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
@@ -37,6 +38,8 @@
     <Button
         android:id="@+id/btn_next"
         android:text="Next"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_corner"
         android:layout_below="@+id/btn_upload"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"

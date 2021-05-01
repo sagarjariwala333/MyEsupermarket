@@ -23,7 +23,6 @@ import com.bumptech.glide.Glide;
 import com.example.e_supermarket.R;
 import com.example.e_supermarket.customer.admin.adminresponses.RemoveProdResponse;
 import com.example.e_supermarket.customer.admin.fragments.UpdateProdFragment;
-import com.example.e_supermarket.customer.admin.fragments.fragment_Staff;
 import com.example.e_supermarket.customer.admin.fragments.productfragment;
 import com.example.e_supermarket.customer.admin.viewprod.SubarrayItem;
 import com.example.e_supermarket.customer.api.ApiCliet;
@@ -115,7 +114,7 @@ public class productadpter extends RecyclerView.Adapter<productadpter.MyViewHold
                                             {
                                                 FragmentManager manager=mActivity.getActivity().getSupportFragmentManager();
                                                 FragmentTransaction transaction=manager.beginTransaction();
-                                                transaction.replace(R.id.frame,new fragment_Staff());
+                                                transaction.replace(R.id.frame,new productfragment());
                                                 transaction.addToBackStack(null);
                                                 transaction.commit();
 

@@ -32,6 +32,8 @@ import com.example.e_supermarket.customer.PrefUtil;
 import com.example.e_supermarket.customer.ProfileResponse;
 import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -39,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment<onCreateView> extends Fragment implements NavigationView.OnNavigationItemSelectedListener{
+public class HomeFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener{
     private String mParam1;
     private String mParam2;
     private Toolbar tb_home;
@@ -47,9 +49,11 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
     private DrawerLayout cust_dl;
     private NavigationView cust_nav;
     private FrameLayout fl_home;
-    private FloatingActionButton fab_add;
     private ImageView iv_cust;
     private TextView tv_uname;
+    private BottomAppBar btmapp_cust;
+    private FloatingActionButton fab_add;
+    private BottomNavigationView btmnav_cust;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -67,9 +71,17 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        Toast.makeText(getActivity(), ""+PrefUtil.getstringPref(Variables.userId,getActivity()), Toast.LENGTH_SHORT).show();
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        btmapp_cust=getActivity().findViewById(R.id.btmapp_cust);
+        fab_add=getActivity().findViewById(R.id.fab_add);
+        btmnav_cust=getActivity().findViewById(R.id.btmnav_cust);
+
+
+
+      /*  btmapp_cust.setVisibility(View.VISIBLE);
+        fab_add.setVisibility(View.VISIBLE);*/
+
         tb_home=view.findViewById(R.id.tb_home);
         cust_dl=view.findViewById(R.id.cust_dl);
         cust_nav=view.findViewById(R.id.cust_nav);
@@ -148,22 +160,62 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
         {
             case R.id.nav_cart:
                 fragment=new CartFragment();
+
+                FragmentManager manager1=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction1=manager1.beginTransaction();
+                transaction1.replace(R.id.fl_cust,fragment);
+                transaction1.addToBackStack(null);
+                transaction1.commit();
+
                 break;
 
             case R.id.nav_about:
                 fragment=new AboutFragment();
+
+                FragmentManager manager2=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction2=manager2.beginTransaction();
+                transaction2.replace(R.id.fl_cust,fragment);
+                transaction2.addToBackStack(null);
+                transaction2.commit();
+
                 break;
 
             case R.id.nav_contact:
-                fragment=new ContactFragment();
+               // fragment=new ContactFragment();
+                try
+                {
+                    Intent j = new Intent(Intent.ACTION_SEND);
+                    j.setType("text/plain");
+                    j.putExtra(Intent.EXTRA_SUBJECT,"neel");
+                    j.putExtra(Intent.EXTRA_TEXT,"https://play.google.com/store/apps/details?id="+getActivity().getPackageName());
+                    startActivity(Intent.createChooser(j,"Share with"));
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(getActivity(), "Unable to share", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.nav_his:
                 fragment=new HistoryFrgament();
+
+                FragmentManager manager3=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction3=manager3.beginTransaction();
+                transaction3.replace(R.id.fl_cust,fragment);
+                transaction3.addToBackStack(null);
+                transaction3.commit();
+
                 break;
 
             case R.id.nav_profile:
                 fragment=new ProfileFragment();
+
+                FragmentManager manager4=getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction4=manager4.beginTransaction();
+                transaction4.replace(R.id.fl_cust,fragment);
+                transaction4.addToBackStack(null);
+                transaction4.commit();
+
                 break;
 
             case R.id.nav_signout:
@@ -183,11 +235,11 @@ public class HomeFragment<onCreateView> extends Fragment implements NavigationVi
             default:
                 return false;
         }
-        FragmentManager manager=getActivity().getSupportFragmentManager();
+        /*FragmentManager manager=getActivity().getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         transaction.replace(R.id.fl_cust,fragment);
         transaction.addToBackStack(null);
-        transaction.commit();
+        transaction.commit();*/
         return true;
     }
 

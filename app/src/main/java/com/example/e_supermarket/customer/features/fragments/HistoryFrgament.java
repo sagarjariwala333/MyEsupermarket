@@ -156,8 +156,6 @@ public class HistoryFrgament extends Fragment {
                 rv_history.setLayoutManager(new LinearLayoutManager(getContext()));
                 rv_history. addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
-
-
             }
 
             @Override

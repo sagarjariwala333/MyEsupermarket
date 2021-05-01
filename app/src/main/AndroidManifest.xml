@@ -17,8 +17,14 @@
         android:theme="@style/Theme.ESupermarket"
         android:usesCleartextTraffic="true">
         <activity android:name=".customer.Common.Cust_profilephoto"></activity>
-        <activity android:name=".customer.staff.activity.StaffMainActivity" />
-        <activity android:name=".customer.admin.activity.AdminMainActivity"></activity>
+        <activity android:name=".customer.staff.activity.StaffMainActivity"
+            android:windowSoftInputMode="adjustPan"
+            >
+        </activity>
+        <activity android:name=".customer.admin.activity.AdminMainActivity"
+            android:windowSoftInputMode="adjustPan"
+            >
+        </activity>
         <activity android:name=".customer.features.HomeActivity"></activity>
         <activity android:name=".customer.Common.Splash">
 

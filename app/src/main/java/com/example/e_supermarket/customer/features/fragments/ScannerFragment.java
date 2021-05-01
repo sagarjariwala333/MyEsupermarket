@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -30,6 +31,7 @@ import com.example.e_supermarket.customer.api.ApiCliet;
 import com.example.e_supermarket.customer.api.ApiInterface;
 import com.example.e_supermarket.customer.features.cartresponse.AddToCartResponse;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -60,6 +62,7 @@ public class ScannerFragment extends Fragment {
     private Button btn_addtocart_alert;
     int one_price;
     private BottomAppBar btmapp_cust;
+    private FloatingActionButton fab_add;
 
     public ScannerFragment() {
         // Required empty public constructor
@@ -79,9 +82,12 @@ public class ScannerFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_scanner, container, false);
 
-        btmapp_cust=view.findViewById(R.id.btmapp_cust);
+        btmapp_cust=getActivity().findViewById(R.id.btmapp_cust);
+        fab_add=getActivity().findViewById(R.id.fab_add);
        // btmapp_cust.setVisibility(View.GONE);
 
+       // btmapp_cust.setVisibility(View.INVISIBLE);
+        //fab_add.setVisibility(View.INVISIBLE);
 
         CodeScannerView scannerView=view.findViewById(R.id.scanner);
 
@@ -92,7 +98,6 @@ public class ScannerFragment extends Fragment {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse)
                     {
-
                         mCodeScanner=new CodeScanner(getActivity(),scannerView);
                         mCodeScanner.setDecodeCallback(new DecodeCallback() {
                             @Override
@@ -107,7 +112,7 @@ public class ScannerFragment extends Fragment {
                                         {
                                             FragmentManager manager=getActivity().getSupportFragmentManager();
                                             FragmentTransaction transaction=manager.beginTransaction();
-                                            transaction.replace(R.id.fl_cust,new HomeFragment<>());
+                                            transaction.replace(R.id.fl_cust,new HomeFragment());
                                             transaction.addToBackStack(null);
                                             transaction.commit();
 
@@ -192,12 +197,7 @@ public class ScannerFragment extends Fragment {
                         });
 
                         mCodeScanner.startPreview();
-                       /* scannerView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mCodeScanner.startPreview();
-                            }
-                        });*/
+
 
                     }
 
@@ -265,7 +265,7 @@ public class ScannerFragment extends Fragment {
                             Toast.makeText(getActivity(), "Added", Toast.LENGTH_SHORT).show();
                             FragmentManager manager=getActivity().getSupportFragmentManager();
                             FragmentTransaction transaction=manager.beginTransaction();
-                            transaction.replace(R.id.fl_cust,new HomeFragment<>());
+                            transaction.replace(R.id.fl_cust,new HomeFragment());
                             transaction.addToBackStack(null);
                             transaction.commit();
 
@@ -273,6 +273,16 @@ public class ScannerFragment extends Fragment {
                         else if (addToCartResponse.getSuccess()==2)
                         {
                             Toast.makeText(getActivity(), "Product already in cart", Toast.LENGTH_SHORT).show();
+                            AlertDialog.Builder alert1=new AlertDialog.Builder(getActivity());
+                           /* alert1.setTitle("Already Exist");
+                            alert1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    alert1.setCancelable(true);
+                                }
+                            });
+
+                            alert1.create().show();*/
                         }
                         else
                         {

@@ -59,6 +59,8 @@
                     android:layout_below="@+id/rv_his_prod"
                     android:layout_centerHorizontal="true"
                     android:text="GET INVOICE"
+                    android:textColor="@color/white"
+                    android:background="@drawable/btn_corner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

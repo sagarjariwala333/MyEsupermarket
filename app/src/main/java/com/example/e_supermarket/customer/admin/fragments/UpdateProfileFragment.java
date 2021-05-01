@@ -254,6 +254,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
                     Glide
                             .with(getActivity())
                             .load(ApiCliet.ASSET_URL+profileResponse.getId_photo())
+                            .placeholder(R.drawable.no_profile)
                             .into(iv_profile);
                 }
             }
