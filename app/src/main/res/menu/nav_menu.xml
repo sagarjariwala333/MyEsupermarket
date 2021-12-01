@@ -24,7 +24,7 @@
         <menu>
             <item android:id="@+id/nav_profile"
                 android:title="Profile"
-                android:icon="@drawable/ic_baseline_history"
+                android:icon="@drawable/ic_baseline_person"
                 />
 
             <item android:id="@+id/nav_signout"

@@ -65,7 +65,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Product id"
+                    android:text="Not found"
                     android:textSize="14dp"
                     android:textColor="@color/black"
                     android:layout_row="0"
@@ -84,7 +84,7 @@
                     android:id="@+id/label_pname"/>
 
                 <TextView
-                    android:text="Product Name"
+                    android:text="Not found"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14dp"
@@ -104,7 +104,7 @@
                     android:id="@+id/label_price"/>
 
                 <TextView
-                    android:text="Price"
+                    android:text="Not found"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14dp"

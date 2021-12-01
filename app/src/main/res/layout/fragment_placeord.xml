@@ -46,6 +46,8 @@
                <Button
                    android:id="@+id/btn_plcord"
                    android:text="Place Order"
+                   android:textColor="@color/white"
+                   android:background="@drawable/btn_corner"
                    android:layout_below="@+id/rv_placeord"
                    android:layout_width="match_parent"
                    android:layout_marginLeft="15dp"

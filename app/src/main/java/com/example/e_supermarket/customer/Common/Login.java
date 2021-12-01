@@ -1,7 +1,6 @@
 package com.example.e_supermarket.customer.Common;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -15,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.e_supermarket.R;
@@ -68,7 +66,7 @@ public class Login extends AppCompatActivity
         userid=getIntent().getStringExtra("userid");
         role=getIntent().getStringExtra("role");
 
-        Toast.makeText(this, ""+userid, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, ""+userid, Toast.LENGTH_SHORT).show();
 
         btn_login=findViewById(R.id.btn_login);
 
@@ -94,23 +92,8 @@ public class Login extends AppCompatActivity
     public void onBackPressed()
     {
         //super.onBackPressed();
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(Login.this);
-        alertDialog.setTitle("Exit");
-        alertDialog.setMessage("Press exit button to exit");
-        alertDialog.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                System.exit(0);
-            }
-        });
-
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                alertDialog.setCancelable(true);
-            }
-        }).create().show();
+       Intent intent=new Intent(Login.this,Mob.class);
+       startActivity(intent);
     }
 
     private void setWindowsFlag(Activity activity, final int Bits, boolean on)

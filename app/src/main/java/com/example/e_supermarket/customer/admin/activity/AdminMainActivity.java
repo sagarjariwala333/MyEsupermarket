@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -55,7 +54,7 @@ public class AdminMainActivity extends AppCompatActivity
         BottomNavigationView bt_bottom_nav;
         String user_id=getIntent().getStringExtra("user_id");
         String role=getIntent().getStringExtra("role");
-        Toast.makeText(this, ""+user_id, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, ""+user_id, Toast.LENGTH_SHORT).show();
         //setContentView(R.layout.fragment__admin_staff);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -64,11 +63,6 @@ public class AdminMainActivity extends AppCompatActivity
 
         bt_bottom_nav = findViewById(R.id.bt_bottom_nav);
         bt_bottom_nav.setOnNavigationItemSelectedListener(mLisner);
-
-
-
-
-
 
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mLisner =

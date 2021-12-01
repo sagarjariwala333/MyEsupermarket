@@ -262,7 +262,7 @@ public class ScannerFragment extends Fragment {
                         AddToCartResponse addToCartResponse = response.body();
                         if (addToCartResponse.getSuccess() == 1)
                         {
-                            Toast.makeText(getActivity(), "Added", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "Added", Toast.LENGTH_SHORT).show();
                             FragmentManager manager=getActivity().getSupportFragmentManager();
                             FragmentTransaction transaction=manager.beginTransaction();
                             transaction.replace(R.id.fl_cust,new HomeFragment());
@@ -286,7 +286,7 @@ public class ScannerFragment extends Fragment {
                         }
                         else
                         {
-                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Product not found", Toast.LENGTH_SHORT).show();
                         }
 
 

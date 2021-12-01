@@ -89,7 +89,6 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                     @Override
                     public void onClick(View view)
                     {
-
                         dialog.dismiss();
                     }
                 });
@@ -100,7 +99,9 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                     public void onClick(View view) {
                         if (TextUtils.isEmpty(et_ar_stock.getText().toString().trim())) {
                             et_ar_stock.setError("Enter stock");
-                        } else {
+                        }
+                        else
+                            {
                             ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
                             apiInterface.removestock(holder.tv_stockid.getText().toString(), et_ar_stock.getText().toString())
                                     .enqueue(new Callback<RemoveStockResponse>() {
@@ -108,13 +109,17 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                                         public void onResponse(Call<RemoveStockResponse> call, Response<RemoveStockResponse> response) {
                                             if (response.isSuccessful() && response.body() != null) {
                                                 RemoveStockResponse removeStockResponse = response.body();
-                                                if (removeStockResponse.getSuccess() == 1) {
+                                                if (removeStockResponse.getSuccess() == 1)
+                                                {
                                                     Toast.makeText(mActivity.getActivity(), "" + removeStockResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                                    dialog.dismiss();
+
                                                     FragmentManager manager=mActivity.getActivity().getSupportFragmentManager();
                                                     FragmentTransaction transaction=manager.beginTransaction();
-                                                    transaction.replace(R.id.fl_cust,new Fragment_stock());
+                                                    transaction.replace(R.id.frame,new Fragment_stock());
                                                     transaction.addToBackStack(null);
                                                     transaction.commit();
+
                                                 }
                                             }
                                         }
@@ -126,6 +131,11 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                                     });
                             Toast.makeText(mActivity.getActivity(), "Removed", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
+                                FragmentManager manager=mActivity.getActivity().getSupportFragmentManager();
+                                FragmentTransaction transaction=manager.beginTransaction();
+                                transaction.replace(R.id.frame,new Fragment_stock());
+                                transaction.addToBackStack(null);
+                                transaction.commit();
                         }
                     }
 
@@ -146,10 +156,12 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
                                             if (response.isSuccessful() && response.body() != null) {
                                                 AddStockResponse addStockResponse = response.body();
                                                 if (addStockResponse.getSuccess() == 1) {
-                                                    Toast.makeText(mActivity.getActivity(), "" + addStockResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(mActivity.getActivity(), "Stock Removed",Toast.LENGTH_SHORT).show();
+                                                    dialog.dismiss();
+
                                                     FragmentManager manager=mActivity.getActivity().getSupportFragmentManager();
                                                     FragmentTransaction transaction=manager.beginTransaction();
-                                                    transaction.replace(R.id.fl_cust,new Fragment_stock());
+                                                    transaction.replace(R.id.frame,new Fragment_stock());
                                                     transaction.addToBackStack(null);
                                                     transaction.commit();
                                                 }
@@ -163,7 +175,7 @@ public class Stockadapter extends RecyclerView.Adapter<Stockadapter.MyViewHolder
 
                                     });
 
-                            Toast.makeText(mActivity.getActivity(), "Added", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(mActivity.getActivity(), "Added", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }
                     }

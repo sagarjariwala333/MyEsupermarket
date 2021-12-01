@@ -133,13 +133,27 @@ public class PlaceOrdFragment extends Fragment {
                     AlertDialog.Builder alert1=new AlertDialog.Builder(getActivity());
                     alert1.setTitle("Payment");
                     alert1.setMessage("Pay "+amt+" INR");
-                    alert1.setPositiveButton("Pay", new DialogInterface.OnClickListener() {
+                    alert1.setNegativeButton("Online Payment", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(getActivity(), "Online Payment", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    alert1.setNegativeButton("Online Payment", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    alert1.setPositiveButton("Offline Pay", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
                             met_custpay();
 
-                            Toast.makeText(getActivity(), "Payment done"+order_id, Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(), "Payment done"+order_id, Toast.LENGTH_SHORT).show();
                         }
                     }).create().show();
                 }

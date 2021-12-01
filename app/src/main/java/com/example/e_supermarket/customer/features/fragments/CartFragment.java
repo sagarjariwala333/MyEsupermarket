@@ -278,7 +278,7 @@ public class CartFragment extends Fragment {
 
             @Override
             public void onFailure(Call<CartResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

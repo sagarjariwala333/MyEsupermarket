@@ -42,14 +42,15 @@ public class Checkout_adapter extends RecyclerView.Adapter<Checkout_adapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
     {
-
         SubarrayItem item = list.get(position);
         holder.tv_chkordid.setText(item.getProductId());
         holder.tv_chkordname.setText(item.getProductName());
         holder.tv_chkordprice.setText(item.getProductPrice());
         holder.tv_chkqut.setText(item.getProductQuantity());
-        Glide.with(placeOrdFragment.getActivity()).load(ApiCliet.ASSET_URL+item.getProductImg()).placeholder(R.drawable.ic_baseline_add).into(holder.iv_chkord);
-
+        Glide.with(placeOrdFragment.getActivity())
+                .load(ApiCliet.ASSET_URL+item.getProductImg())
+                .placeholder(R.drawable.ic_baseline_add)
+                .into(holder.iv_chkord);
     }
 
     @Override

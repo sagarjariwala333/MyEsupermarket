@@ -69,14 +69,14 @@ public class StaffProfileFragment extends Fragment {
     private void meth_staffpro() {
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
 
-        apiInterface.profile(PrefUtil.getstringPref(Variables.userId,getActivity()),"A").enqueue(new Callback<ProfileResponse>() {
+        apiInterface.profile(PrefUtil.getstringPref(Variables.userId,getActivity()),"S").enqueue(new Callback<ProfileResponse>() {
             @Override
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (response.isSuccessful() && response.body()!=null)
                 {
-                    //LoginResponse loginResponse=response.body();
                     ProfileResponse profileResponse=response.body();
-                    if (profileResponse.getSuccess()==1){
+                    if (profileResponse.getSuccess()==1)
+                    {
                        // tv_uid.setText(user_id);
                         tv_cnum.setText(profileResponse.getMobileNo());
                         tv_email.setText(profileResponse.getEmail());
@@ -88,8 +88,6 @@ public class StaffProfileFragment extends Fragment {
                                 .placeholder(R.drawable.no_profile)
                                 .into(iv_profile);
                     }
-                    //Toast.makeText(Mob.this, ""+mobileResponse.getRole(), Toast.LENGTH_SHORT).show();
-
                 }
             }
 

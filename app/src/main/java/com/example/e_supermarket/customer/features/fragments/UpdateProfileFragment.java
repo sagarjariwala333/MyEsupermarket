@@ -183,7 +183,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
             @Override
             public void onResponse(Call<UpdateProfileResponse> call, Response<UpdateProfileResponse> response) {
                 Toast.makeText(getActivity(), "Data Updated", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
                 transaction.replace(R.id.fl_cust, new ProfileFragment());
@@ -199,7 +199,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
     }
 
     private void met_loadprofile() {
-        Toast.makeText(getActivity(), "Method called", Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(getActivity(), "Method called", Toast.LENGTH_SHORT).show();
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
 
         apiInterface.profile(PrefUtil.getstringPref(Variables.userId, getActivity()), PrefUtil.getstringPref(Variables.role, getActivity()))
@@ -300,6 +300,5 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
             }
         });
     }
-
 }
 

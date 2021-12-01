@@ -1,5 +1,4 @@
  package com.example.e_supermarket.customer.admin.adapters;
-
  import android.app.ProgressDialog;
  import android.content.DialogInterface;
 import android.os.Bundle;

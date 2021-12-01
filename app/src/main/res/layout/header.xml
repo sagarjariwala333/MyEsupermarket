@@ -11,8 +11,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/no_profile"
-        />
+        android:src="@drawable/no_profile" />
 
     <TextView
         android:id="@+id/tv_uname"
@@ -21,7 +20,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:textColor="#aed6d8"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />

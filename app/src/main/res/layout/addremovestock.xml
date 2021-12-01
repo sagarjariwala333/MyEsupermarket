@@ -13,7 +13,7 @@
 
     <TextView
         android:layout_alignParentTop="true"
-        android:text="Add Product"
+        android:text="Update Stock"
         android:textSize="22dp"
         android:textColor="@color/black"
         android:id="@+id/tv_admin_arstock"

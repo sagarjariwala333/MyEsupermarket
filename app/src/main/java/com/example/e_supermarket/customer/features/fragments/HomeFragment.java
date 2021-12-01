@@ -54,6 +54,8 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
     private BottomAppBar btmapp_cust;
     private FloatingActionButton fab_add;
     private BottomNavigationView btmnav_cust;
+    private TextView tv_hello;
+    private TextView tv_hello_uname;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -77,20 +79,18 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
         fab_add=getActivity().findViewById(R.id.fab_add);
         btmnav_cust=getActivity().findViewById(R.id.btmnav_cust);
 
-
-
-      /*  btmapp_cust.setVisibility(View.VISIBLE);
-        fab_add.setVisibility(View.VISIBLE);*/
-
         tb_home=view.findViewById(R.id.tb_home);
         cust_dl=view.findViewById(R.id.cust_dl);
         cust_nav=view.findViewById(R.id.cust_nav);
         fl_home=view.findViewById(R.id.fl_home);
+        tv_hello=view.findViewById(R.id.tv_hello);
+        tv_hello_uname=view.findViewById(R.id.tv_hello_uname);
 
         View view1=cust_nav.getHeaderView(0);
         tv_uname=view1.findViewById(R.id.tv_uname);
         iv_cust=view1.findViewById(R.id.iv_cust);
 
+        loadname();
         loadnavigationdrawerdata();
         //fab_add=view.findViewById(R.id.fab_add);
 
@@ -116,6 +116,32 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
         cust_nav.setNavigationItemSelectedListener(this);
         return view;
     }
+
+    private void loadname() {
+
+        ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
+        apiInterface.profile(PrefUtil.getstringPref(Variables.userId,getActivity()),"C").enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                if (response.isSuccessful() && response.body()!=null)
+                {
+                    ProfileResponse profileResponse=response.body();
+                    if (profileResponse.getSuccess()==1)
+                    {
+                        tv_hello_uname.setText("Hey, "+profileResponse.getFirstName());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 
     private void loadnavigationdrawerdata() {
         ApiInterface apiInterface= ApiCliet.getClient().create(ApiInterface.class);
@@ -186,7 +212,7 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
                 {
                     Intent j = new Intent(Intent.ACTION_SEND);
                     j.setType("text/plain");
-                    j.putExtra(Intent.EXTRA_SUBJECT,"neel");
+                    j.putExtra(Intent.EXTRA_SUBJECT,"group");
                     j.putExtra(Intent.EXTRA_TEXT,"https://play.google.com/store/apps/details?id="+getActivity().getPackageName());
                     startActivity(Intent.createChooser(j,"Share with"));
                 }
@@ -209,7 +235,7 @@ public class HomeFragment extends Fragment implements NavigationView.OnNavigatio
 
             case R.id.nav_profile:
                 fragment=new ProfileFragment();
-
+                btmnav_cust.setSelectedItemId(R.id.nav_profile);
                 FragmentManager manager4=getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction4=manager4.beginTransaction();
                 transaction4.replace(R.id.fl_cust,fragment);

@@ -250,7 +250,7 @@ public class UpdateProfileFragment extends Fragment implements PickiTCallbacks {
                     }
                     image_name=profileResponse.getId_photo();
                     mobile_no=profileResponse.getMobileNo();
-                    Toast.makeText(getActivity(), ""+ApiCliet.ASSET_URL+profileResponse.getId_photo(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), ""+ApiCliet.ASSET_URL+profileResponse.getId_photo(), Toast.LENGTH_SHORT).show();
                     Glide
                             .with(getActivity())
                             .load(ApiCliet.ASSET_URL+profileResponse.getId_photo())

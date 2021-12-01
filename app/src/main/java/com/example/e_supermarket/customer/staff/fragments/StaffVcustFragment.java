@@ -34,22 +34,18 @@ import retrofit2.Response;
 
 public class StaffVcustFragment extends Fragment {
 
-
     private RecyclerView rv_vcust;
     private ArrayList<Vcust_model> list;
     private StaffVcustAdapter mAdapter;
     private Toolbar tb_vcust;
 
-
     public StaffVcustFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -63,16 +59,11 @@ public class StaffVcustFragment extends Fragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(tb_vcust);
         setHasOptionsMenu(true);
 
-
-
         rv_vcust=view.findViewById(R.id.rv_vcust);
-
-
         setdata();
 
         return view;
     }
-
 
     private void setdata()
     {

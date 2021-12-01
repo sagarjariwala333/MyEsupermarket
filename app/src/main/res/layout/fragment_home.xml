@@ -5,24 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".customer.features.fragments.HomeFragment"
-    >
+    tools:context=".customer.features.fragments.HomeFragment">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/cust_dl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:openDrawer="end"
-        >
+        tools:openDrawer="end">
 
         <RelativeLayout
             android:background="#aed6d8"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-        <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.appcompat.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/tb_home"
             app:navigationIcon="@drawable/ic_baseline_dehaze"
             android:layout_width="match_parent"
@@ -36,8 +34,6 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
 
-
-
         <androidx.cardview.widget.CardView
             app:cardCornerRadius="30dp"
             app:cardElevation="15dp"
@@ -45,12 +41,118 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="30dp"
+                app:cardElevation="15dp"
+                android:background="@drawable/hometop"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="130dp">
 
-        </RelativeLayout>
+                <RelativeLayout
+                    android:background="@drawable/hometop1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_hello"
+                    android:text="Hey"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_hello_uname"
+                        android:text="Hey Username"
+                        android:textSize="20dp"
+                        android:textStyle="italic"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="10dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_margin="5dp"
+                android:textStyle="italic"
+                android:textSize="20dp"
+                android:text="User instructions :-"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="1. If you want to purchase product, first of all scan QR code of product that you want to purchase."
+                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"
+                android:textSize="14dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="2. Select product quantity and then add product to cart(You can change quantity of product in cart or also can remove product from the cart)."
+                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="3. After verifying your products in the cart hit on checkout button to proceed your order i.e. to confirm it."
+                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="4. Take a glance at your order once and at the last hit on place order button(This process is irreversible)"
+                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:text="5. Choose Payment Option as per your convenience(Online Payment or Offline Payment)."
+                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:text="6. Takeaway your order from the counter👍"
+                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:text="7. You can receive invoice(hard copy) from staff or you can also download it from the history section."
+                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 

@@ -116,6 +116,7 @@ public class productfragment extends Fragment implements PickiTCallbacks {
                 dialog.setCancelable(true);
                 dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
                 dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
+
                 et_mng_prodname = dialog.findViewById(R.id.et_mng_prodname);
                 et_mng_prodqut = dialog.findViewById(R.id.et_mng_prodqut);
                 et_mng_prodtype=dialog.findViewById(R.id.et_mng_prodtype);
@@ -154,7 +155,6 @@ public class productfragment extends Fragment implements PickiTCallbacks {
                                 }).check();
                     }
                 });
-
                 btn_mng_addprod.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -185,6 +185,11 @@ public class productfragment extends Fragment implements PickiTCallbacks {
                         {
                             met_uploaddata();
                             dialog.dismiss();
+                            FragmentManager manager=getActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction=manager.beginTransaction();
+                            transaction.replace(R.id.frame,new productfragment());
+                            transaction.addToBackStack(null);
+                            transaction.commit();
                         }
 
                     }
@@ -196,9 +201,7 @@ public class productfragment extends Fragment implements PickiTCallbacks {
                         dialog.dismiss();
                     }
                 });
-
                 dialog.show();
-
             }
         });
 
@@ -241,9 +244,10 @@ public class productfragment extends Fragment implements PickiTCallbacks {
                    if (addProdResponse.getSuccess()==1)
                    {
                        Toast.makeText(getActivity(), ""+addProdResponse.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                       Toast.makeText(getActivity(), "Done 1", Toast.LENGTH_SHORT).show();
                        FragmentManager manager=getActivity().getSupportFragmentManager();
                        FragmentTransaction transaction=manager.beginTransaction();
-                       transaction.replace(R.id.fl_cust,new productfragment());
+                       transaction.replace(R.id.frame,new productfragment());
                        transaction.addToBackStack(null);
                        transaction.commit();
                    }
@@ -353,14 +357,14 @@ public class productfragment extends Fragment implements PickiTCallbacks {
 
     @Override
     public void PickiTonCompleteListener(String path, boolean wasDriveFile, boolean wasUnknownProvider, boolean wasSuccessful, String Reason) {
-        Toast.makeText(getActivity(), "" + path, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getActivity(), "" + path, Toast.LENGTH_SHORT).show();
         met_upload(new File(path));
     }
 
     private void met_upload(File file)
     {
         image_name = file.getName();
-        Toast.makeText(getActivity(), ""+image_name, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), ""+image_name, Toast.LENGTH_SHORT).show();
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
         RequestBody requestBody= RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imgpart = MultipartBody.Part.createFormData("id_photo",file.getName(), requestBody);

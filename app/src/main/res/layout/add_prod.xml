@@ -20,21 +20,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-    <!--<com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_mng_prodid"
-        android:layout_width="match_parent"
-        app:boxBackgroundMode="outline"
-        android:layout_below="@+id/tv_admin_prod_title"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/et_mng_prodid"
-            android:hint="Enter Product id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </com.google.android.material.textfield.TextInputLayout>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_mng_prodname"

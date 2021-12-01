@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,7 +63,6 @@ public class ProfileFragment extends Fragment {
         fab_add=getActivity().findViewById(R.id.fab_add);
         btmnav_cust=getActivity().findViewById(R.id.btmnav_cust);
 
-
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).setSupportActionBar(tb_profile);
 
@@ -97,7 +95,7 @@ public class ProfileFragment extends Fragment {
 
     private void meth_profilecust()
     {
-        Toast.makeText(getActivity(), "Method called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Method called", Toast.LENGTH_SHORT).show();
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
 
         apiInterface.profile(user_id,role).enqueue(new Callback<ProfileResponse>()

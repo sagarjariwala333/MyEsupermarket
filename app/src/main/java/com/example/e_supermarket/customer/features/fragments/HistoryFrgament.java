@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -147,7 +146,7 @@ public class HistoryFrgament extends Fragment {
 
         ApiInterface apiInterface = ApiCliet.getClient().create(ApiInterface.class);
 
-        Toast.makeText(getActivity(), ""+ PrefUtil.getstringPref(Variables.userId,HistoryFrgament.this.getActivity()), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getActivity(), ""+ PrefUtil.getstringPref(Variables.userId,HistoryFrgament.this.getActivity()), Toast.LENGTH_SHORT).show();
         apiInterface.getOldOrder(PrefUtil.getstringPref(Variables.userId,HistoryFrgament.this.getActivity())).enqueue(new Callback<OldOrderResponse>() {
             @Override
             public void onResponse(Call<OldOrderResponse> call, Response<OldOrderResponse> response) {

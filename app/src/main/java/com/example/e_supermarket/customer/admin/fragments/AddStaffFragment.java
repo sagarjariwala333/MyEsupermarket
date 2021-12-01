@@ -359,7 +359,7 @@ public class AddStaffFragment extends Fragment implements PickiTCallbacks
                 }
                 else 
                 {
-                    Toast.makeText(getActivity(), "Error 1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
                 }
             }
 

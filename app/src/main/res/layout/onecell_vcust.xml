@@ -43,7 +43,7 @@
                 android:rowCount="4"
                 android:columnCount="2"
                 android:paddingVertical="10dp"
-                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="120dp"
                 android:layout_width="wrap_content"
                 android:layout_height="75dp">
 
